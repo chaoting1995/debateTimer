@@ -2,24 +2,12 @@ import React from 'react';
 import { css, cx } from '@emotion/css';
 import { 
   ArrowsClockwise, 
-  MaskHappy,
-  Circle,
-  ChartPieSlice,
  } from '@phosphor-icons/react';
 
 import { styleSettingColor } from 'styles/variables.style';
-import { CircleButton, Dialog } from 'components';
+import { CircleButton } from 'components';
 import UtilAudio from 'utils/audio';
-import useDialog from 'hooks/useDialog';
-import { RolePicker } from 'modules/role';
-import { EnumTopicMode } from 'modules/topic/enums/enumTopicMode';
-import useTopic from 'modules/topic/context/Topic/useTopic';
-import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
-
-const switchTopicMode:  Record<EnumTopicMode, EnumTopicMode> = {
-  [EnumTopicMode.Complete]: EnumTopicMode.Combined,
-  [EnumTopicMode.Combined]: EnumTopicMode.Complete
-}
+// import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
@@ -27,53 +15,23 @@ type Props = {
   disabledOnSpin?: boolean;
 };
 
-const TopicController = (props: Props) => {
-  const [open, handleOpen, handleClose] = useDialog(false);
-  
-  const { topicMode, onChangeTopicMode } = useTopic();
-  const topicModeIconCreator: Record<EnumTopicMode, React.ReactNode> = {
-    [EnumTopicMode.Combined]: <Circle size={40} weight="thin"/>,
-    [EnumTopicMode.Complete]: <ChartPieSlice size={40} weight="thin"/>
-  }
-
-  const topicModeOnTracking: Record<EnumTopicMode, () => void> = {
-    [EnumTopicMode.Combined]: () => ServiceGA4.event(GA_EVENT.TopicCreator_Button_TopicMode_Combined),
-    [EnumTopicMode.Complete]: () => ServiceGA4.event(GA_EVENT.TopicCreator_Button_TopicMode_Complete)
-  }
-
-  const handleToggle = () => {
-    onChangeTopicMode(switchTopicMode[topicMode]);
-    topicModeOnTracking[switchTopicMode[topicMode]]();
-    UtilAudio.audioClick();
-  };
-
+const DummyController = (props: Props) => {
   const handleSpin = () => {
     props.onSpin();
     UtilAudio.audioRolling();
-    ServiceGA4.event(GA_EVENT.TopicCreator_Button_SpinTopic);
+    // ServiceGA4.event(GA_EVENT.DummyCreator_Button_SpinDummy);
   };
 
   return (
-    <div className={cx('DT-TopicController', props.className, style)}>
-      <CircleButton onClick={handleToggle}>
-        {topicModeIconCreator[topicMode]}
-      </CircleButton>
+    <div className={cx('DT-DummyController', props.className, style)}>
       <CircleButton onClick={handleSpin} disabled={props.disabledOnSpin}>
         <ArrowsClockwise size={40} weight="thin"/>
       </CircleButton>
-      <CircleButton onClick={handleOpen}>
-        <MaskHappy size={40} weight="thin"/>
-      </CircleButton>
-      {open && 
-        <Dialog className={styleDialog} open={open} onClose={handleClose} hideCloseButton>
-          <RolePicker />
-        </Dialog>
-      }
     </div>
   );
 };
 
-export default TopicController;
+export default DummyController;
 
 const style = css`
   display: flex;
@@ -97,11 +55,5 @@ const style = css`
       width: 65px;
       min-width: 65px;
     }
-  }
-`;
-
-const styleDialog = css`
-  .MuiPaper-root.MuiDialog-paper {
-    min-width: 250px;
   }
 `;

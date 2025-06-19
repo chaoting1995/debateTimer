@@ -1,6 +1,6 @@
 import { ErrorCreateObjectByEmpty } from 'api/errors/errorCreateObjectByEmpty.class';
 import ServiceFormat from 'services/format.service';
-import { Dummy } from 'modules/dummy/resources/dummy.type';
+import { Dummy, DummySetting } from 'modules/dummy/resources/dummy.type';
 
 const createDummy = (response: Dummy): Dummy => {
   const objectName = 'Dummy';
@@ -20,9 +20,24 @@ const createDummys = (response: Dummy[]): Dummy[] => {
   return ServiceFormat.toObjectArray<Dummy>(response, createDummy);
 };
 
+
+const createDummySetting = (response: DummySetting): DummySetting => {
+  const objectName = 'DummySetting';
+
+  if (!response) {
+    throw new ErrorCreateObjectByEmpty(objectName);
+  }
+
+  return {
+    dummyDisabled: ServiceFormat.toArray<string>(response['dummyDisabled'])
+  };
+};
+
+
 const FactoryDummy = {
   createDummy,
-  createDummys
+  createDummys,
+  createDummySetting
 };
 
 export default FactoryDummy;

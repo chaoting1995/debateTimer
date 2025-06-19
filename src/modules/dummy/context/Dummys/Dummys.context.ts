@@ -7,6 +7,8 @@ export type DummysContextType = {
   getDummy: (id: string) => Dummy | undefined;
   editDummy: (id: string, updatedDummy: Partial<Dummy>) => void;
   deleteDummy: (id: string) => void;
+  dummyDisabled: string[];
+  onChangeDummyDisabled: (dummyID: string, disabled: boolean) => void;
 };
 
 export const DummysContext = React.createContext({} as DummysContextType);

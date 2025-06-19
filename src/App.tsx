@@ -6,6 +6,7 @@ import routes from 'routes';
 import PageLoading from 'pages/PageLoading';
 import TimersProvider from 'modules/timer/context/Timers/Timers.provider';
 import TopicProvider from 'modules/topic/context/Topic/Topic.provider';
+import DummysProvider from 'modules/dummy/context/Dummys/Dummys.provider';
 // import OfflineHandle from 'components/OfflineHandle';
 import ServiceGA4 from 'modules/ga4/services/ga4.service';
 import { HelmetProvider } from 'react-helmet-async';
@@ -37,7 +38,9 @@ function App() {
             <PopupProvider>
               <TopicProvider>
                 <TimersProvider>
-                  {element}
+                  <DummysProvider>
+                    {element}
+                  </DummysProvider>
                 </TimersProvider>
               </TopicProvider>
             </PopupProvider>

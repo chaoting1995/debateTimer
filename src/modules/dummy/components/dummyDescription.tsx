@@ -31,12 +31,6 @@ const style = css`
   .info-name {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .info-ring-time {
-    display: flex;
-    justify-content: flex-start;
-    font-size: 18px;
+    text-align: center;
   }
 `;

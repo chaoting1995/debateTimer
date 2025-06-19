@@ -1,4 +1,4 @@
-import { Dummy } from 'modules/dummy/resources/dummy.type';
+import { Dummy, DummySetting } from 'modules/dummy/resources/dummy.type';
 
 export const DT_LOCALSTORAGE_KEY_DUMMY_SETTING = 'DT_LOCALSTORAGE_KEY_DUMMY_SETTING';
 
@@ -27,4 +27,8 @@ export const EMPTY_DUMMY: Dummy = {
   id: '',
   name: '',
   content: '',
+};
+
+export const DEFAULT_DUMMY_SETTING : DummySetting = {
+  dummyDisabled: []
 };

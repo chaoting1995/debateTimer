@@ -3,3 +3,7 @@ export type Dummy = {
   name: string;
   content: string;
 }
+
+export type DummySetting = {
+  dummyDisabled: string[];
+};
