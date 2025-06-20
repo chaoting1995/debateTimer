@@ -11,7 +11,7 @@ type Props = {
   className?: string;
 };
 const DummyModeNormal = (props: Props) => {
-  const slotMachine = useSlotMachine(DEFAULT_DUMMYS);
+  const slotMachine = useSlotMachine(props.dummy.contents);
 
   return <div className={cx('DT-DummyModeNormal', style, props.className)}>
     <div>123</div>
@@ -19,7 +19,7 @@ const DummyModeNormal = (props: Props) => {
       <DummyDescription dummy={props.dummy} />
       <DummyController 
         onSpin={slotMachine.onSpin} 
-        disabledOnSpin={slotMachine.isSpinning || slotMachine.enableDummys.length <= 1} 
+        disabledOnSpin={slotMachine.isSpinning || slotMachine.enableDummyContents.length <= 1} 
       />
     </div>
   </div>;

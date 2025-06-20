@@ -1,9 +1,11 @@
 export type Dummy = {
   id: string;
   name: string;
-  content: string;
+  contents:  Array<DummyContent>;
 }
 
-export type DummySetting = {
-  dummyDisabled: string[];
-};
+export type DummyContent = {
+  id: string;
+  disabled: boolean;
+  content: string;
+}

@@ -1,6 +1,6 @@
 import { ErrorCreateObjectByEmpty } from 'api/errors/errorCreateObjectByEmpty.class';
 import ServiceFormat from 'services/format.service';
-import { Dummy, DummySetting } from 'modules/dummy/resources/dummy.type';
+import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
 
 const createDummy = (response: Dummy): Dummy => {
   const objectName = 'Dummy';
@@ -12,7 +12,7 @@ const createDummy = (response: Dummy): Dummy => {
   return {
     id: ServiceFormat.toString(response['id']),
     name: ServiceFormat.toString(response['name']),
-    content: ServiceFormat.toString(response['content'])
+    contents: createDummyContents(response['contents'])
   };
 };
 
@@ -20,24 +20,28 @@ const createDummys = (response: Dummy[]): Dummy[] => {
   return ServiceFormat.toObjectArray<Dummy>(response, createDummy);
 };
 
-
-const createDummySetting = (response: DummySetting): DummySetting => {
-  const objectName = 'DummySetting';
+const createDummyContent = (response: DummyContent): DummyContent => {
+  const objectName = 'DummyContent';
 
   if (!response) {
     throw new ErrorCreateObjectByEmpty(objectName);
   }
 
   return {
-    dummyDisabled: ServiceFormat.toArray<string>(response['dummyDisabled'])
+    id: ServiceFormat.toString(response['id']),
+    disabled: ServiceFormat.toBoolean(response['disabled']),
+    content: ServiceFormat.toString(response['content']),
   };
+};
+
+const createDummyContents = (response: DummyContent[]): DummyContent[] => {
+  return ServiceFormat.toObjectArray<DummyContent>(response, createDummyContent);
 };
 
 
 const FactoryDummy = {
   createDummy,
-  createDummys,
-  createDummySetting
+  createDummys
 };
 
 export default FactoryDummy;

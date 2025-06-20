@@ -42,7 +42,7 @@ const Dummy: React.FC = () => {
       </IconButton>
     }>
     <HeadTags title={PAGE_TITLE.dummy} description={PAGE_DESCRIPTION.dummy} />
-    <DummyModeNormal dummy={dummy} className='timer-mode' />
+    <DummyModeNormal dummy={dummy} className='dummy-mode' />
   </Layout>;
 }
 
@@ -52,7 +52,7 @@ const style = (_innerHeight: number) => css`
   background-color: ${styleSettingColor.background.default};
   color: ${styleSettingColor.text.primary};
 
-  .timer-mode {
+  .dummy-mode {
     padding: 20px 0;
     box-sizing: border-box;
     min-height: calc(${_innerHeight}px - ${styleSettingHeight.header});

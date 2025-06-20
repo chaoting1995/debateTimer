@@ -1,73 +1,64 @@
 import React from 'react';
 
-import { Dummy } from 'modules/dummy/resources/dummy.type';
-import { EMPTY_DUMMY } from 'modules/dummy/resources/dummy.constant';
-import useDummys from 'modules/dummy/context/Dummys/useDummys';
+import { DummyContent } from 'modules/dummy/resources/dummy.type';
+import { EMPTY_DUMMY_CONTENT } from 'modules/dummy/resources/dummy.constant';
 
 export type UseSlotMachine = {
-  enableDummys: Dummy[];
-  dummy: Dummy;
+  enableDummyContents: DummyContent[];
+  dummyContent: DummyContent;
   isSpinning: boolean;
-  onSpin: () => Dummy | undefined;
-  onChange: (dummy: Dummy) => void;
+  onSpin: () => DummyContent | undefined;
+  onChange: (dummy: DummyContent) => void;
 }
 
-const useSlotMachine = (dummys: Dummy[], dummyBackItem?: boolean): UseSlotMachine => {
-  const { dummyDisabled } = useDummys();
-  const enableDummys = React.useMemo(() => {
-    return dummys.filter(item => !dummyDisabled.includes(item.id));
-  }, [dummys, dummyDisabled])
+const useSlotMachine = (dummyContents: DummyContent[]): UseSlotMachine => {
+  const enableDummyContents = React.useMemo(() => {
+    return dummyContents.filter(item => !item.disabled);
+  }, [dummyContents])
 
   const [isSpinning, setIsSpinning] = React.useState(false);
   const defaultItem = React.useMemo(() => {
-    if (enableDummys.length === 0) return EMPTY_DUMMY;
+    if (enableDummyContents.length === 0) return EMPTY_DUMMY_CONTENT;
+    return enableDummyContents[0];
+  }, [enableDummyContents])
 
-    const defaultFrontItem = enableDummys[0];
-    const defaultBackItem = enableDummys[1]
-    if (!dummyBackItem) return defaultFrontItem;
-    if (!defaultBackItem) return defaultFrontItem;
-    return defaultBackItem;
-  }, [enableDummys, dummyBackItem])
+  const [dummyContent, setDummyContent] = React.useState<DummyContent>(defaultItem);
 
-  const [dummy, setDummy] = React.useState<Dummy>(defaultItem);
-
-  const onChange = React.useCallback((_dummy: Dummy) => {
-    setDummy(_dummy);
+  const onChange = React.useCallback((_dummy: DummyContent) => {
+    setDummyContent(_dummy);
   }, []);
 
-  const onSpin = React.useCallback((excludeDummy?: Dummy) => {
-    if (enableDummys.length <= 1) {
-      return;
-    }
+  const onSpin = React.useCallback((excludeDummy?: DummyContent) => {
+    if (enableDummyContents.length <= 1) return;
 
-    const newDummys = enableDummys.filter(item => item.id !== excludeDummy?.id);
+    const newDummys = enableDummyContents.filter(item => item.id !== excludeDummy?.id);
     const randomIndex = Math.floor(Math.random() * newDummys.length);
     const chosenDummy = newDummys[randomIndex];
 
     setIsSpinning(true);
     setTimeout(() => {
       setIsSpinning(false);
-      setDummy(chosenDummy);
+      setDummyContent(chosenDummy);
     }, 2000);
 
     return chosenDummy;
-  }, [enableDummys]);
+  }, [enableDummyContents]);
 
   React.useEffect(() => {
     if (isSpinning) {
       const intervalID = setInterval(() => {
-        const randomIndex = Math.floor(Math.random() * enableDummys.length);
-        const randomDummy = enableDummys[randomIndex];
-        setDummy(randomDummy);
+        const randomIndex = Math.floor(Math.random() * enableDummyContents.length);
+        const randomDummy = enableDummyContents[randomIndex];
+        setDummyContent(randomDummy);
       }, 80);
 
       return () => clearInterval(intervalID);
     }
-  }, [isSpinning, enableDummys]);
+  }, [isSpinning, enableDummyContents]);
 
   return {
-    enableDummys,
-    dummy,
+    enableDummyContents,
+    dummyContent,
     onChange,
     isSpinning,
     onSpin,

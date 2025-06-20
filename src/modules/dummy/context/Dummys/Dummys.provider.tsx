@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Dummy, DummySetting } from 'modules/dummy/resources/dummy.type';
+import { Dummy } from 'modules/dummy/resources/dummy.type';
 import ResourceDummy from 'modules/dummy/resources/dummy.resource';
 
 import { DummysContext } from './Dummys.context';
@@ -10,15 +10,7 @@ type Props = {
 };
 
 const DummysProvider = (props: Props) => {
-  const _dummySetting: DummySetting = ResourceDummy.getDummySetting();
   const [dummys, setDummys] = React.useState<Dummy[]>([]);
-
-  const [dummyDisabled, setDummyDisabled] = React.useState<string[]>(_dummySetting.dummyDisabled);
-
-  const onChangeDummyDisabled = React.useCallback((dummyID: string, disabled: boolean) => {
-  const newDummyDisabled = ResourceDummy.updateDummySettingDummyDisabled(dummyID, disabled);
-  setDummyDisabled(newDummyDisabled);
-}, []);
 
   React.useEffect(() => {
     setDummys(ResourceDummy.getDummys());
@@ -56,8 +48,6 @@ const DummysProvider = (props: Props) => {
         getDummy, 
         editDummy, 
         deleteDummy,
-        dummyDisabled,
-        onChangeDummyDisabled
       }}>
         {props.children}
     </DummysContext.Provider>
