@@ -11,55 +11,31 @@ import { styleLineEllipsis } from 'styles/basic.style';
 import { DragDrog } from 'components';
 import { PAGE_TITLE, PAGE_DESCRIPTION, pageLinks } from 'routes/route.constants';
 import usePopup from 'context/Popup/usePopup';
-import useDialog from 'hooks/useDialog';
-import useTimers from 'modules/timer/context/Timers/useTimers';
-import { Timer } from 'modules/timer/resources/timer.type';
-import { EMPTY_TIMER } from 'modules/timer/resources/timer.constant';
-import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
-import TimerEditor from 'modules/timer/components/TimerEditor';
+import useListenings from 'modules/listening/context/Listenings/useListenings';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 import Layout from 'layouts/Layout';
-import HeadTags from 'components/HeadTags';
-import { BottomDrawer, Button } from 'components';
+import { HeadTags, Button } from 'components';
 
-const ITEM_NAME = '計時器';
+const ITEM_NAME = '戰場判斷表';
 
-const Timers: React.FC = () => {
+const Listenings: React.FC = () => {
   const popup = usePopup();
-  const [open, handleOpen, handleClose] = useDialog(false);
-  const timersProvider = useTimers();
-  const [selectedTimer, setSelectedTimer] = React.useState<Timer>(EMPTY_TIMER); 
+  const listeningsProvider = useListenings();
 
-  const trakingTimersItemToTimer = (name: string, mode: EnumTimerMode) => () => {
+  const trakingHeaderButtonAddListening = () => {    
+    ServiceGA4.event(GA_EVENT.Header_Button_Add_Timer);
+  };
+
+  const trakingButtonEditListening = (name: string, owner: string) => () => {
     const newGaEvent = {
-      ...GA_EVENT.Timers_Item_To_Timer,
-      label: `${GA_EVENT.Timers_Item_To_Timer.label}_Mode:${mode}_Name:${name}`
+      ...GA_EVENT.Listenings_Button_Edit_Listening,
+      label: `${GA_EVENT.Listenings_Button_Edit_Listening.label}_Name:${name}_Owner:${owner}`
     }
 
     ServiceGA4.event(newGaEvent);
   };
 
-  const handleOpenEditor = React.useCallback((timerID?: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    event.preventDefault();
-
-    let _timer: Timer = EMPTY_TIMER;
-
-    if (timerID) {
-      _timer = timersProvider.list.find(item => item.id === timerID) || EMPTY_TIMER;
-    };
-    
-    setSelectedTimer(_timer);
-    handleOpen();
-    
-    if (timerID) {
-      ServiceGA4.event(GA_EVENT.Timers_Button_Edit_Timer);
-    } else {
-      ServiceGA4.event(GA_EVENT.Header_Button_Add_Timer);
-    }
-  }, [handleOpen, timersProvider.list])
-
-  const handleDelete = (timerID: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleDelete = (listeningID: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     event.preventDefault();
     
@@ -67,58 +43,46 @@ const Timers: React.FC = () => {
       title: `確定刪除${ITEM_NAME}?`
     });
   
-    if(!isConfirm) return;
-    timersProvider.deleteItem(timerID);
-    ServiceGA4.event(GA_EVENT.Timers_Button_Delete_Timer);
+    if (!isConfirm) return;
+    listeningsProvider.deleteItem(listeningID);
+    ServiceGA4.event(GA_EVENT.Listenings_Button_Delete_Listening);
   }
 
   const handleDragEnd = (sourceIndex: number, destinationIndex: number) => {
-    timersProvider.reorderList(sourceIndex, destinationIndex);
+    listeningsProvider.reorderList(sourceIndex, destinationIndex);
   };
 
-  const handleSave =  React.useCallback((_timer: Timer) => {
-    if (!selectedTimer.id) {
-      timersProvider.addItem(_timer);
-    } else {
-      timersProvider.editItem(_timer);
-    };
-
-    handleClose();
-  }, [timersProvider, selectedTimer, handleClose]);
-
   return <Layout
-    mainClassName={cx('DT-Timers', style)}
-    title={PAGE_TITLE.timers}
-    homeLink={pageLinks.timer}
+    mainClassName={cx('DT-Listenings', style)}
+    title={PAGE_TITLE.listenings}
     renderButtons={
-      <IconButton onClick={handleOpenEditor()}>
+      <IconButton component={Link} to={pageLinks.listening} onClick={trakingHeaderButtonAddListening}>
         <Plus size={28} weight='light'/>
       </IconButton>
     }>
     <HeadTags 
-      title={`${PAGE_TITLE.timerWithVersion} | ${PAGE_TITLE.timers}`} 
-      description={PAGE_DESCRIPTION.timer} />
-    {timersProvider.list.length === 0 && <div className='list-empty-box'>
+      title={`${PAGE_TITLE.listenings} | ${PAGE_TITLE.listenings}`} 
+      description={PAGE_DESCRIPTION.listening} />
+    {listeningsProvider.list.length === 0 && <div className='list-empty-box'>
       <div>尚無{ITEM_NAME}</div>
-      <Button variant='outlined' className='add-button' onClick={handleOpenEditor()}>新增{ITEM_NAME}</Button>
+      <Button variant='outlined' className='add-button' component={Link} to={pageLinks.listening}>新增{ITEM_NAME}</Button>
     </div>}
     <List disablePadding>
       <DragDrog
         className='list-drag-drog'
         onDragEnd={handleDragEnd}
-        list={timersProvider.list}
+        list={listeningsProvider.list}
         renderRow={(item, _, dragHandleProps) => (
           <ListItem key={item.id} disablePadding {...dragHandleProps}>
-            <ListItemButton
-              component={Link} 
-              to={ServiceRoute.toPageLinkWithParams(pageLinks.timerID, { id: item.id })}
-              onClick={trakingTimersItemToTimer(item.name, item.mode)}
-            >
+            <ListItemButton>
               <DotsSixVertical size={26} weight='light'/>
               <div className='item-name'>{item.name}</div>
             </ListItemButton>
             <ListItemSecondaryAction className='item-actions'>
-              <IconButton onClick={handleOpenEditor(item.id)}>
+              <IconButton 
+                component={Link} 
+                to={ServiceRoute.toPageLinkWithParams(pageLinks.listeningID, { id: item.id })}
+                onClick={trakingButtonEditListening(item.name, item.owner)}>
                 <PencilSimple size={26} weight='light'/>
               </IconButton>
               <IconButton onClick={handleDelete(item.id)}>
@@ -129,13 +93,10 @@ const Timers: React.FC = () => {
         )}
       />
     </List>
-    {open && <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
-      <TimerEditor timer={selectedTimer} onSave={handleSave} />
-    </BottomDrawer>}
   </Layout>;
 };
 
-export default Timers;
+export default Listenings;
 
 const style = css`
   background-color: ${styleSettingColor.gray};

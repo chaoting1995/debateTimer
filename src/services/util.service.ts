@@ -11,9 +11,23 @@ const roundDownDecimals = (number: number, digits: number) => {
   return Math.floor(number * multiplier) / multiplier;
 };
 
+// eslint-disable-next-line
+type Callback = (...args: any[]) => void;
+
+const debounce = (fn: Callback, delay: number = 1000): Callback => {
+  let timerID: NodeJS.Timeout | undefined;
+  
+  // eslint-disable-next-line
+  return (...args: any[]) => {
+    if (timerID) clearTimeout(timerID);
+    timerID = setTimeout(() => fn(...args), delay);
+  };
+}
+
 const ServiceUtil = {
   convertNumberInputOnChange,
   roundDownDecimals,
+  debounce
 };
 
 export default ServiceUtil;

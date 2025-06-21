@@ -5,7 +5,7 @@ import Layout from 'layouts/Layout';
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import useInnerHeight from 'hooks/useInnerHeight';
 import HeadTags from 'components/HeadTags';
-import { PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/constants';
+import { PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/route.constants';
 import { EnumTopicMode } from 'modules/topic/enums/enumTopicMode';
 import TopicModeComplete from 'modules/topic/components/TopicModeComplete';
 import TopicModeCombined from 'modules/topic/components/TopicModeCombined';

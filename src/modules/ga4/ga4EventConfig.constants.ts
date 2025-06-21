@@ -11,6 +11,16 @@ const GA_EVENT_STRING = {
     "action": "click",
     "label": "Header_Button_Add_Timer"
   },
+  "Header_Button_Listenings": {
+    "category": "Header",
+    "action": "click",
+    "label": "Header_Button_Listenings"
+  },
+  "Header_Button_Add_Listening": {
+    "category": "Header",
+    "action": "click",
+    "label": "Header_Button_Add_Listening"
+  },
   "Header_Button_Menu": {
     "category": "Header",
     "action": "click",
@@ -95,6 +105,16 @@ const GA_EVENT_STRING = {
     "category": "TopicListDrawer",
     "action": "click",
     "label": "TopicListDrawer_Button_Settting"
+  },
+  "Listenings_Button_Edit_Listening": {
+    "category": "Listenings",
+    "action": "click",
+    "label": "Listenings_Button_Edit_Listening"
+  },
+  "Listenings_Button_Delete_Listening": {
+    "category": "Listenings",
+    "action": "click",
+    "label": "Listenings_Button_Delete_Listening"
   }
 };
 export default GA_EVENT_STRING;

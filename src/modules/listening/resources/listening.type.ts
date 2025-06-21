@@ -13,4 +13,4 @@ export type Listening = {
   owner: string;
   updatedAt: number;
   rows: ListeningRow[];
-}
+};

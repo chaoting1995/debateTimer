@@ -14,7 +14,7 @@ export default defineConfig({
     react(),
     viteTsconfigPaths(),
     eslint({ include: 'src' }),
-    svgr()
+    svgr(),
   ],
   server: {
     port: 3000,

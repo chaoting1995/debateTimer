@@ -6,3 +6,4 @@ export { default as BottomDrawerBody } from './BottomDrawerBody';
 export { default as Button } from './Button';
 export { default as CircleButton } from './CircleButton';
 export { default as DragDrog } from './DragDrog';
+export { default as Loading } from './Loading';

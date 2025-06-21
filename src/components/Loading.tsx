@@ -10,7 +10,7 @@ type Props = {
 
 const Loading = (props: Props) => {
   return <div className={cx("DD-Loading", style, props.className)}>
-    <PuffLoader color={styleSettingColor.primary} />
+    <PuffLoader color={styleSettingColor.background.dark} />
   </div>;
 };
 

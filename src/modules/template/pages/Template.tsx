@@ -2,7 +2,7 @@ import React from 'react'
 import { css, cx } from '@emotion/css';
 
 import { styleSettingColor } from 'styles/variables.style';
-import { PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/constants';
+import { PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/route.constants';
 import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
 

@@ -5,6 +5,65 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-beta.47] - 2024-09-23
+
+### Changed
+- 增加送出成功提示
+
+### Removed
+- 戰場判斷表：放棄自動存檔到本地端
+
+## [1.0.0-beta.46] - 2024-09-11
+
+### Added
+- 戰場判斷表：可自動存檔到本地端
+
+## [1.0.0-beta.45] - 2024-09-10
+
+### Added
+- 補戰場判斷的 GA 事件
+
+### Changed
+- 重構traling func 名稱
+
+## [1.0.0-beta.44] - 2024-09-09
+
+### Changed
+- 調整戰場判斷表 表格高度
+
+## [1.0.0-beta.43] - 2024-09-09
+
+### Changed
+- 更新 sitemap.xml
+
+## [1.0.0-beta.42] - 2024-09-09
+
+### Changed
+- 戰場判斷編輯器，更新表名的提示資訊
+
+## [1.0.0-beta.41] - 2024-09-09
+
+### Added
+- 戰場判斷，可保存於本地端
+
+### Fixed
+- 計時計列表 > 修復拖曳時產生的樣式 bug 
+
+## [1.0.0-beta.40] - 2024-09-09
+
+### Added
+- 計時器列表，新增調整排序功能
+
+### Changed
+- 重構 計時器的資料流
+
+## [1.0.0-beta.39] - 2024-09-09
+
+### Added
+- 新增 DEVELOPLOG.md
+
+- 新增功能：戰場判斷表 > 拖曳與設定功能
+
 ## [1.0.0-beta.38] - 2024-09-08
 
 ### Added

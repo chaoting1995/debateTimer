@@ -1,3 +1,4 @@
+export { default as useTimers } from './context/Timers/useTimers';
 export { default as Timer } from './pages/Timer';
 export { default as Timers } from './pages/Timers';
 export { default as TimerController } from './components/TimerController';

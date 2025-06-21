@@ -1,82 +1,128 @@
 import React from 'react'
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
-import { TextField } from '@mui/material';
+import { IconButton, Input, InputAdornment } from '@mui/material';
+import { FileText, NotePencil, UserCircle } from '@phosphor-icons/react';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 
+import usePopup from 'context/Popup/usePopup';
+import { Status, STATUS_LOADED, STATUS_ERROR, STATUS_LOADING } from 'modules/form/form';
+import ServiceRoute from 'routes/route.service';
+import { pageLinks, PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/route.constants';
 import { styleSettingColor } from 'styles/variables.style';
-import { PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/constants';
 import Layout from 'layouts/Layout';
-import { HeadTags, Button } from 'components';
-import { DEFAULT_LISTENGING, LISTENGING_ROWS_TEMPLATE, ListeningRows as ListeningRowsEditor } from 'modules/listening';
+import { HeadTags, Button, Loading } from 'components';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 import useFormColumn from 'modules/form/useFormColumn';
-import { Listening as TypeListening, ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
-import { argumentStatusWording } from 'modules/listening';
+import { 
+  Listening as TypeListening, 
+  ListeningRow as TypeListeningRow
+} from 'modules/listening/resources/listening.type';
+import { 
+  createDefaultSetting, 
+  ListeningRows as ListeningRowsEditor,
+  useListenings,
+  argumentStatusWordingForSheet
+ } from 'modules/listening';
 
 const Listening: React.FC = () => {
-  const [listening, setListening] = React.useState<TypeListening>(DEFAULT_LISTENGING);
+  const popup = usePopup();
+  const { id } = useParams<{ id: string }>();
+  const navigae = useNavigate();
+  const { getItem: getListening, addItem: addListening, editItem: editListening } = useListenings();
+  const [listening, setListening] = React.useState<TypeListening>(createDefaultSetting());
+  const [listeningStatus, setListeningStatus] = React.useState<Status>(STATUS_LOADED);
+  const [sendStatus, setSendStatus] = React.useState<Status>(STATUS_LOADED);
 
   const columnName = useFormColumn<string>({
     value: listening.name,
     defaultValue: '',
-    placeholder: '戰場判斷表名稱',
+    placeholder: '戰場判斷表名稱，如：01/01 XXvsYY',
   });
 
   const columnOwner = useFormColumn<string>({
-    value: '',
+    value: listening.owner,
     defaultValue: '',
     placeholder: '撰寫者名稱',
   });
 
-  const handleChangeName = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  const [columnRows, setColumnRows] = React.useState<TypeListeningRow[]>(listening.rows);
+
+  const handleSave = React.useCallback((newListening: Partial<TypeListening>): TypeListening => {
+    // formListening 物件，轉換成 listening 物件
+    const _listening: TypeListening = getListening(id || '') || createDefaultSetting();
+    if (!id) _listening.id = `listening-${uuidv4()}`;
+    for(const key of Object.keys(newListening)) {
+      const typedKey = key as keyof TypeListening;
+      if (typedKey === undefined) continue;
+      if (newListening[typedKey] === undefined) continue;
+      (_listening[typedKey] as TypeListening[typeof typedKey]) = newListening[typedKey];
+    }
+
+    if (!id) {
+      addListening(_listening);
+      navigae(ServiceRoute.toPageLinkWithParams(pageLinks.listeningID, { id: _listening.id }));
+    } else {
+      editListening(_listening);
+    };
+
+    return _listening;
+  }, [addListening, editListening, getListening, id, navigae]);
+  
+  const handleChangeColumnName = (event: React.ChangeEvent<HTMLInputElement>) => {
     columnName.onChange(event.target.value);
-  },[columnName]);
+  };
 
-
-  const handleChangeOwner = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeColumnOwner = (event: React.ChangeEvent<HTMLInputElement>) => {
     columnOwner.onChange(event.target.value);
-  },[columnOwner]);
+  };
 
-  const [columnRows, setColumnRows] = React.useState<TypeListeningRow[]>(LISTENGING_ROWS_TEMPLATE);
- 
-  const handleUpdateState = (): TypeListening => {
-    const newListening: TypeListening = {
-      ...JSON.parse(JSON.stringify(listening)) as TypeListening,
-      id: uuidv4(),
+  const handleChangeColumnRows: React.Dispatch<React.SetStateAction<TypeListeningRow[]>> = React.useCallback((updater) => {
+    let updatedRows!: TypeListeningRow[];
+    setColumnRows(prevState => {
+      updatedRows = typeof updater === 'function' 
+        ? (updater as (prev: TypeListeningRow[]) => TypeListeningRow[])(prevState) 
+        : updater;
+      return updatedRows;
+    });
+  }, []);
+
+  const handleUpload = async () => {
+    // formListening 物件，轉換成 listening 物件
+    const newListening: Partial<TypeListening> = {
       name: columnName.value,
       owner: columnOwner.value,
       updatedAt: dayjs().valueOf(),
       rows: columnRows
     }
 
-    setListening(newListening);
-    return newListening;
-  }
-
-  const handleUpload = async () => {
-    const _listening = handleUpdateState();
+    const _listening = handleSave(newListening);
 
     const API_URL = 'https://script.google.com/macros/s/AKfycbwcCmdoryTnEG7Dwz61FhwzKvht0ZPYJw5H1lBp-uiO7CPvVKA5uJnrtJOXg4JxWaKw/exec';
 
     const rowsWithStatusWording = _listening.rows.map(item => ({ 
       ...item,
-      column2: argumentStatusWording[item.column2],
+      column2: argumentStatusWordingForSheet[item.column2],
     }));
     
     const queryParams = new URLSearchParams({
       id: _listening.id,
       name: _listening.name,
       owner: _listening.owner,
-      updatedAt: dayjs().format('YYYY/sMM/DD HH:mm:ss'),
+      updatedAt: dayjs().format('YYYY/MM/DD HH:mm:ss'),
       rows: JSON.stringify(rowsWithStatusWording)
     }).toString();
 
+    setSendStatus(STATUS_LOADING);
     try {
       const response = await fetch(`${API_URL}?${queryParams}`, {
         method: 'GET',
         mode: 'no-cors',
       });
-
+      
+      popup.notice(({ message: '送出成功' }));
+      setSendStatus(STATUS_LOADED);
       const result = await response.json();
       if (result.status === '成功') {
         alert('資料已成功傳送到 Google Sheets');
@@ -86,29 +132,97 @@ const Listening: React.FC = () => {
     }
   }
 
-  return <Layout title={PAGE_TITLE.listening} mainClassName={cx('DT-Listening', style)}>
+  const trakingHeaderButtonToList = () => {
+    ServiceGA4.event(GA_EVENT.Header_Button_Listenings);
+  };
+
+  React.useEffect(() => {
+    if (!id) return;
+    setListeningStatus(STATUS_LOADING);
+    
+    const _listening = getListening(id);
+    if (!_listening) {
+      setListeningStatus({ ...STATUS_ERROR, message: '「網址錯誤」或「戰場判斷表已遭刪除」' });
+      return;
+    }
+    
+    setListening(_listening);
+    setColumnRows(_listening.rows)
+    setListeningStatus(STATUS_LOADED);
+  }, [id, getListening]);
+
+  if (listeningStatus.loading || listeningStatus.hasError) {
+    return (
+      <Layout 
+        title={PAGE_TITLE.listening} 
+        homeLink={pageLinks.listenings}
+        mainClassName={cx('DT-Listening', style)}
+        renderButtons={
+          <IconButton component={Link} to={pageLinks.listenings} onClick={trakingHeaderButtonToList}>
+            <FileText size={28} weight='light' />
+          </IconButton>
+        }
+      >
+        <HeadTags title={PAGE_TITLE.listening} description={PAGE_DESCRIPTION.listening} />
+        {listeningStatus.loading ? (
+          <div className='status-box'><Loading /></div>
+        ) : listeningStatus.hasError && (
+          <div className='status-box'>
+            <p>{listeningStatus.message}</p>
+            <Button variant='outlined' component={Link} to={pageLinks.listenings}>回歷史紀錄頁</Button>
+          </div>
+        )}
+      </Layout>
+    )
+  }
+
+  return <Layout 
+    title={PAGE_TITLE.listening} 
+    homeLink={pageLinks.listenings}
+    mainClassName={cx('DT-Listening', style)}
+    renderButtons={
+      <IconButton component={Link} to={pageLinks.listenings} onClick={trakingHeaderButtonToList}>
+        <FileText size={28} weight='light' />
+      </IconButton>
+    }>
     <HeadTags title={PAGE_TITLE.listening} description={PAGE_DESCRIPTION.listening} />
-    <TextField
+    <Input
+      name='listening-name'
       className='listening-name'
       placeholder={columnName.placeholder}
       autoFocus
       value={columnName.value}
-      onChange={handleChangeName}
+      onChange={handleChangeColumnName}
+      startAdornment={
+        <InputAdornment position='start'>
+          <NotePencil size={28} weight='light' color={styleSettingColor.text.secondary} />
+        </InputAdornment>
+      }
     />
-    <TextField
+    <Input
+      name='listening-owner'
       className='listening-name'
       placeholder={columnOwner.placeholder}
       value={columnOwner.value}
-      onChange={handleChangeOwner}
+      onChange={handleChangeColumnOwner}
+      startAdornment={
+        <InputAdornment position='start'>
+          <UserCircle size={28} weight='light' color={styleSettingColor.text.secondary} />
+        </InputAdornment>
+      }
     />
     <div className='listening-body'>
-      <div className='listening-hint-save-solution'>
-        自動保存於本地端
-      </div>
-      <ListeningRowsEditor listeningRows={columnRows} setColumnRows={setColumnRows}/>
-      <Button variant='outlined' className='send-button' onClick={handleUpload}>送出</Button>
+      <ListeningRowsEditor listeningRows={columnRows} setColumnRows={handleChangeColumnRows} />
+      <Button 
+        variant='outlined' 
+        className='send-button' 
+        onClick={handleUpload} 
+        loading={sendStatus.loading} 
+        disabled={sendStatus.loading}
+      >保存 & 送出</Button>
       <div className='listening-hint-save-solution-bottom'>
-        {listening.updatedAt ? `上次發送時間 ${dayjs(listening.updatedAt).format('YYYY/MM/DD HH:mm:ss')}`: ''}
+        {!!listening.updatedAt && 
+          `上次發送時間 ${dayjs(listening.updatedAt).format('YYYY/MM/DD HH:mm:ss')}`}
       </div>
     </div>
   </Layout>;
@@ -120,17 +234,34 @@ const style = css`
   background-color: ${styleSettingColor.background.white};
   color: ${styleSettingColor.text.secondary};
 
+  .status-box {
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   .listening-name {
     width: 100%;
     border-bottom: 1px solid ${styleSettingColor.disabled};
     
-    .MuiInputBase-root {
+    &.MuiInputBase-root {
       font-size: 18px;
       padding: 8px 16px;
       box-sizing: border-box;
 
+      &:after {
+        border-bottom: unset;
+      }
+
+      &:hover:before,
+      &:before {
+        border-bottom: unset;
+      }
+
       fieldset {
-        border: none;
+        border-width: 0;
       }
 
       .MuiInputBase-input {
@@ -147,23 +278,22 @@ const style = css`
     align-items: center;
   }
 
-
-  .listening-hint-save-solution-bottom,
-  .listening-hint-save-solution {
+  .listening-hint-save-solution-bottom {
     width: 100%;
     margin-top: 8px;
     font-size: 12px;
     color: ${styleSettingColor.text.gray};
   }
 
-  .listening-hint-save-solution {
-    margin-top: -8px;
-    margin-bottom: 8px;
-  }
-
-
+  .save-button.MuiButton-root,
   .send-button.MuiButton-root {
+    margin-top: 8px;
     width: 100%;
     min-width: 250px;
+    font-size: 18px;
+  }
+  
+  .send-button.MuiButton-root {
+    background-color: ${styleSettingColor.background.dark}1a;
   }
 `;

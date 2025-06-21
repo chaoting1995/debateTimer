@@ -23,7 +23,7 @@ const useFormColumn =<T, EnumTypeGuide = unknown>(props: UseFormColumnProps<T, E
   // props.value，轉成 formColumn value
   React.useEffect(() => {
     setValue(props.value);
-  }, [props.value])
+  }, [props.value, props.defaultValue])
 
   const onChange = React.useCallback((_value: T) => {
     setValue(_value);

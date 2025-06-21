@@ -8,7 +8,7 @@ import useInnerHeight from "hooks/useInnerHeight";
 import basicStyle from "styles/basic.style";
 import { styleSettingColor } from "styles/variables.style";
 import { styleContainerSection } from "styles/page.style";
-import { pageLinks } from "routes/constants";
+import { pageLinks } from "routes/route.constants";
 
 const NotFound = () => {
   const [innerHeight] = useInnerHeight();

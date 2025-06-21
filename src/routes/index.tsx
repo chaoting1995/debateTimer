@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navigate , RouteObject } from 'react-router-dom';
 
-import { PAGE_LINK } from 'routes/constants';
+import { PAGE_LINK } from 'routes/route.constants';
 import NotFound from 'pages/NotFound';
 import { Timers, Timer } from 'modules/timer';
 import { TopicCreator } from 'modules/topic';
-import { Listening } from 'modules/listening';
+import { Listening, Listenings } from 'modules/listening';
 import { Dummys, Dummy } from 'modules/dummy';
 // import Maintenance = from /'pages/Maintenance/Maintenance';
 
@@ -37,6 +37,14 @@ const routes: Array<RouteObject> = [
   {
     path: PAGE_LINK.listening,
     element: <Listening />,
+  },
+  {
+    path: PAGE_LINK.listeningID,
+    element: <Listening />,
+  },
+  {
+    path: PAGE_LINK.listenings,
+    element: <Listenings />,
   },
   {
     path: PAGE_LINK.dummy,
