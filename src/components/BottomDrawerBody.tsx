@@ -72,5 +72,4 @@ const style = (_innerHeight: number) => css`
     font-size: 18px;
     font-weight: normal;
   }
-  
 `;

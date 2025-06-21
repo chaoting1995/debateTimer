@@ -4,25 +4,25 @@ import { Gear } from '@phosphor-icons/react';
 import { IconButton } from '@mui/material';
 
 import { BottomDrawerHeader, BottomDrawerBody } from 'components';
-import { Topic } from 'modules/topic/resources/topic.type';
+import { DummyContent } from 'modules/dummy/resources/dummy.type';
 import useDialog from 'hooks/useDialog';
-import { TopicCategoryGroups, TopicList, TopicListSetting } from 'modules/topic';
-import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
+import { DummyContentList, DummyContentListSetting } from 'modules/dummy';
+// import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
   open?: boolean;
   children?: React.ReactNode;
-  topics: Topic[];
-  onChangeTopic: (topic: Topic) => void;
+  dummyContents: DummyContent[];
+  onChangeDummyContent: (dummyContent: DummyContent) => void;
 }
 
-const TopicListDrawer: React.FC<Props> = (props) => {
+const DummyContentListDrawer: React.FC<Props> = (props) => {
   const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
 
   const handleOpenSettingWithTraking = React.useCallback(() => {
     handleOpenSetting();
-    ServiceGA4.event(GA_EVENT.TopicListDrawer_Button_Settting);
+    // ServiceGA4.event(GA_EVENT.DummyListDrawer_Button_Settting);
   }, [handleOpenSetting]);
 
   // 依 props.open 判斷，每次開啟彈窗，就重置 openSetting
@@ -31,16 +31,16 @@ const TopicListDrawer: React.FC<Props> = (props) => {
   },[props.open, handleCloseSetting])
 
   if (openSetting) {
-    return <TopicListSetting 
+    return <DummyContentListSetting 
       className={cx(style, props.className)}
       onClose={handleCloseSetting}
     />
   }
 
   return (
-    <div className={cx('DT-TopicListDrawer', style, props.className)}>
+    <div className={cx('DT-DummyListDrawer', style, props.className)}>
       <BottomDrawerHeader
-        children='辯題列表'
+        children='攻防列表'
         rightSide={
           <IconButton onClick={handleOpenSettingWithTraking}>
             <Gear size={28} weight='light'/>
@@ -48,18 +48,13 @@ const TopicListDrawer: React.FC<Props> = (props) => {
         }
       />
       <BottomDrawerBody>
-        <TopicCategoryGroups 
-          topics={props.topics} 
-          renderTopicList={(_topics) => 
-            <TopicList hideEmptyBox topics={_topics} onChangeTopic={props.onChangeTopic} />
-          }
-        />
+        <DummyContentList hideEmptyBox dummyContents={props.dummyContents} onChangeDummyContent={props.onChangeDummyContent} />
       </BottomDrawerBody>
     </div>
   )
 }
 
-export default TopicListDrawer;
+export default DummyContentListDrawer;
 
 const style = css`
   overflow: hidden;

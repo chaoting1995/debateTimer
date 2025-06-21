@@ -8,7 +8,7 @@ export type UseSlotMachine = {
   dummyContent: DummyContent;
   isSpinning: boolean;
   onSpin: () => DummyContent | undefined;
-  onChange: (dummy: DummyContent) => void;
+  onChange: (dummyContent: DummyContent) => void;
 }
 
 const useSlotMachine = (dummyContents: DummyContent[]): UseSlotMachine => {
@@ -24,8 +24,8 @@ const useSlotMachine = (dummyContents: DummyContent[]): UseSlotMachine => {
 
   const [dummyContent, setDummyContent] = React.useState<DummyContent>(defaultItem);
 
-  const onChange = React.useCallback((_dummy: DummyContent) => {
-    setDummyContent(_dummy);
+  const onChange = React.useCallback((_dummyContent: DummyContent) => {
+    setDummyContent(_dummyContent);
   }, []);
 
   const onSpin = React.useCallback((excludeDummy?: DummyContent) => {

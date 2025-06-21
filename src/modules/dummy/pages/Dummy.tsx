@@ -4,7 +4,7 @@ import { css, cx } from '@emotion/css';
 import { IconButton } from '@mui/material';
 import { PencilSimpleLine } from '@phosphor-icons/react';
 
-import DummyModeNormal from "modules/dummy/components/dummyModeNormal";
+import { DummyModeNormal } from "modules/dummy";
 import { pageLinks } from 'routes/constants';
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import { PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/constants';
@@ -30,6 +30,7 @@ const Dummy: React.FC = () => {
     if (!id) return;
     const currentDummy = dummys.find(item => item.id === id);
     if (!currentDummy) return;
+    console.log('currentDummy',currentDummy)
     setDummy(currentDummy);
   }, [id, dummys]);
 
