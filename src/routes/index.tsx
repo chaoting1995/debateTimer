@@ -62,6 +62,10 @@ const routes: Array<RouteObject> = [
     path: PAGE_LINK.dummyEditID,
     element: <DummyEdit />,
   },
+  {
+    path: PAGE_LINK.dummyAdd,
+    element: <DummyEdit />,
+  },
   // {
   //   path: '',
   //   element: <Maintenance />,

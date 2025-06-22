@@ -24,10 +24,22 @@ const debounce = (fn: Callback, delay: number = 1000): Callback => {
   };
 }
 
+const speakText = (text: string) => {
+  if (!window.speechSynthesis) return;
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'zh-TW';        // 設定語言
+  utterance.rate = 1.2;            // 可調整速度
+  utterance.volume = 0.5           // 指定朗讀音量
+  window.speechSynthesis.cancel(); // 停止之前朗讀（避免重疊）
+  window.speechSynthesis.speak(utterance);
+};
+
 const ServiceUtil = {
   convertNumberInputOnChange,
   roundDownDecimals,
-  debounce
+  debounce,
+  speakText
 };
 
 export default ServiceUtil;

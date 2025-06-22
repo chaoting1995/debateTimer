@@ -9,6 +9,7 @@ export const PAGE_LINK = {
   dummy: 'dummy',
   dummyID: 'dummy/:id',
   dummyEditID: 'dummy/edit/:id',
+  dummyAdd: 'dummy/add',
   dummys: 'dummys',
 };
 

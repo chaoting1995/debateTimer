@@ -2,6 +2,7 @@ import React from 'react';
 
 import { DummyContent } from 'modules/dummy/resources/dummy.type';
 import { DEFAUT_DUMMY_CONTENT } from 'modules/dummy/resources/dummy.constant';
+import ServiceUtil from 'services/util.service';
 
 export type UseSlotMachine = {
   enableDummyContents: DummyContent[];
@@ -35,6 +36,8 @@ const useSlotMachine = (dummyContents: DummyContent[]): UseSlotMachine => {
     setTimeout(() => {
       setIsSpinning(false);
       setDummyContent(chosenDummy);
+
+      ServiceUtil.speakText(chosenDummy.content);
     }, 2000);
 
     return chosenDummy;

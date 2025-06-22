@@ -46,7 +46,7 @@ const Dummys: React.FC = () => {
     renderButtons={
       <IconButton 
         component={Link} 
-        to={ServiceRoute.toPageLinkWithParams(pageLinks.dummyEditID, { id: '' })}
+        to={pageLinks.dummyAdd}
       >
         <Plus size={28} weight='light'/>
       </IconButton>
@@ -60,7 +60,7 @@ const Dummys: React.FC = () => {
         variant='outlined' 
         className='add-button' 
         component={Link} 
-        to={ServiceRoute.toPageLinkWithParams(pageLinks.dummyEditID, { id: '' })}
+        to={pageLinks.dummyAdd}
         >
           新增{ITEM_NAME}
         </Button>
