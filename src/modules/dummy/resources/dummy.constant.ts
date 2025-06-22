@@ -37,22 +37,7 @@ export const DEFAULT_DUMMYS: Array<Dummy> = [
     id: 'debate-dummy-002',
     name: '反方論點集',
     contents: JSON.parse(JSON.stringify(DEFAULT_DUMMY_CONTENTS)),
-  },
-    {
-    id: 'debate-dummy-003',
-    name: '反方論點集2',
-    contents: JSON.parse(JSON.stringify(DEFAULT_DUMMY_CONTENTS)),
-  },
-    {
-    id: 'debate-dummy-004',
-    name: '反方論點集3',
-    contents: JSON.parse(JSON.stringify(DEFAULT_DUMMY_CONTENTS)),
-  },
-    {
-    id: 'debate-dummy-005',
-    name: '反方論點集4',
-    contents: JSON.parse(JSON.stringify(DEFAULT_DUMMY_CONTENTS)),
-  },
+  }
 ]
 
 export const DEFAULT_DUMMY: Dummy = {
