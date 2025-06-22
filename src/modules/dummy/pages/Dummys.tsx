@@ -11,17 +11,15 @@ import { styleLineEllipsis } from 'styles/basic.style';
 import { DragDrog } from 'components';
 import { PAGE_TITLE, PAGE_DESCRIPTION, pageLinks } from 'routes/route.constants';
 import usePopup from 'context/Popup/usePopup';
-import useDialog from 'hooks/useDialog';
 import useDummys from 'modules/dummy/context/Dummys/useDummys';
 import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
-import { BottomDrawer, Button } from 'components';
+import { Button } from 'components';
 
 const ITEM_NAME = '木人樁';
 
 const Dummys: React.FC = () => {
   const popup = usePopup();
-  const [open, handleOpen, handleClose] = useDialog(false);
   const dummysProvider = useDummys();
 
   const handleDelete = (dummyID: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -82,6 +80,7 @@ const Dummys: React.FC = () => {
               <div className='item-name'>{item.name}</div>
             </ListItemButton>
             <ListItemSecondaryAction className='item-actions'>
+              <div className='contents-amount'>{item.contents.length}</div>
               <IconButton 
                 component={Link} 
                 to={ServiceRoute.toPageLinkWithParams(pageLinks.dummyEditID, { id: item.id })}
@@ -96,9 +95,6 @@ const Dummys: React.FC = () => {
         )}
       />
     </List>
-    {open && <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
-      <div>123</div>
-    </BottomDrawer>}
   </Layout>;
 };
 
@@ -152,7 +148,7 @@ const style = css`
   }
 
   .item-name {
-    width: calc(100% - 42px - 42px);
+    width: calc(100% - 42px - 42px - 70px);
     ${styleLineEllipsis(1)}
   }
 
@@ -164,5 +160,14 @@ const style = css`
 
   .MuiIconButton-root {
     color: ${styleSettingColor.text.secondary};
+  }
+
+  .contents-amount {
+    font-size: 20px;
+    text-align: center;
+    font-weight: lighter;
+    width: 26px;
+    height: 26px;
+    padding: 8px;
   }
 `;

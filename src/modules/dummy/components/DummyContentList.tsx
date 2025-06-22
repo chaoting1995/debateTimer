@@ -1,8 +1,10 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import { List, ListItemButton, ListItem, ListItemSecondaryAction, IconButton } from '@mui/material';
 
+import useDummys from 'modules/dummy/context/Dummys/useDummys';
 import UtilAudio from 'utils/audio';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { styleSettingColor } from 'styles/variables.style';
@@ -16,20 +18,24 @@ type Props = {
 }
 
 const DummyContentList: React.FC<Props> = (props) => {
+const { id } = useParams<{ id: string }>();
+  const dummysProvider = useDummys();
+
   const handleChangeDummy = React.useCallback((_dummyContent: DummyContent) => () => {
     props.onChangeDummyContent(_dummyContent);
     UtilAudio.audioClick();
   },[props]);
 
-  const handleToggleDummyDisabled = React.useCallback((dummyContentID: string) =>  () => {
-    console.log(dummyContentID);
-  }, [])
+  const handleToggleDummyDisabled = React.useCallback((contentID: string) => () => {
+    if (!id) return;
+    dummysProvider.toggleItemDisabled(id, contentID);
+  }, [id, dummysProvider])
 
   if (props.dummyContents.length === 0 && !props.hideEmptyBox) {
     return (
       <List disablePadding className={cx('DT-DummyContentList', style, props.className)}>
         <div className='empty-box'>
-          <div>尚無攻防選項</div>
+          <div>(尚無攻防選項)</div>
         </div>
       </List>
     )
@@ -43,7 +49,7 @@ const DummyContentList: React.FC<Props> = (props) => {
             <div className='item-name'>{item.content}</div>
           </ListItemButton>
           <ListItemSecondaryAction className='item-actions'>
-            <IconButton onClick={handleToggleDummyDisabled(item.id)}>
+            <IconButton disabled={!id} onClick={handleToggleDummyDisabled(item.id)}>
               {item.disabled ? (
                 <EyeSlash size={26} weight='light' />
               ) : (

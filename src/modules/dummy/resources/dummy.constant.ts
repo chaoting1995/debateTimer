@@ -3,6 +3,12 @@ import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
 export const DT_LOCALSTORAGE_KEY_DUMMYS = 'DT_LOCALSTORAGE_KEY_DUMMYS';
 
 export const EMPTY_DUMMY_CONTENT: DummyContent = {
+  id: 'debate-dummy-content-000',
+  disabled: false,
+  content: '(無設定攻防內容)'
+}
+
+export const DEFAUT_DUMMY_CONTENT: DummyContent = {
   id: '',
   disabled: false,
   content: ''
@@ -56,7 +62,7 @@ export const DEFAULT_DUMMY: Dummy = {
 }
 
 export const EMPTY_DUMMY: Dummy = {
-  id: '',
-  name: '',
+  id: 'debate-dummy-000',
+  name: '(無設定木人樁)',
   contents: [],
 }

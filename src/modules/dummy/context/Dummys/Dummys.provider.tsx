@@ -61,8 +61,30 @@ const DummysProvider = (props: Props) => {
     setList(_list);
   }, []);
 
+  const toggleItemDisabled = React.useCallback((id: string, contentID: string) => {
+    const _list = ResourceDummy.getDummys();
+    const index = _list.findIndex(item => item.id === id);
+    
+    if (index === -1) return;
+    const newItem: Dummy = _list[index];
+    
+    const contentsItem = newItem.contents.find(item => item.id === contentID);
+    if (!contentsItem) return;
+    newItem.contents = newItem.contents.map(contentItem => {
+      if(contentItem.id === contentID) {
+        contentItem.disabled = !contentItem.disabled;
+      }
+      return contentItem;
+    })
+
+    _list.splice(index, 1, newItem);
+
+    ResourceDummy.updateDummys(_list);
+    setList(_list);
+  }, []);
+
   return (
-    <DummysContext.Provider value={{ list, addItem, getItem, editItem, deleteItem, reorderList }}>
+    <DummysContext.Provider value={{ list, addItem, getItem, editItem, deleteItem, reorderList, toggleItemDisabled }}>
       {props.children}
     </DummysContext.Provider>
   );

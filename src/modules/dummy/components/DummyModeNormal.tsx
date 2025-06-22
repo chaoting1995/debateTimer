@@ -8,10 +8,11 @@ import { BottomDrawer } from 'components';
 import useDialog from 'hooks/useDialog';
 import useSlotMachine from 'modules/dummy/hooks/useSlotMachine';
 import { DummyDescription, DummyController, DummyContentListDrawer } from 'modules/dummy';
+import { EMPTY_DUMMY_CONTENT } from 'modules/dummy/resources/dummy.constant';
 
 type Props = {
-  dummy: Dummy;
   className?: string;
+  dummy: Dummy;
 };
 
 const DummyModeNormal = (props: Props) => {
@@ -31,8 +32,8 @@ const DummyModeNormal = (props: Props) => {
   return <div className={cx('DT-DummyModeNormal', style, props.className)}>
     <div className='top-section'>
       <div className='dummy-contnet-box'>
-        <CardActionArea onClick={handleClickDummyContentBox}>
-          {slotMachine.dummyContent.content}
+        <CardActionArea disabled={Boolean(!slotMachine.dummyContent?.content)} onClick={handleClickDummyContentBox}>
+          {slotMachine.dummyContent?.content || EMPTY_DUMMY_CONTENT.content}
         </CardActionArea>
       </div>
     </div>
@@ -83,6 +84,10 @@ const style = css`
       justify-content: center;
       align-items: center;
       text-align: center;
+
+      &.Mui-disabled {
+        opacity: 0.5, font 1;
+      }
     }
   }
 `;

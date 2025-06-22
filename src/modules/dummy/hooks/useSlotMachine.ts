@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { DummyContent } from 'modules/dummy/resources/dummy.type';
-import { EMPTY_DUMMY_CONTENT } from 'modules/dummy/resources/dummy.constant';
+import { DEFAUT_DUMMY_CONTENT } from 'modules/dummy/resources/dummy.constant';
 
 export type UseSlotMachine = {
   enableDummyContents: DummyContent[];
@@ -17,12 +17,8 @@ const useSlotMachine = (dummyContents: DummyContent[]): UseSlotMachine => {
   }, [dummyContents])
 
   const [isSpinning, setIsSpinning] = React.useState(false);
-  const defaultItem = React.useMemo(() => {
-    if (enableDummyContents.length === 0) return EMPTY_DUMMY_CONTENT;
-    return enableDummyContents[0];
-  }, [enableDummyContents])
 
-  const [dummyContent, setDummyContent] = React.useState<DummyContent>(defaultItem);
+  const [dummyContent, setDummyContent] = React.useState<DummyContent>(DEFAUT_DUMMY_CONTENT);
 
   const onChange = React.useCallback((_dummyContent: DummyContent) => {
     setDummyContent(_dummyContent);
@@ -42,6 +38,11 @@ const useSlotMachine = (dummyContents: DummyContent[]): UseSlotMachine => {
     }, 2000);
 
     return chosenDummy;
+  }, [enableDummyContents]);
+  
+  React.useEffect(() => {
+    if (enableDummyContents.length === 0) return;
+    setDummyContent(enableDummyContents[0]);
   }, [enableDummyContents]);
 
   React.useEffect(() => {

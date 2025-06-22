@@ -17,15 +17,15 @@ import useDummys from "modules/dummy/context/Dummys/useDummys";
 const Dummy: React.FC = () => {
   const [innerHeight] = useInnerHeight();
   const { id } = useParams<{ id: string }>();
-  const { list: dummys, getItem: getDummyItem } = useDummys();
-  const [dummy, setDummy] = React.useState<TypeDummy>(dummys.length === 0 ? DEFAULT_DUMMY : dummys[0]);
+  const dummysProvider = useDummys();
+  const [dummy, setDummy] = React.useState<TypeDummy>(DEFAULT_DUMMY);
 
   React.useEffect(() => {
     if (!id) return;
-    const _dummy = getDummyItem(id);
+    const _dummy = dummysProvider.getItem(id);
     if (!_dummy) return;
     setDummy(_dummy);
-  }, [id, dummys, getDummyItem]);
+  }, [id, dummysProvider]);
 
   return <Layout 
     title={PAGE_TITLE.dummy} 
