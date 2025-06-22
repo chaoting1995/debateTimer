@@ -49,7 +49,11 @@ const DummyContentListDrawer: React.FC<Props> = (props) => {
         }
       />
       <BottomDrawerBody>
-        <DummyContentList hideEmptyBox dummyContents={props.dummy.contents} onChangeDummyContent={props.onChangeDummyContent} />
+        <DummyContentList 
+          hideEmptyBox 
+          dummyContents={props.dummy.contents} 
+          onChangeDummyContent={props.onChangeDummyContent} 
+          />
       </BottomDrawerBody>
     </div>
   )

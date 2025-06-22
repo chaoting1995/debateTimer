@@ -8,11 +8,12 @@ export type UseSlotMachine = {
   enableDummyContents: DummyContent[];
   dummyContent: DummyContent;
   isSpinning: boolean;
-  onSpin: () => DummyContent | undefined;
+  onSpin: (isSpeech: boolean) => DummyContent | undefined;
   onChange: (dummyContent: DummyContent) => void;
 }
 
 const useSlotMachine = (dummyContents: DummyContent[]): UseSlotMachine => {
+
   const enableDummyContents = React.useMemo(() => {
     return dummyContents.filter(item => !item.disabled);
   }, [dummyContents])
@@ -25,7 +26,7 @@ const useSlotMachine = (dummyContents: DummyContent[]): UseSlotMachine => {
     setDummyContent(_dummyContent);
   }, []);
 
-  const onSpin = React.useCallback((excludeDummy?: DummyContent) => {
+  const onSpin = React.useCallback((isSpeech: boolean, excludeDummy?: DummyContent) => {
     if (enableDummyContents.length <= 1) return;
 
     const newDummys = enableDummyContents.filter(item => item.id !== excludeDummy?.id);
@@ -37,12 +38,12 @@ const useSlotMachine = (dummyContents: DummyContent[]): UseSlotMachine => {
       setIsSpinning(false);
       setDummyContent(chosenDummy);
 
-      ServiceUtil.speakText(chosenDummy.content);
+      if(isSpeech) ServiceUtil.speakText(chosenDummy.content);
     }, 2000);
 
     return chosenDummy;
   }, [enableDummyContents]);
-  
+
   React.useEffect(() => {
     if (enableDummyContents.length === 0) return;
     setDummyContent(enableDummyContents[0]);

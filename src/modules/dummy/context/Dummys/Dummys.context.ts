@@ -8,7 +8,7 @@ export type DummysContextType = {
   editItem: (updatedItem: Dummy) => void;
   deleteItem: (id: string) => void;
   reorderList: (sourceIndex: number, destinationIndex: number) => void;
-  toggleItemDisabled: (id: string, contentID: string) => void; 
+  toggleItemDisabled: (id: string, contentID: string) => void;
 };
 
 export const DummysContext = React.createContext({} as DummysContextType);

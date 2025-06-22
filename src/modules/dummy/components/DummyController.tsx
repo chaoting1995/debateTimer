@@ -2,6 +2,8 @@ import React from 'react';
 import { css, cx } from '@emotion/css';
 import { 
   ArrowsClockwise, 
+  UserMinus,
+  UserSound
  } from '@phosphor-icons/react';
 
 import { styleSettingColor } from 'styles/variables.style';
@@ -11,22 +13,35 @@ import UtilAudio from 'utils/audio';
 
 type Props = {
   className?: string;
-  onSpin: () => void;
+  isSpeech: boolean;
+  onToggleMuteSpeech: () => void;
+  onSpin: (isSpeech: boolean) => void;
   disabledOnSpin?: boolean;
 };
 
 const DummyController = (props: Props) => {
-  const handleSpin = () => {
-    props.onSpin();
+  const handleSpin = React.useCallback(() => {
+    props.onSpin(props.isSpeech);
     UtilAudio.audioRolling();
     // ServiceGA4.event(GA_EVENT.DummyCreator_Button_SpinDummy);
-  };
+  },[props]);
+
+  const handleToggleMuteSpeech = React.useCallback(() => () => {
+    props.onToggleMuteSpeech();
+  }, [props]);
+  
 
   return (
     <div className={cx('DT-DummyController', props.className, style)}>
       <CircleButton onClick={handleSpin} disabled={props.disabledOnSpin}>
-        <ArrowsClockwise size={40} weight="thin"/>
+        <ArrowsClockwise size={40} weight='thin'/>
       </CircleButton>
+          <CircleButton onClick={handleToggleMuteSpeech()}>
+            {props.isSpeech 
+              ? <UserSound size={40} weight='thin'/> 
+              : <UserMinus size={40} weight='thin'/>
+            }
+          </CircleButton>
     </div>
   );
 };

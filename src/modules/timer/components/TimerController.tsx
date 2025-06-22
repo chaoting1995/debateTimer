@@ -32,15 +32,15 @@ const TimerController = (props: Props) => {
   return <div className={cx('DT-TimerController', props.className, style)}>
     <CircleButton onClick={onTrigger}>
       {props.isRunning 
-        ? <Pause size={40} weight="thin"/> 
-        : <Play size={40} weight="thin"/>
+        ? <Pause size={40} weight='thin'/> 
+        : <Play size={40} weight='thin'/>
       }
     </CircleButton>
     <CircleButton onClick={onResetWithPuase}>
-      <ArrowCounterClockwise size={40} weight="thin"/>
+      <ArrowCounterClockwise size={40} weight='thin'/>
     </CircleButton>
     <CircleButton onClick={UtilAudio.audioBell}>
-      <CallBell size={40} weight="thin"/>
+      <CallBell size={40} weight='thin'/>
     </CircleButton>
   </div>;
 };

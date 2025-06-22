@@ -82,7 +82,7 @@ const DummysProvider = (props: Props) => {
     ResourceDummy.updateDummys(_list);
     setList(_list);
   }, []);
-
+  
   return (
     <DummysContext.Provider value={{ list, addItem, getItem, editItem, deleteItem, reorderList, toggleItemDisabled }}>
       {props.children}

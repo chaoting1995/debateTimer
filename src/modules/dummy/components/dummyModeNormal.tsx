@@ -2,13 +2,14 @@ import React from 'react';
 import { css, cx } from '@emotion/css';
 import { CardActionArea } from '@mui/material';
 
-import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
-import UtilAudio from 'utils/audio';
-import { BottomDrawer } from 'components';
 import useDialog from 'hooks/useDialog';
 import useSlotMachine from 'modules/dummy/hooks/useSlotMachine';
+import UtilAudio from 'utils/audio';
+import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
+import { BottomDrawer } from 'components';
 import { DummyDescription, DummyController, DummyContentListDrawer } from 'modules/dummy';
 import { EMPTY_DUMMY_CONTENT } from 'modules/dummy/resources/dummy.constant';
+import ServiceUtil from 'services/util.service';
 
 type Props = {
   className?: string;
@@ -16,18 +17,28 @@ type Props = {
 };
 
 const DummyModeNormal = (props: Props) => {
-  const [open, handleOpen, handleClose] = useDialog(false);
   const slotMachine = useSlotMachine(props.dummy.contents);
 
-  const handleClickDummyContentBox = () => {
+  const [open, handleOpen, handleClose] = useDialog(false);
+  const [isSpeech, setIsSpeech] = React.useState<boolean>(true);
+
+  const handleClickDummyContentBox = React.useCallback(() => {
     handleOpen();
     UtilAudio.audioClick();
-  };
+  }, [handleOpen]);
   
-  const handleChangeDummyContent = (_dummyContent: DummyContent) => {
+  const handleChangeDummyContent = React.useCallback((_dummyContent: DummyContent) => {
     slotMachine.onChange(_dummyContent);
     handleClose();
-  };
+    if(isSpeech) ServiceUtil.speakText(_dummyContent.content);
+  }, [isSpeech, slotMachine, handleClose]);
+
+  const handleToggleMuteSpeech = React.useCallback(() => {
+    setIsSpeech(prevState => {
+      if(prevState) window.speechSynthesis.cancel();
+      return !prevState
+    });
+  }, []);
 
   return <div className={cx('DT-DummyModeNormal', style, props.className)}>
     <div className='top-section'>
@@ -44,13 +55,15 @@ const DummyModeNormal = (props: Props) => {
     <div className='bottom-section'>
       <DummyDescription dummy={props.dummy} />
       <DummyController 
+        isSpeech={isSpeech}
+        onToggleMuteSpeech={handleToggleMuteSpeech}
         onSpin={slotMachine.onSpin} 
         disabledOnSpin={slotMachine.isSpinning || slotMachine.enableDummyContents.length <= 1} 
       />
     </div>
     <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
       <DummyContentListDrawer 
-        open={open} 
+        open={open}
         dummy={props.dummy} 
         onChangeDummyContent={handleChangeDummyContent}
       />
