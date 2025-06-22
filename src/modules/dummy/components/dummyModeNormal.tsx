@@ -32,8 +32,12 @@ const DummyModeNormal = (props: Props) => {
   return <div className={cx('DT-DummyModeNormal', style, props.className)}>
     <div className='top-section'>
       <div className='dummy-contnet-box'>
-        <CardActionArea disabled={Boolean(!slotMachine.dummyContent?.content)} onClick={handleClickDummyContentBox}>
-          {slotMachine.dummyContent?.content || EMPTY_DUMMY_CONTENT.content}
+        <CardActionArea disabled={Boolean(props.dummy.contents.length === 0)} onClick={handleClickDummyContentBox}>
+          {props.dummy.contents.length === 0 
+            ? EMPTY_DUMMY_CONTENT.content
+            : slotMachine.enableDummyContents.length === 0
+              ? '(尚無可見的攻防)'
+              : slotMachine.dummyContent?.content || EMPTY_DUMMY_CONTENT.content}
         </CardActionArea>
       </div>
     </div>
@@ -47,7 +51,7 @@ const DummyModeNormal = (props: Props) => {
     <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
       <DummyContentListDrawer 
         open={open} 
-        dummyContents={props.dummy.contents} 
+        dummy={props.dummy} 
         onChangeDummyContent={handleChangeDummyContent}
       />
     </BottomDrawer>

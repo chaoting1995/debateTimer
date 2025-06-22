@@ -5,7 +5,6 @@ import { Trash, Eye, EyeSlash } from '@phosphor-icons/react';
 import { v4 as uuidv4 } from 'uuid';
 
 import usePopup from 'context/Popup/usePopup';
-import useCopyToClipboard from "hooks/useCopyToClipboard";
 import useDialog from 'hooks/useDialog';
 import useFormColumn from 'modules/form/useFormColumn';
 import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
@@ -13,6 +12,7 @@ import { styleSettingColor } from 'styles/variables.style';
 import { Status, STATUS_LOADED, STATUS_ERROR } from 'modules/form/form';
 import { BottomDrawer, Button } from 'components';
 import { DummyEditorBatchAdd } from 'modules/dummy';
+import useCopyDummy from 'modules/dummy/hooks/useCopyDummy';
 
 export type ColumContentsItemWithStatus = {
   id: string;
@@ -29,7 +29,8 @@ type Props = {
 
 const DummyEditor = (props: Props) => {
   const popup = usePopup();
-  const copyToClipboard = useCopyToClipboard();
+  const onCopyDummy = useCopyDummy();
+
   const [openBatchAdd, handleOpenBatchAdd, handleCloseBatchAdd] = useDialog(false);
   const columnName = useFormColumn<string>({
     value: props.dummy.name,
@@ -56,13 +57,7 @@ const DummyEditor = (props: Props) => {
     });
   }, []);
   
-  const handleBatchExport = () => {
-    const output = [
-      `攻防群組名稱：${columnName.value}`,
-      ...columnContents.map(item => item.content.trim()),
-    ].join("\n-------\n");
-    copyToClipboard(output, '複製成功')
-  };
+  const handleCopyDummy = () => onCopyDummy(columnName.value, columnContents);
 
   const handleBatchAddContentsItem = React.useCallback((columnContents: DummyContent[]) => {
     setColumnContents((prevState) => [
@@ -204,7 +199,7 @@ const DummyEditor = (props: Props) => {
           variant='outlined'
           color='secondary'
           disabled={columnContents.length === 0}
-          onClick={handleBatchExport}
+          onClick={handleCopyDummy}
         >
           複製全部
         </Button>
@@ -213,13 +208,13 @@ const DummyEditor = (props: Props) => {
         <React.Fragment key={item.id}>
           <div className='content-action-group'>
             <div className='content-title'>攻防子項</div>
-            <IconButton className='disabled-button' size="small" onClick={handleToggleContentItemDisabled(item.id)}>
+            <IconButton className='disabled-button' size='small' onClick={handleToggleContentItemDisabled(item.id)}>
               {item.disabled 
                 ? <EyeSlash size={25} weight='light'/> 
                 : <Eye size={25} weight='light'/> 
               }
             </IconButton>
-            <IconButton className='delete-button' size="small" onClick={handleDeleteContentItem(item.id)}>
+            <IconButton className='delete-button' size='small' onClick={handleDeleteContentItem(item.id)}>
               <Trash size={25} weight='light'/>
             </IconButton>
           </div>

@@ -4,7 +4,7 @@ import { Gear } from '@phosphor-icons/react';
 import { IconButton } from '@mui/material';
 
 import { BottomDrawerHeader, BottomDrawerBody } from 'components';
-import { DummyContent } from 'modules/dummy/resources/dummy.type';
+import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
 import useDialog from 'hooks/useDialog';
 import { DummyContentList, DummyContentListSetting } from 'modules/dummy';
 // import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
@@ -13,7 +13,7 @@ type Props = {
   className?: string;
   open?: boolean;
   children?: React.ReactNode;
-  dummyContents: DummyContent[];
+  dummy: Dummy;
   onChangeDummyContent: (dummyContent: DummyContent) => void;
 }
 
@@ -34,6 +34,7 @@ const DummyContentListDrawer: React.FC<Props> = (props) => {
     return <DummyContentListSetting 
       className={cx(style, props.className)}
       onClose={handleCloseSetting}
+      dummy={props.dummy} 
     />
   }
 
@@ -48,7 +49,7 @@ const DummyContentListDrawer: React.FC<Props> = (props) => {
         }
       />
       <BottomDrawerBody>
-        <DummyContentList hideEmptyBox dummyContents={props.dummyContents} onChangeDummyContent={props.onChangeDummyContent} />
+        <DummyContentList hideEmptyBox dummyContents={props.dummy.contents} onChangeDummyContent={props.onChangeDummyContent} />
       </BottomDrawerBody>
     </div>
   )
