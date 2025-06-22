@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2025-06-24
+
+### Added
+- 頁面：辯論木人樁
+  - 可隨機抽選攻防，並朗讀
+  - 可選取指定攻防，並朗讀
+  - 練習過的攻防，可隱藏
+  - 朗讀模式，可開關
+- 頁面：自訂木人樁(攻防群組)
+  - 可新增、刪除、查看、修改、拖曳改變木人樁列表順序
+  - 在指定攻防群組中，可批量新增
+  - 在指定攻防群組中，可複製全部
+  - 可新增、刪除、修改、隱藏「攻防子項」
+
 ## [1.0.0-beta.47] - 2024-09-23
 
 ### Changed
