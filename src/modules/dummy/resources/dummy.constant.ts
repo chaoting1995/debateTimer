@@ -3,9 +3,9 @@ import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
 export const DT_LOCALSTORAGE_KEY_DUMMYS = 'DT_LOCALSTORAGE_KEY_DUMMYS';
 
 export const EMPTY_DUMMY_CONTENT: DummyContent = {
-  id: 'debate-dummy-content-000',
+  id: '',
   disabled: false,
-  content: '無內容'
+  content: ''
 }
 
 export const DEFAULT_DUMMY_CONTENTS: Array<DummyContent> = [
@@ -32,11 +32,26 @@ export const DEFAULT_DUMMYS: Array<Dummy> = [
     name: '反方論點集',
     contents: JSON.parse(JSON.stringify(DEFAULT_DUMMY_CONTENTS)),
   },
+    {
+    id: 'debate-dummy-003',
+    name: '反方論點集2',
+    contents: JSON.parse(JSON.stringify(DEFAULT_DUMMY_CONTENTS)),
+  },
+    {
+    id: 'debate-dummy-004',
+    name: '反方論點集3',
+    contents: JSON.parse(JSON.stringify(DEFAULT_DUMMY_CONTENTS)),
+  },
+    {
+    id: 'debate-dummy-005',
+    name: '反方論點集4',
+    contents: JSON.parse(JSON.stringify(DEFAULT_DUMMY_CONTENTS)),
+  },
 ]
 
 export const DEFAULT_DUMMY: Dummy = {
-  id: 'debate-dummy-000',
-  name: '(目前無設定木人樁)',
+  id: '',
+  name: '',
   contents: [],
 }
 

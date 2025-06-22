@@ -6,7 +6,7 @@ import NotFound from 'pages/NotFound';
 import { Timers, Timer } from 'modules/timer';
 import { TopicCreator } from 'modules/topic';
 import { Listening, Listenings } from 'modules/listening';
-import { Dummys, Dummy } from 'modules/dummy';
+import { Dummys, Dummy, DummyEdit } from 'modules/dummy';
 // import Maintenance = from /'pages/Maintenance/Maintenance';
 
 const routes: Array<RouteObject> = [
@@ -57,6 +57,10 @@ const routes: Array<RouteObject> = [
   {
     path: PAGE_LINK.dummys,
     element: <Dummys />,
+  },
+  {
+    path: PAGE_LINK.dummyEditID,
+    element: <DummyEdit />,
   },
   // {
   //   path: '',

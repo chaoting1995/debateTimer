@@ -14,8 +14,8 @@ const usePopup = (): ContextValuePopup => {
 
 export default usePopup;
 
-// const snackBar = usePopup;
-//  snackBar.popup({
+// const popup = usePopup;
+//  popup.notice({
 //   message: 'something text',
 //   severity: 'info'
 // });

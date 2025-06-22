@@ -10,14 +10,14 @@ const menu: Array<SidebarMenuItem> = [
     icon: <Timer />,
   },
   {
-    label: PAGE_TITLE.topicCreator,
-    path: pageLinks.topicCreator,
-    icon: <ChatsCircle />,
-  },
-  {
     label: PAGE_TITLE.dummy,
     path: pageLinks.dummy,
     icon: <BoxingGlove />,
+  },
+  {
+    label: PAGE_TITLE.topicCreator,
+    path: pageLinks.topicCreator,
+    icon: <ChatsCircle />,
   },
 ];
 

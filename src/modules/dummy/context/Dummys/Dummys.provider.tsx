@@ -10,46 +10,60 @@ type Props = {
 };
 
 const DummysProvider = (props: Props) => {
-  const [dummys, setDummys] = React.useState<Dummy[]>([]);
+  const [list, setList] = React.useState<Dummy[]>([]);
 
   React.useEffect(() => {
-    setDummys(ResourceDummy.getDummys());
+    const _list = ResourceDummy.getDummys();
+    setList(_list);
   }, []);
 
-  const addDummy = (dummy: Dummy) => {
-    const updatedDummys = [...dummys, dummy];
-    setDummys(updatedDummys);
-    ResourceDummy.updateDummys(updatedDummys);
-  };
+  const addItem = React.useCallback((newItem: Dummy) => {
+    const _list = ResourceDummy.getDummys();
+    _list.push(newItem);
 
-  const getDummy = (id: string) => {
-    return dummys.find(dummy => dummy.id === id);
-  };
+    ResourceDummy.updateDummys(_list);
+    setList(_list);
+  }, []);
 
-  const editDummy = (id: string, updatedDummy: Partial<Dummy>) => {
-    const updatedDummys = dummys.map(dummy =>
-      dummy.id === id ? { ...dummy, ...updatedDummy } : dummy
-    );
-    setDummys(updatedDummys);
-    ResourceDummy.updateDummys(updatedDummys);
-  };
+  const getItem = React.useCallback((id: string) => {
+    const _list = ResourceDummy.getDummys();
+    return _list.find(item => item.id === id);
+  }, []);
 
-  const deleteDummy = (id: string) => {
-    const updatedDummys = dummys.filter(dummy => dummy.id !== id);
-    setDummys(updatedDummys);
-    ResourceDummy.updateDummys(updatedDummys);
-  };
+  const editItem = React.useCallback((updatedItem: Dummy) => {
+    const _list = ResourceDummy.getDummys();
+    const index = _list.findIndex(item => item.id === updatedItem.id);
+    if (index === -1) return;
+    _list.splice(index, 1, updatedItem);
+    
+    ResourceDummy.updateDummys(_list);
+    setList(_list);
+  }, []);
+
+  const deleteItem = React.useCallback((id: string) => {
+    const _list = ResourceDummy.getDummys();
+    const index = _list.findIndex(item => item.id === id);
+    if (index === -1) return;
+    _list.splice(index, 1);
+
+    ResourceDummy.updateDummys(_list);
+    setList(_list);
+  }, []);
+
+  const reorderList = React.useCallback((sourceIndex: number, destinationIndex: number) => {
+    const _list = ResourceDummy.getDummys();
+    // 從 source.index 剪下被拖曳的元素
+    const [removed] = _list.splice(sourceIndex, 1);
+    //在 destination.index 位置貼上被拖曳的元素
+    _list.splice(destinationIndex, 0, removed);
+
+    ResourceDummy.updateDummys(_list);
+    setList(_list);
+  }, []);
 
   return (
-    <DummysContext.Provider 
-      value={{ 
-        dummys, 
-        addDummy, 
-        getDummy, 
-        editDummy, 
-        deleteDummy,
-      }}>
-        {props.children}
+    <DummysContext.Provider value={{ list, addItem, getItem, editItem, deleteItem, reorderList }}>
+      {props.children}
     </DummysContext.Provider>
   );
 };

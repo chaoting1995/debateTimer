@@ -21,9 +21,8 @@ const DummyContentList: React.FC<Props> = (props) => {
     UtilAudio.audioClick();
   },[props]);
 
-  const handleChangeDummyDisabled = React.useCallback((dummyContentID: string, disabled: boolean) =>  () => {
-    // onChangeDummyDisabled(dummyContentID, disabled);
-    console.log(dummyContentID, disabled);
+  const handleToggleDummyDisabled = React.useCallback((dummyContentID: string) =>  () => {
+    console.log(dummyContentID);
   }, [])
 
   if (props.dummyContents.length === 0 && !props.hideEmptyBox) {
@@ -44,15 +43,13 @@ const DummyContentList: React.FC<Props> = (props) => {
             <div className='item-name'>{item.content}</div>
           </ListItemButton>
           <ListItemSecondaryAction className='item-actions'>
-            {item.disabled ? (
-              <IconButton onClick={handleChangeDummyDisabled(item.id, false)}>
+            <IconButton onClick={handleToggleDummyDisabled(item.id)}>
+              {item.disabled ? (
                 <EyeSlash size={26} weight='light' />
-              </IconButton>
-            ) : (
-              <IconButton onClick={handleChangeDummyDisabled(item.id, true)}>
+              ) : (
                 <Eye size={26} weight='light'/>
-              </IconButton>
-            )}
+              )}
+            </IconButton>
           </ListItemSecondaryAction>
         </ListItem>
       )}
