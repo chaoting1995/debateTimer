@@ -5,11 +5,15 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.2] - 2025-06-25
+## [1.0.3] - 2025-06-23
+### Fidxed 
+- dummy.constant.ts 更新預設值
+
+## [1.0.2] - 2025-06-23
 ### Fidxed 
 - 大小寫不敏感問題
 
-## [1.0.1] - 2025-06-24
+## [1.0.1] - 2025-06-23
 
 ### Added
 - 頁面：辯論木人樁
