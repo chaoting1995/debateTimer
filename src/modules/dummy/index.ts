@@ -1,9 +1,9 @@
 export { default as FactoryDummy } from './resources/dummy.factory';
 export { default as ResourceDummy } from './resources/dummy.resource';
 export { default as Dummy } from './pages/Dummy';
-export { default as DummyModeNormal } from './components/TempnameDummyModeNormal';
-export { default as DummyDescription } from './components/TempnameDummyDescription';
-export { default as DummyController } from './components/TempnameDummyController';
+export { default as DummyModeNormal } from './components/DummyModeNormal';
+export { default as DummyDescription } from './components/DummyDescription';
+export { default as DummyController } from './components/DummyController';
 export { default as DummyContentListDrawer } from './components/DummyContentListDrawer';
 export { default as DummyContentList } from './components/DummyContentList';
 export { default as DummyContentListSetting } from './components/DummyContentListSetting';
