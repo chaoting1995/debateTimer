@@ -1,22 +1,25 @@
 import React from 'react'
 import { css, cx } from '@emotion/css';
-import { TextField, IconButton } from '@mui/material';
-import { XCircle } from '@phosphor-icons/react';
+import { TextField } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 
+import usePopup from 'context/Popup/usePopup';
 import useFormColumn from 'modules/form/useFormColumn';
 import { styleSettingColor } from 'styles/variables.style';
 import { DummyContent } from 'modules/dummy/resources/dummy.type';
-import { BottomDrawerHeader, BottomDrawerBody, Button } from 'components';
+import { Button } from 'components';
 
 type Props = {
   className?: string;
+  name: string;
   onClose: () => void;
   onSave: (columnContents: DummyContent[]) => void;
 }
 
 const DummyEditorBatchAdd = (props: Props) => {
+  const popup = usePopup();
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const [isEdited, setIsEdited] = React.useState(false);
 
   const columnContentsBatch = useFormColumn<string>({
     value: '',
@@ -27,6 +30,7 @@ const DummyEditorBatchAdd = (props: Props) => {
   
   const handleChangeContentsBatch = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     columnContentsBatch.onChange(event.target.value);
+    setIsEdited(true);
   },[columnContentsBatch]);
 
   const handleInsertCut = () => {
@@ -57,13 +61,32 @@ const DummyEditorBatchAdd = (props: Props) => {
     e.preventDefault();
   };
   
+  const handleCancel = React.useCallback(async () => {
+    const hasContents = columnContentsBatch.value.trim();
+    if (!isEdited || !hasContents) {
+      props.onClose();
+      return;
+    }
+
+    const isConfirm = await popup.confirm({ 
+      title: `編輯尚未儲存，確定放棄編輯?`,
+    });
+
+    if (!isConfirm) return;
+
+    props.onClose();
+  }, [isEdited, popup, props, columnContentsBatch]);
+
   const handleSave = React.useCallback(() => {
     let isValid = true;
     if (!columnContentsBatch.onVarify()) isValid = false;
     if (!isValid) return;
 
     // columnContentsBatch，轉換成 DummyContent 陣列
-    const contents: string[] = columnContentsBatch.value.split(/✂️?/);
+    const contents: string[] = columnContentsBatch.value
+      .split(/✂️?/)
+      .map(item => item.trim()); // 去除每段前後空白;
+
     const newDummyContent: DummyContent[] = contents.map(item => ({
       id: `debate-dummy-content-${uuidv4()}`,
       disabled: false,
@@ -76,69 +99,58 @@ const DummyEditorBatchAdd = (props: Props) => {
   
   return (
     <div className={cx('DT-DummyEditorBatchAdd', style, props.className)}>
-      <BottomDrawerHeader
-        children='批量新增'
-        rightSide={
-          <IconButton onClick={props.onClose}>
-            <XCircle size={28} weight='light' />
-          </IconButton>
-        }
+      <TextField
+        variant='standard'
+        fullWidth
+        margin='normal'
+        placeholder='未命名攻防群組'
+        value={props.name}
+        disabled
       />
-      <BottomDrawerBody paddingTop paddingHorizental>
-        <TextField
-          inputRef={inputRef}
-          variant='outlined'
-          multiline
-          fullWidth
-          margin='normal'
-          placeholder={columnContentsBatch.placeholder}
-          value={columnContentsBatch.value}
-          onChange={handleChangeContentsBatch}
-          error={columnContentsBatch.status.hasError}
-          helperText={columnContentsBatch.status.message}
-        />
-        <Button variant='outlined' fullWidth className='cut-button' color='secondary' disabled={!columnContentsBatch.value} onMouseDown={handleMouseDown} onClick={handleInsertCut}>
-          插入剪裁符 ✂
-        </Button>
-        <Button variant='outlined' fullWidth className='save-button' onClick={handleSave}>
-          新增
-        </Button>
-      </BottomDrawerBody>
+      <TextField
+        inputRef={inputRef}
+        variant='outlined'
+        multiline
+        fullWidth
+        margin='normal'
+        InputProps={{
+          sx: { backgroundColor: 'white' },
+        }}
+        placeholder={columnContentsBatch.placeholder}
+        value={columnContentsBatch.value}
+        onChange={handleChangeContentsBatch}
+        error={columnContentsBatch.status.hasError}
+        helperText={columnContentsBatch.status.message}
+      />
+      <Button variant='outlined' fullWidth className='cut-button' color='secondary' disabled={!columnContentsBatch.value} onMouseDown={handleMouseDown} onClick={handleInsertCut}>
+        插入剪裁符 ✂
+      </Button>
+      <Button variant='outlined' fullWidth className='cut-button' color='secondary' onClick={handleCancel}>
+        返回
+      </Button>
+      <Button variant='outlined' fullWidth className='save-button' onClick={handleSave}>
+        批量新增
+      </Button>
     </div>
   )
 }
 
 export default DummyEditorBatchAdd;
 
-const style = css`    
-  .setting-title {
-    margin-bottom: 10px;
+const style = css`
+  .MuiInput-root {
     font-size: 18px;
-    color: ${styleSettingColor.background.dark};
-  }
-  
-  .setting-subtitle {
-    margin-top: -10px;
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: ${styleSettingColor.text.secondary};
-  }
-  
-  .template-button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
   }
 
   .cut-button.MuiButton-root,
   .cut-button.MuiButton-root:hover {
-    margin-top: 20px;
+    margin-top: 15px;
     font-size: 18px;
   }
 
   .save-button.MuiButton-root,
   .save-button.MuiButton-root:hover {
-    margin-top: 20px;
+    margin-top: 15px;
     font-size: 18px;
     background-color: ${styleSettingColor.background.dark}1a;
   }

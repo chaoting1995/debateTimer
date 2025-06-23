@@ -10,9 +10,12 @@ import useFormColumn from 'modules/form/useFormColumn';
 import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
 import { styleSettingColor } from 'styles/variables.style';
 import { Status, STATUS_LOADED, STATUS_ERROR } from 'modules/form/form';
-import { BottomDrawer, Button } from 'components';
+import { Button } from 'components';
 import { DummyEditorBatchAdd } from 'modules/dummy';
 import useCopyDummy from 'modules/dummy/hooks/useCopyDummy';
+
+const GROUP_TITLE = '攻防群組';
+const ITEM_TITLE = '攻防子項';
 
 export type ColumContentsItemWithStatus = {
   id: string;
@@ -35,7 +38,7 @@ const DummyEditor = (props: Props) => {
   const columnName = useFormColumn<string>({
     value: props.dummy.name,
     defaultValue: '',
-    placeholder: '請輸入攻防群組名稱',
+    placeholder: `請輸入${GROUP_TITLE}名稱`,
     verifyRules: { require: true },
   });
 
@@ -92,12 +95,20 @@ const DummyEditor = (props: Props) => {
     });
   }, []);
 
-  const handleDeleteContentItem = React.useCallback((contentID: string) => () => {
+  const handleDeleteContentItem = React.useCallback((contentID: string, index: number) => async () => {
+    const isConfirm = await popup.confirm({ 
+      title: `確定刪除${ITEM_TITLE} ${index + 1} ?`,
+    });
+
+    if(!isConfirm) return;
+    
     setColumnContents((prevState) => {
       const newState: ColumContentsItemWithStatus[] = JSON.parse(JSON.stringify(prevState));
       return newState.filter(item => item.id !== contentID);
     });
-  }, []);
+  
+    popup.notice({ message: '刪除成功' });
+  }, [popup]);
 
   const customVarifyContents = React.useCallback((): boolean => {
     const setRrrorStatus = (_id: string, message: string) => {
@@ -169,6 +180,16 @@ const DummyEditor = (props: Props) => {
     setColumnContents(newColumnContents);
   }, [props.dummy]);
 
+  if (openBatchAdd) {
+    return (
+      <DummyEditorBatchAdd 
+        name={columnName.value}
+        onClose={handleCloseBatchAdd}
+        onSave={handleBatchAddContentsItem}
+        className={props.className}
+      />
+    )
+  }
   return (
     <div className={cx('DT-DummyEditor', style, props.className)}>
       <TextField
@@ -181,12 +202,6 @@ const DummyEditor = (props: Props) => {
         error={columnName.status.hasError}
         helperText={columnName.status.message}
       />
-      {openBatchAdd && <BottomDrawer open={openBatchAdd} onOpen={handleOpenBatchAdd} onClose={handleCloseBatchAdd}>
-        <DummyEditorBatchAdd 
-          onClose={handleCloseBatchAdd}
-          onSave={handleBatchAddContentsItem}
-        />
-      </BottomDrawer>}
       <div className='batch-buttons-group'>
         <Button
           variant='outlined'
@@ -204,17 +219,17 @@ const DummyEditor = (props: Props) => {
           複製全部
         </Button>
       </div>
-      {columnContents.map((item) => (
+      {columnContents.map((item, index) => (
         <React.Fragment key={item.id}>
           <div className='content-action-group'>
-            <div className='content-title'>攻防子項</div>
+            <div className='content-title'>{`${ITEM_TITLE} ${index + 1}`}</div>
             <IconButton className='disabled-button' size='small' onClick={handleToggleContentItemDisabled(item.id)}>
               {item.disabled 
                 ? <EyeSlash size={25} weight='light'/> 
                 : <Eye size={25} weight='light'/> 
               }
             </IconButton>
-            <IconButton className='delete-button' size='small' onClick={handleDeleteContentItem(item.id)}>
+            <IconButton className='delete-button' size='small' onClick={handleDeleteContentItem(item.id, index)}>
               <Trash size={25} weight='light'/>
             </IconButton>
           </div>
@@ -222,8 +237,11 @@ const DummyEditor = (props: Props) => {
             variant='outlined'
             fullWidth
             multiline
+            InputProps={{
+              sx: { backgroundColor: 'white' },
+            }}
             type='text'
-            placeholder='請輸入攻防'
+            placeholder={`請輸入${ITEM_TITLE}`}
             value={item.content}
             onChange={handleChangeContents(item.id)}
             error={item.status.hasError}
@@ -289,7 +307,7 @@ const style = css`
 
   .save-button.MuiButton-root,
   .save-button.MuiButton-root:hover {
-    margin-top: 20px;
+    margin-top: 15px;
     font-size: 18px;
     background-color: ${styleSettingColor.background.dark}1a;
   }

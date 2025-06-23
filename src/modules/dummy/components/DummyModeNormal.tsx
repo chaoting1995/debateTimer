@@ -30,12 +30,13 @@ const DummyModeNormal = (props: Props) => {
   const handleChangeDummyContent = React.useCallback((_dummyContent: DummyContent) => {
     slotMachine.onChange(_dummyContent);
     handleClose();
-    if(isSpeech) ServiceUtil.speakText(_dummyContent.content);
+    if (isSpeech) ServiceUtil.speakText(_dummyContent.content);
   }, [isSpeech, slotMachine, handleClose]);
 
-  const handleToggleMuteSpeech = React.useCallback(() => {
+  const handleToggleMuteSpeech = React.useCallback((text: string) => () => {
     setIsSpeech(prevState => {
-      if(prevState) window.speechSynthesis.cancel();
+      if (prevState) window.speechSynthesis.cancel();
+      if (!prevState) ServiceUtil.speakText(text);
       return !prevState
     });
   }, []);
@@ -56,7 +57,7 @@ const DummyModeNormal = (props: Props) => {
       <DummyDescription dummy={props.dummy} />
       <DummyController 
         isSpeech={isSpeech}
-        onToggleMuteSpeech={handleToggleMuteSpeech}
+        onToggleMuteSpeech={handleToggleMuteSpeech(slotMachine.dummyContent.content)}
         onSpin={slotMachine.onSpin} 
         disabledOnSpin={slotMachine.isSpinning || slotMachine.enableDummyContents.length <= 1} 
       />
@@ -101,6 +102,7 @@ const style = css`
       justify-content: center;
       align-items: center;
       text-align: center;
+      white-space: pre-line;
 
       &.Mui-disabled {
         opacity: 0.5, font 1;
