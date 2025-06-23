@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 
 const useScrollHandler = () => {
-  let location = useLocation();
+  const location = useLocation();
 
   React.useEffect(() => {
     const element = document.getElementById(location.hash.replace("#", ""));

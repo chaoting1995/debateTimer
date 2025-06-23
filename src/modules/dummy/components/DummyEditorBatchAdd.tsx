@@ -8,6 +8,7 @@ import useFormColumn from 'modules/form/useFormColumn';
 import { styleSettingColor } from 'styles/variables.style';
 import { DummyContent } from 'modules/dummy/resources/dummy.type';
 import { Button } from 'components';
+import { useFloatingButton } from 'hooks/useFloatingButton';
 
 type Props = {
   className?: string;
@@ -18,6 +19,7 @@ type Props = {
 
 const DummyEditorBatchAdd = (props: Props) => {
   const popup = usePopup();
+  const { ref, isBottom } = useFloatingButton<HTMLDivElement>(1.0);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [isEdited, setIsEdited] = React.useState(false);
 
@@ -126,7 +128,8 @@ const DummyEditorBatchAdd = (props: Props) => {
       <Button variant='outlined' fullWidth className='cut-button' color='secondary' disabled={!columnContentsBatch.value} onMouseDown={handleMouseDown} onClick={handleInsertCut}>
         插入剪裁符 ✂
       </Button>
-      <div className='buttons-group'>
+      <div ref={ref}></div>
+      <div className={cx('buttons-group', {'floating': !isBottom })}>
         <Button variant='outlined' fullWidth className='back-button' color='secondary' onClick={handleCancel}>
           返回
         </Button>
@@ -163,6 +166,22 @@ const style = css`
     .MuiButton-root:hover {
       width: 100%;
       font-size: 18px;
+    }
+
+    &.floating {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 500px;
+      box-sizing: border-box;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 16px;
+      background-color: ${styleSettingColor.gray}db;
+      border-top: 1px solid #ccc;
+      text-align: center;
+      z-index: 1000;
     }
   }
 

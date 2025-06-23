@@ -15,6 +15,7 @@ import { Status, STATUS_LOADED, STATUS_ERROR } from 'modules/form/form';
 import { Button } from 'components';
 import { DummyEditorBatchAdd } from 'modules/dummy';
 import useCopyDummy from 'modules/dummy/hooks/useCopyDummy';
+import { useFloatingButton } from 'hooks/useFloatingButton';
 
 const GROUP_TITLE = '攻防群組';
 const ITEM_TITLE = '攻防子項';
@@ -36,6 +37,7 @@ const DummyEditor = (props: Props) => {
   const navigae = useNavigate();
   const popup = usePopup();
   const onCopyDummy = useCopyDummy();
+  const { ref, isBottom } = useFloatingButton<HTMLDivElement>(1.0);
 
   const [isEdited, setIsEdited] = React.useState(false);
   const [openBatchAdd, handleOpenBatchAdd, handleCloseBatchAdd] = useDialog(false);
@@ -275,7 +277,8 @@ const DummyEditor = (props: Props) => {
       <Button variant='outlined' fullWidth className='add-button' color='secondary' onClick={handleAddContentsItem}>
         新增
       </Button>
-      <div className='buttons-group'>
+      <div ref={ref} className='bottom-ref'></div>
+      <div className={cx('buttons-group', {'floating': !isBottom })}>
         <Button variant='outlined' fullWidth className='back-button' color='secondary' onClick={handleBack}>
           返回
         </Button>
@@ -312,6 +315,22 @@ const style = css`
       width: 100%;
       font-size: 18px;
     }
+
+    &.floating {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 500px;
+      box-sizing: border-box;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 16px;
+      background-color: ${styleSettingColor.gray}db;
+      border-top: 1px solid #ccc;
+      text-align: center;
+      z-index: 1000;
+    }
   }
 
   .content-action-group {
@@ -336,5 +355,10 @@ const style = css`
   .save-button.MuiButton-root:hover {
     font-size: 18px;
     background-color: ${styleSettingColor.background.dark}1a;
+  }
+
+  .bottom-ref {
+    width: 100%;
+    height: 1px;
   }
 `;

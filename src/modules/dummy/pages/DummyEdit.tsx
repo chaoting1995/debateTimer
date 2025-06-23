@@ -62,7 +62,7 @@ const style = (_innerHeight: number) => css`
   color: ${styleSettingColor.text.secondary};
 
   .dummy-mode {
-    padding: 20px 16px;
+    padding: 20px 16px 20px;
     box-sizing: border-box;
     min-height: calc(${_innerHeight}px - ${styleSettingHeight.header});
     display: flex;
