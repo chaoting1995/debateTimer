@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.4] - 2025-06-23
+### Added 
+- 頁面：辯論木人樁
+  -  換行顯示
+- 頁面：自訂木人樁(攻防群組)
+  -  複製時，用剪刀分隔
+  - 自動去除前後空白
+  - 輸入框白底
+  - 批量新增，不要彈窗
+
 ## [1.0.3] - 2025-06-23
 ### Fidxed 
 - dummy.constant.ts 更新預設值
