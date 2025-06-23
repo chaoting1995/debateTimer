@@ -125,12 +125,14 @@ const DummyEditorBatchAdd = (props: Props) => {
       <Button variant='outlined' fullWidth className='cut-button' color='secondary' disabled={!columnContentsBatch.value} onMouseDown={handleMouseDown} onClick={handleInsertCut}>
         插入剪裁符 ✂
       </Button>
-      <Button variant='outlined' fullWidth className='cut-button' color='secondary' onClick={handleCancel}>
-        返回
-      </Button>
-      <Button variant='outlined' fullWidth className='save-button' onClick={handleSave}>
-        批量新增
-      </Button>
+      <div className='buttons-group'>
+        <Button variant='outlined' fullWidth className='back-button' color='secondary' onClick={handleCancel}>
+          返回
+        </Button>
+        <Button variant='outlined' fullWidth className='save-button' onClick={handleSave}>
+          批量新增
+        </Button>
+      </div>
     </div>
   )
 }
@@ -148,9 +150,23 @@ const style = css`
     font-size: 18px;
   }
 
+  .buttons-group {
+    width: 100%;
+    margin: 15px 0 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    .MuiButton-root,
+    .MuiButton-root:hover {
+      width: 100%;
+      font-size: 18px;
+    }
+  }
+
   .save-button.MuiButton-root,
   .save-button.MuiButton-root:hover {
-    margin-top: 15px;
     font-size: 18px;
     background-color: ${styleSettingColor.background.dark}1a;
   }

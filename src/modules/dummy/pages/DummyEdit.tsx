@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
 import { IconButton } from '@mui/material';
 import { FileText } from '@phosphor-icons/react';
 
-import { DummyEditor } from "modules/dummy";
+import { DummyEditor } from 'modules/dummy';
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import { pageLinks, PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/route.constants';
 import { Dummy as TypeDummy } from 'modules/dummy/resources/dummy.type';
@@ -12,14 +12,14 @@ import { DEFAULT_DUMMY } from 'modules/dummy/resources/dummy.constant';
 import useInnerHeight from 'hooks/useInnerHeight';
 import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
-import useDummys from "modules/dummy/context/Dummys/useDummys";
+import useDummys from 'modules/dummy/context/Dummys/useDummys';
 
 const DummyEdit: React.FC = () => {
   const [innerHeight] = useInnerHeight();
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
   const navigae = useNavigate();
   const dummysProvider = useDummys();
-  const { list: dummys, getItem: getDummy } = useDummys();
   const [dummy, setDummy] = React.useState<TypeDummy>(DEFAULT_DUMMY);
 
   const handleSave =  React.useCallback((_dummy: TypeDummy) => {
@@ -34,17 +34,17 @@ const DummyEdit: React.FC = () => {
   
   React.useEffect(() => {
     if (!id) return;
-    const _dummy = getDummy(id);
+    const _dummy = dummysProvider.getItem(id);
     if (!_dummy) return;
     setDummy(_dummy);
-  }, [id, dummys, getDummy]);
+  }, [id, dummysProvider, location.pathname]);
 
   return <Layout 
     title={PAGE_TITLE.dummyEdit} 
     mainClassName={cx('DT-DummyEdit', style(innerHeight))}
     renderButtons={
       <IconButton component={Link} to={pageLinks.dummys}>
-        <FileText size={28} weight="light"/>
+        <FileText size={28} weight='light'/>
       </IconButton>
     }>
     <HeadTags 

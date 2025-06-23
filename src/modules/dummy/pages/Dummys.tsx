@@ -32,7 +32,7 @@ const Dummys: React.FC = () => {
   
     if(!isConfirm) return;
     dummysProvider.deleteItem(dummyID);
-    popup.notice({ message: '刪除成功' });
+    popup.notice({ message: '刪除成功', duration: 1000 });
   }
 
   const handleDragEnd = (sourceIndex: number, destinationIndex: number) => {

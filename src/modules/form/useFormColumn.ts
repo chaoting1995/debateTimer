@@ -34,7 +34,7 @@ const useFormColumn =<T, EnumTypeGuide = unknown>(props: UseFormColumnProps<T, E
     if (props.verifyRules.require) {
       const verify = value !== '' ? true : false;
       if(verify) {
-        setStatus(STATUS_LOADED)
+        setStatus(STATUS_LOADED);
       } else { 
         setStatus({ ...STATUS_ERROR, message: "此欄位必填"});
       }

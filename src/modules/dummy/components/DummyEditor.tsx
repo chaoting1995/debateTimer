@@ -1,9 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
 import { TextField, IconButton } from '@mui/material';
 import { Trash, Eye, EyeSlash } from '@phosphor-icons/react';
 import { v4 as uuidv4 } from 'uuid';
 
+import { pageLinks } from 'routes/route.constants';
 import usePopup from 'context/Popup/usePopup';
 import useDialog from 'hooks/useDialog';
 import useFormColumn from 'modules/form/useFormColumn';
@@ -31,9 +33,11 @@ type Props = {
 };
 
 const DummyEditor = (props: Props) => {
+  const navigae = useNavigate();
   const popup = usePopup();
   const onCopyDummy = useCopyDummy();
 
+  const [isEdited, setIsEdited] = React.useState(false);
   const [openBatchAdd, handleOpenBatchAdd, handleCloseBatchAdd] = useDialog(false);
   const columnName = useFormColumn<string>({
     value: props.dummy.name,
@@ -45,10 +49,12 @@ const DummyEditor = (props: Props) => {
   const [columnContents, setColumnContents] = React.useState<ColumContentsItemWithStatus[]>([]);
 
   const handleChangeName = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsEdited(true);
     columnName.onChange(event.target.value);
   },[columnName]);
 
   const handleChangeContents = React.useCallback((contentID: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsEdited(true);
     setColumnContents((prevState) => {
       const newState: ColumContentsItemWithStatus[] = JSON.parse(JSON.stringify(prevState));
       newState.map((item) => {
@@ -63,6 +69,7 @@ const DummyEditor = (props: Props) => {
   const handleCopyDummy = () => onCopyDummy(columnName.value, columnContents);
 
   const handleBatchAddContentsItem = React.useCallback((columnContents: DummyContent[]) => {
+    setIsEdited(true);
     setColumnContents((prevState) => [
       ...prevState, 
       ...columnContents.map(item => ({
@@ -107,7 +114,7 @@ const DummyEditor = (props: Props) => {
       return newState.filter(item => item.id !== contentID);
     });
   
-    popup.notice({ message: '刪除成功' });
+    popup.notice({ message: '刪除成功', duration: 1000 });
   }, [popup]);
 
   const customVarifyContents = React.useCallback((): boolean => {
@@ -169,8 +176,23 @@ const DummyEditor = (props: Props) => {
     };
 
     props.onSave(newDummy);
-    popup.notice({ message: '儲存成功' });
+    popup.notice({ message: '儲存成功', duration: 1000 });
   }, [columnName, columnContents, customVarifyContents, props, popup]);
+
+  const handleBack = React.useCallback(async () => {
+    if (!isEdited) {
+      navigae(pageLinks.dummys);
+      return;
+    }
+
+    const isConfirm = await popup.confirm({ 
+      title: `編輯尚未儲存，確定放棄編輯?`,
+    });
+
+    if (!isConfirm) return;
+    
+    navigae(pageLinks.dummys);
+  }, [navigae, isEdited, popup]);
 
   React.useEffect(() => {
     const newColumnContents = props.dummy.contents.map(item => ({
@@ -202,7 +224,7 @@ const DummyEditor = (props: Props) => {
         error={columnName.status.hasError}
         helperText={columnName.status.message}
       />
-      <div className='batch-buttons-group'>
+      <div className='buttons-group'>
         <Button
           variant='outlined'
           color='secondary'
@@ -249,13 +271,17 @@ const DummyEditor = (props: Props) => {
           />
         </React.Fragment>
       ))}
-      
       <Button variant='outlined' fullWidth className='add-button' color='secondary' onClick={handleAddContentsItem}>
         新增
       </Button>
-      <Button variant='outlined' fullWidth className='save-button' onClick={handleSave}>
-        儲存
-      </Button>
+      <div className='buttons-group'>
+        <Button variant='outlined' fullWidth className='back-button' color='secondary' onClick={handleBack}>
+          返回
+        </Button>
+        <Button variant='outlined' fullWidth className='save-button' onClick={handleSave}>
+          儲存
+        </Button>
+      </div>
     </div>
   );
 };
@@ -272,9 +298,9 @@ const style = css`
     bottom: -22px;
   }
 
-  .batch-buttons-group {
+  .buttons-group {
     width: 100%;
-    margin: 10px 0;
+    margin: 10px 0 15px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -301,13 +327,12 @@ const style = css`
 
   .add-button.MuiButton-root,
   .add-button.MuiButton-root:hover {
-    margin-top: 30px;
+    margin: 30px 0 10px;
     font-size: 18px;
   }
 
   .save-button.MuiButton-root,
   .save-button.MuiButton-root:hover {
-    margin-top: 15px;
     font-size: 18px;
     background-color: ${styleSettingColor.background.dark}1a;
   }
