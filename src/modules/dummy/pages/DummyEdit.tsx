@@ -48,7 +48,7 @@ const DummyEdit: React.FC = () => {
       </IconButton>
     }>
     <HeadTags 
-      title={`${PAGE_TITLE.dummy} | ${!dummy.id ? '新增計時器' : '編輯計時器'}`} 
+      title={`${PAGE_TITLE.dummy} | ${!dummy.id ? PAGE_TITLE.dummyAdd : PAGE_TITLE.dummyEdit}`} 
       description={PAGE_DESCRIPTION.dummy}
     />
     <DummyEditor dummy={dummy} className='dummy-mode' onSave={handleSave} />

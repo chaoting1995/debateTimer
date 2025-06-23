@@ -27,6 +27,7 @@ export const PAGE_TITLE = {
   dummy: '辯論木人樁',
   dummys: '自訂木人樁',
   dummyEdit: '編輯木人樁',
+  dummyAdd: '新增木人樁',
 };
 
 export const PAGE_DESCRIPTION = {
