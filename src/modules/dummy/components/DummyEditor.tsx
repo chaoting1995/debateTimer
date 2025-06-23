@@ -217,6 +217,7 @@ const DummyEditor = (props: Props) => {
       <TextField
         variant='standard'
         fullWidth
+        multiline
         margin='normal'
         placeholder={columnName.placeholder}
         value={columnName.value}

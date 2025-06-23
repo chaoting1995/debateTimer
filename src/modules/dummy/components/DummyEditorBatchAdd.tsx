@@ -102,6 +102,7 @@ const DummyEditorBatchAdd = (props: Props) => {
       <TextField
         variant='standard'
         fullWidth
+        multiline
         margin='normal'
         placeholder='未命名攻防群組'
         value={props.name}

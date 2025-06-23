@@ -33,5 +33,6 @@ const style = css`
     font-size: 24px;
     font-weight: bold;
     text-align: center;
+    white-space: pre-line;
   }
 `;
