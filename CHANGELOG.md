@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2025-06-23
+### Changed
+- 頁面：自訂木人樁
+  - 固定儲存按鈕
+  - 按鈕佈局調整
+  - 攻防群組命名輸入框，改為多行輸入
+
 ## [1.0.4] - 2025-06-23
 ### Added 
 - 頁面：辯論木人樁
