@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 2025-06-24
+### Changed
+- 頁面：自訂木人樁
+  - 攻防數量超過99時，顯示 99+
+- 頁面：編輯木人樁
+  - 剪裁符按鈕一起固定
+  - 儲存時，移除前後留白
+- 頁面：辯論木人樁
+  - list 有資料，則預設顯示第一個；無資料，則預設顯示預設值
+
 ## [1.0.5] - 2025-06-23
 ### Changed
 - 頁面：自訂木人樁
