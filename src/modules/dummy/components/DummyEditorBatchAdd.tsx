@@ -125,17 +125,19 @@ const DummyEditorBatchAdd = (props: Props) => {
         error={columnContentsBatch.status.hasError}
         helperText={columnContentsBatch.status.message}
       />
-      <Button variant='outlined' fullWidth className='cut-button' color='secondary' disabled={!columnContentsBatch.value} onMouseDown={handleMouseDown} onClick={handleInsertCut}>
-        插入剪裁符 ✂
-      </Button>
       <div ref={ref}></div>
-      <div className={cx('buttons-group', {'floating': !isBottom })}>
-        <Button variant='outlined' fullWidth className='back-button' color='secondary' onClick={handleCancel}>
-          返回
+      <div className={cx('floating-box', {'floating': !isBottom })}>
+        <Button variant='outlined' fullWidth className='cut-button' color='secondary' disabled={!columnContentsBatch.value} onMouseDown={handleMouseDown} onClick={handleInsertCut}>
+          插入剪裁符 ✂
         </Button>
-        <Button variant='outlined' fullWidth className='save-button' onClick={handleSave}>
-          批量新增
-        </Button>
+        <div className='buttons-group'>
+          <Button variant='outlined' fullWidth className='back-button' color='secondary' onClick={handleCancel}>
+            返回
+          </Button>
+          <Button variant='outlined' fullWidth className='save-button' onClick={handleSave}>
+            批量新增
+          </Button>
+        </div>
       </div>
     </div>
   )
@@ -150,6 +152,7 @@ const style = css`
 
   .cut-button.MuiButton-root,
   .cut-button.MuiButton-root:hover {
+    
     margin-top: 15px;
     font-size: 18px;
   }
@@ -167,20 +170,22 @@ const style = css`
       width: 100%;
       font-size: 18px;
     }
+  }
+
+  .floating-box {
+    width: 100%;
+    margin: 0 auto;
 
     &.floating {
-      margin: 0 auto;
-      width: 100%;
-      max-width: 500px;
-      box-sizing: border-box;
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 20px 16px;
       background-color: ${styleSettingColor.gray}db;
+      max-width: 500px;
+      box-sizing: border-box;
+      padding: 0px 16px;
       border-top: 1px solid #ccc;
-      text-align: center;
       z-index: 1000;
     }
   }

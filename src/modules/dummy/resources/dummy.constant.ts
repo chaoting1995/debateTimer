@@ -18,24 +18,24 @@ export const DEFAULT_DUMMY_CONTENTS: Array<DummyContent> = [
   {
     id: 'debate-dummy-content-001',
     disabled: false,
-    content: '內容 1'
+    content: '攻防內容 1'
   },
   {
     id: 'debate-dummy-content-002',
     disabled: false,
-    content: '內容 2'
+    content: '攻防內容 2'
   }
 ]
 
 export const DEFAULT_DUMMYS: Array<Dummy> = [
   {
     id: 'debate-dummy-001',
-    name: '正方論點集',
+    name: '2025ＸＸ盃-正方論點(範例)',
     contents: JSON.parse(JSON.stringify(DEFAULT_DUMMY_CONTENTS)),
   },
   {
     id: 'debate-dummy-002',
-    name: '反方論點集',
+    name: '2025ＸＸ盃-反方論點(範例)',
     contents: JSON.parse(JSON.stringify(DEFAULT_DUMMY_CONTENTS)),
   }
 ]
