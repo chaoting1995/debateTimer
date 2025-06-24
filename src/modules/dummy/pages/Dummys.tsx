@@ -80,7 +80,11 @@ const Dummys: React.FC = () => {
               <div className='item-name'>{item.name}</div>
             </ListItemButton>
             <ListItemSecondaryAction className='item-actions'>
-              <div className='contents-amount'>{item.contents.length}</div>
+              <div className='contents-amount'>{
+              item.contents.length <= 99
+                ? item.contents.length
+                : '99+'
+              }</div>
               <IconButton 
                 component={Link} 
                 to={ServiceRoute.toPageLinkWithParams(pageLinks.dummyEditID, { id: item.id })}
