@@ -18,7 +18,12 @@ const Dummy: React.FC = () => {
   const [innerHeight] = useInnerHeight();
   const { id } = useParams<{ id: string }>();
   const dummysProvider = useDummys();
-  const [dummy, setDummy] = React.useState<TypeDummy>(DEFAULT_DUMMY);
+  // list 有資料，則預設顯示第一個；無資料，則預設顯示預設值
+  const [dummy, setDummy] = React.useState<TypeDummy>(
+    dummysProvider.list.length === 0 
+    ? DEFAULT_DUMMY 
+    : dummysProvider.list[0]
+  );
 
   React.useEffect(() => {
     if (!id) return;

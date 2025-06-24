@@ -22,7 +22,12 @@ const Timer: React.FC = () => {
   const [innerHeight] = useInnerHeight();
   const { id } = useParams<{ id: string }>();
   const { list: timers, getItem: getTimerItem } = useTimers();
-  const [timer, setTimer] = React.useState<TypeTimer>(timers.length === 0 ? DEFAULT_TIMER : timers[0]);
+  // list 有資料，則預設顯示第一個；無資料，則預設顯示預設值
+  const [timer, setTimer] = React.useState<TypeTimer>(
+    timers.length === 0 
+    ? DEFAULT_TIMER 
+    : timers[0]
+  );
 
   const creator: Record<EnumTimerMode, React.ReactNode> = {
     [EnumTimerMode.Normal]: <TimerModeNormal timer={timer} className='timer-mode' />,
