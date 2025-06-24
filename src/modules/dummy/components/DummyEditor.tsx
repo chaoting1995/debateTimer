@@ -160,27 +160,6 @@ const DummyEditor = (props: Props) => {
     return isValid;
   }, [columnContents]);
 
-  const handleSave = React.useCallback(() => {
-    let isValid = true;
-    if (!columnName.onVarify()) isValid = false;
-    if (!customVarifyContents()) isValid = false;
-    if (!isValid) return;
-
-    // formDummy 物件，轉換成 dummy 物件
-    const newDummy: Dummy = {
-      id: props.dummy?.id || `debate-dummy-${uuidv4()}`,
-      name: columnName.value,
-      contents: columnContents.map(item => ({
-        id: item.id,
-        disabled: item.disabled,
-        content: item.content,
-      } as DummyContent)),
-    };
-
-    props.onSave(newDummy);
-    popup.notice({ message: '儲存成功', duration: 1000 });
-  }, [columnName, columnContents, customVarifyContents, props, popup]);
-
   const handleBack = React.useCallback(async () => {
     if (!isEdited) {
       navigae(pageLinks.dummys);
@@ -195,6 +174,27 @@ const DummyEditor = (props: Props) => {
     
     navigae(pageLinks.dummys);
   }, [navigae, isEdited, popup]);
+
+  const handleSave = React.useCallback(() => {
+    let isValid = true;
+    if (!columnName.onVarify()) isValid = false;
+    if (!customVarifyContents()) isValid = false;
+    if (!isValid) return;
+
+    // formDummy 物件，轉換成 dummy 物件
+    const newDummy: Dummy = {
+      id: props.dummy?.id || `debate-dummy-${uuidv4()}`,
+      name: columnName.value,
+      contents: columnContents.map(item => ({
+        id: item.id,
+        disabled: item.disabled,
+        content: item.content.trim(),
+      } as DummyContent)),
+    };
+
+    props.onSave(newDummy);
+    popup.notice({ message: '儲存成功', duration: 1000 });
+  }, [columnName, columnContents, customVarifyContents, props, popup]);
 
   React.useEffect(() => {
     const newColumnContents = props.dummy.contents.map(item => ({
