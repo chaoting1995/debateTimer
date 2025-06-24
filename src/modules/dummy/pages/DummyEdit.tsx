@@ -40,7 +40,7 @@ const DummyEdit: React.FC = () => {
   }, [id, dummysProvider, location.pathname]);
 
   return <Layout 
-    title={PAGE_TITLE.dummyEdit} 
+    title={!dummy.id ? PAGE_TITLE.dummyAdd : PAGE_TITLE.dummyEdit} 
     mainClassName={cx('DT-DummyEdit', style(innerHeight))}
     renderButtons={
       <IconButton component={Link} to={pageLinks.dummys}>

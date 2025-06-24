@@ -123,6 +123,11 @@ export const DEFAULT_TOPIC_COMPLETE_FROM_CSV = [
     "category": "有關社會"
   },
   {
+    "id": "topic-complete-society-001",
+    "name": "人有沒有表達偏見的自由",
+    "category": "有關社會"
+  },
+  {
     "id": "topic-complete-025",
     "name": "高中國文教育應以白話文/文言文為主",
     "category": "有關高中生"
@@ -229,138 +234,168 @@ export const DEFAULT_TOPIC_COMPLETE_FROM_CSV = [
   },
   {
     "id": "topic-complete-046",
+    "name": "面對不公，用魔法對付魔法，是不是好手段",
+    "category": "道德難題"
+  },
+  {
+    "id": "topic-complete-047",
     "name": "愛是自私的/無私的",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-047",
+    "id": "topic-complete-048",
     "name": "情侶是/不是工作上的好搭檔",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-048",
+    "id": "topic-complete-049",
     "name": "橫刀奪愛沒錯/有錯",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-049",
+    "id": "topic-complete-050",
     "name": "愛人/被愛更幸福",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-050",
+    "id": "topic-complete-051",
     "name": "情侶分手後應維持友誼/斷絕往來",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-051",
+    "id": "topic-complete-052",
     "name": "愛情關係中，第三者應/不應被譴責",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-052",
+    "id": "topic-complete-053",
     "name": "斷崖式的分手／藕斷絲連的分手，是更糟糕的愛情",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-053",
+    "id": "topic-complete-054",
     "name": "純愛戰士值得／不值得歌頌",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-054",
+    "id": "topic-complete-055",
     "name": "網際網路使人際關係更緊密/更疏遠",
     "category": "人際關係"
   },
   {
-    "id": "topic-complete-055",
+    "id": "topic-complete-056",
     "name": "人際交往中，隱忍/坦率更能消除矛盾",
     "category": "人際關係"
   },
   {
-    "id": "topic-complete-056",
+    "id": "topic-complete-057",
     "name": "超能力是人類的福音/災難",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-057",
+    "id": "topic-complete-058",
     "name": "預知未來是快樂的/痛苦的",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-058",
+    "id": "topic-complete-059",
     "name": "時光機對人類利大於弊/弊大於利",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-059",
+    "id": "topic-complete-060",
     "name": "長生不老對人類利大於弊/弊大於利",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-060",
+    "id": "topic-complete-061",
     "name": "如果你有超能力，可以讓你愛的人也愛你，你要／不要使用",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-061",
+    "id": "topic-complete-062",
     "name": "網路匿名性發言對台灣利大於弊/弊大於利",
     "category": "科技議題"
   },
   {
-    "id": "topic-complete-062",
+    "id": "topic-complete-063",
     "name": "人工智能對人類利大於弊/弊大於利",
     "category": "科技議題"
   },
   {
-    "id": "topic-complete-063",
+    "id": "topic-complete-064",
     "name": "生成式AI 加強/阻礙學生學習能力",
     "category": "科技議題"
   },
   {
-    "id": "topic-complete-064",
+    "id": "topic-complete-065",
     "name": "哆啦A夢是大雄的益友/損友",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-065",
+    "id": "topic-complete-066",
     "name": "變成泡沫前人魚公主應/不應該刺死王子",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-066",
+    "id": "topic-complete-067",
     "name": "高譚市需/不需要蝙蝠俠",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-067",
+    "id": "topic-complete-068",
     "name": "超級英雄註冊法案利大於弊/弊大於利",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-068",
+    "id": "topic-complete-069",
     "name": "兩津勘吉是/不是好警察",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-069",
+    "id": "topic-complete-070",
     "name": "如果九九八十一難的最後一難是吃肉，唐僧應／不應該拒絕",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-070",
+    "id": "topic-complete-071",
     "name": "文化傳承更重要/文化創新更重要",
     "category": "文化議題"
   },
   {
-    "id": "topic-complete-071",
+    "id": "topic-complete-072",
     "name": "傳統文化商業化有助於/無助於文化傳承",
     "category": "文化議題"
   },
   {
-    "id": "topic-complete-072",
+    "id": "topic-complete-073",
     "name": "項羽應該東山再起/烏江自刎",
     "category": "歷史假想"
+  },
+  {
+    "id": "topic-complete-074",
+    "name": "我不想被生下來，有／沒有資格究責我的父母",
+    "category": "道德難題"
+  },
+  {
+    "id": "topic-complete-075",
+    "name": "代溝問題中，應由長輩／晚輩主動化解",
+    "category": "人際關係"
+  },
+  {
+    "id": "topic-complete-076",
+    "name": "當代年輕人更應承擔責任／追求理想",
+    "category": "人生觀"
+  },
+  {
+    "id": "topic-complete-077",
+    "name": "在AI時代，辯論人有／沒有更強",
+    "category": "科技議題"
+  },
+  {
+    "id": "topic-complete-078",
+    "name": "在AI時代，建構／解構能力更重要",
+    "category": "科技議題"
   }
 ];
 
