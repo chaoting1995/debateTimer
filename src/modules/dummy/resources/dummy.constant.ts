@@ -14,7 +14,7 @@ export const DEFAUT_DUMMY_CONTENT: DummyContent = {
   content: ''
 }
 
-export const DEFAULT_DUMMY_CONTENTS: Array<DummyContent> = [
+export const DEFAULT_DUMMY_CONTENTS: DummyContent[] = [
   {
     id: 'debate-dummy-content-001',
     disabled: false,
@@ -27,7 +27,7 @@ export const DEFAULT_DUMMY_CONTENTS: Array<DummyContent> = [
   }
 ]
 
-export const DEFAULT_DUMMYS: Array<Dummy> = [
+export const DEFAULT_DUMMYS: Dummy[] = [
   {
     id: 'debate-dummy-001',
     name: '2025ＸＸ盃-正方論點(範例)',

@@ -13,7 +13,7 @@ const CustomizedButton = <C extends React.ElementType>(props: Props<C>) => {
   return (
     <Button
       {...props}
-      className={cx(style, props.className)}
+      className={cx('DT-Button', style, props.className)}
       startIcon={props.loading ? <CircularProgress color='inherit' size={24} /> : props.startIcon}
     >
       {props.children}

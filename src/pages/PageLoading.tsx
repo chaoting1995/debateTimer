@@ -1,15 +1,15 @@
-import React from "react";
-import { css, cx } from "@emotion/css";
-import { PuffLoader } from "react-spinners";
+import React from 'react';
+import { css, cx } from '@emotion/css';
+import { PuffLoader } from 'react-spinners';
 
-import useInnerHeight from "hooks/useInnerHeight";
+import useInnerHeight from 'hooks/useInnerHeight';
 
-import { styleSettingColor } from "styles/variables.style";
+import { styleSettingColor } from 'styles/variables.style';
 
 const PageLoading = () => {
   const [innerHeight] = useInnerHeight();
 
-  return <div className={cx("DD-PageLoading", style(innerHeight))}>
+  return <div className={cx('DT-PageLoading', style(innerHeight))}>
     <PuffLoader color={styleSettingColor.primary} />
   </div>;
 };

@@ -5,7 +5,7 @@ import { PAGE_LINK } from 'routes/route.constants';
 import NotFound from 'pages/NotFound';
 import { Timers, Timer } from 'modules/timer';
 import { TopicCreator } from 'modules/topic';
-import { TopicList } from 'modules/topic';
+import { Walle, Walles, WalleEdit } from 'modules/walle';
 import { Listening, Listenings } from 'modules/listening';
 import { Dummys, Dummy, DummyEdit } from 'modules/dummy';
 // import Maintenance = from /'pages/Maintenance/Maintenance';
@@ -35,10 +35,26 @@ const routes: Array<RouteObject> = [
     path: PAGE_LINK.topicCreator,
     element: <TopicCreator />,
   },
-  // {
-  //   path: PAGE_LINK.topicCreator,
-  //   element: <TopicList />,
-  // },
+  {
+    path: PAGE_LINK.walle,
+    element: <Walle />,
+  },
+  {
+    path: PAGE_LINK.walleID,
+    element: <Walle />,
+  },
+  {
+    path: PAGE_LINK.walles,
+    element: <Walles />,
+  },
+  {
+    path: PAGE_LINK.walleAdd,
+    element: <WalleEdit />,
+  },
+  {
+    path: PAGE_LINK.walleEditID,
+    element: <WalleEdit />,
+  },
   {
     path: PAGE_LINK.listening,
     element: <Listening />,

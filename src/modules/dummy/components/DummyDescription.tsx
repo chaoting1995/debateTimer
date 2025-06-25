@@ -23,10 +23,9 @@ export default DummyDescription;
 
 const style = css`
   width: 100%;
-  margin-bottom: 16px;
   padding: 16px;
-  padding-top: 10px;
   box-sizing: border-box;
+  margin-bottom: 16px;
   background-color: ${styleSettingColor.background.light};
   
   .info-name {

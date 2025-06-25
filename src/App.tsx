@@ -6,6 +6,7 @@ import routes from 'routes';
 import PageLoading from 'pages/PageLoading';
 import TimersProvider from 'modules/timer/context/Timers/Timers.provider';
 import TopicProvider from 'modules/topic/context/Topic/Topic.provider';
+import WallesProvider from 'modules/walle/context/Walles/Walles.provider';
 import DummysProvider from 'modules/dummy/context/Dummys/Dummys.provider';
 import ListeningsProvider from 'modules/listening/context/Listenings/Listenings.provider';
 // import OfflineHandle from 'components/OfflineHandle';
@@ -38,6 +39,7 @@ function App() {
           <ThemeProvider theme={theme}>
             <PopupProvider>
               <TopicProvider>
+                <WallesProvider>
                 <TimersProvider>
                   <ListeningsProvider>
                     <DummysProvider>
@@ -45,6 +47,7 @@ function App() {
                     </DummysProvider>
                   </ListeningsProvider>
                 </TimersProvider>
+                </WallesProvider>
               </TopicProvider>
             </PopupProvider>
           </ThemeProvider>

@@ -123,11 +123,6 @@ export const DEFAULT_TOPIC_COMPLETE_FROM_CSV = [
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-society-001",
-    "name": "人有沒有表達偏見的自由",
-    "category": "有關社會"
-  },
-  {
     "id": "topic-complete-025",
     "name": "高中國文教育應以白話文/文言文為主",
     "category": "有關高中生"
@@ -396,6 +391,16 @@ export const DEFAULT_TOPIC_COMPLETE_FROM_CSV = [
     "id": "topic-complete-078",
     "name": "在AI時代，建構／解構能力更重要",
     "category": "科技議題"
+  },
+  {
+    "id": "topic-complete-079",
+    "name": "人有沒有表達偏見的自由",
+    "category": "有關社會"
+  },
+  {
+    "id": "topic-complete-080",
+    "name": "注定分開的愛情還要不要開始",
+    "category": "情愛議題"
   }
 ];
 

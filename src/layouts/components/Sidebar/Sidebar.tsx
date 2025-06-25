@@ -17,7 +17,7 @@ type Props = {
 const Sidebar = (props: Props) => {
   return (
     <SwipeableDrawer
-      className={cx('DD-Sidebar', style, props.className)}
+      className={cx('DT-Sidebar', style, props.className)}
       anchor='right'
       open={props.open}
       onClose={props.onClose}

@@ -1,33 +1,33 @@
-import React from "react";
-import { css, cx } from "@emotion/css";
+import React from 'react';
+import { css, cx } from '@emotion/css';
 
-import useInnerHeight from "hooks/useInnerHeight";
-import ImgMaintenance from "assets/img-maintenance.svg?react";
+import useInnerHeight from 'hooks/useInnerHeight';
+import ImgMaintenance from 'assets/img-maintenance.svg?react';
 
-import basicStyle from "styles/basic.style";
-import { styleSettingColor } from "styles/variables.style";
-import { styleContainerSection } from "styles/page.style";
+import basicStyle from 'styles/basic.style';
+import { styleSettingColor } from 'styles/variables.style';
+import { styleContainerSection } from 'styles/page.style';
 
 const Maintenance = () => {
   const [innerHeight] = useInnerHeight();
 
   return (
-    <div className={cx("DD-Maintenance", style(innerHeight))}>
+    <div className={cx('DT-Maintenance', style(innerHeight))}>
       <main>
         <h1>We are</h1>
         <h2>Under Maintenance</h2>
-        <div className="dd-divider" />
-        <div className="info-box">
+        <div className='dd-divider' />
+        <div className='info-box'>
           <p>⚒️ DefiDolly is temporarily under maintenance</p>
           <p>❤️ Dear DefiDolly Community! We apologize for the inconvenience but a bit of time is needed to fix some issues!</p>
           <p>We'll return soon! We ask for your support and patience until the issues are being resolved fully.</p>
           <p>Contact us:&nbsp;
-            <a href="mailto:info@defidolly.org">
+            <a href='mailto:info@defidolly.org'>
               info@defidolly.org
             </a>
           </p>
         </div>
-        <div className="img-box">
+        <div className='img-box'>
           <ImgMaintenance />
         </div>
       </main>

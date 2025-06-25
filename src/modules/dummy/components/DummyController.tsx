@@ -36,12 +36,12 @@ const DummyController = (props: Props) => {
       <CircleButton onClick={handleSpin} disabled={props.disabledOnSpin}>
         <ArrowsClockwise size={40} weight='thin'/>
       </CircleButton>
-          <CircleButton onClick={handleToggleMuteSpeech()}>
-            {props.isSpeech 
-              ? <UserSound size={40} weight='thin'/> 
-              : <UserMinus size={40} weight='thin'/>
-            }
-          </CircleButton>
+      <CircleButton onClick={handleToggleMuteSpeech()}>
+        {props.isSpeech 
+          ? <UserSound size={40} weight='thin'/> 
+          : <UserMinus size={40} weight='thin'/>
+        }
+      </CircleButton>
     </div>
   );
 };

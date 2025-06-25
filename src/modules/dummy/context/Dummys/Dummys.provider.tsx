@@ -12,11 +12,6 @@ type Props = {
 const DummysProvider = (props: Props) => {
   const [list, setList] = React.useState<Dummy[]>([]);
 
-  React.useEffect(() => {
-    const _list = ResourceDummy.getDummys();
-    setList(_list);
-  }, []);
-
   const addItem = React.useCallback((newItem: Dummy) => {
     const _list = ResourceDummy.getDummys();
     _list.push(newItem);
@@ -83,6 +78,11 @@ const DummysProvider = (props: Props) => {
     setList(_list);
   }, []);
   
+  React.useEffect(() => {
+    const _list = ResourceDummy.getDummys();
+    setList(_list);
+  }, []);
+
   return (
     <DummysContext.Provider value={{ list, addItem, getItem, editItem, deleteItem, reorderList, toggleItemDisabled }}>
       {props.children}

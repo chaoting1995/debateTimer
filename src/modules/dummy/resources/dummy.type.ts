@@ -9,3 +9,10 @@ export type DummyContent = {
   disabled: boolean;
   content: string;
 }
+
+/*
+dummys        攻防群組，列表
+dummy         攻防群組
+dummyContents 攻防子項，列表
+dummyContent  攻防子項
+*/

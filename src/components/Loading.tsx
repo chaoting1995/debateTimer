@@ -1,15 +1,15 @@
-import React from "react";
-import { css, cx } from "@emotion/css";
-import { PuffLoader } from "react-spinners";
+import React from 'react';
+import { css, cx } from '@emotion/css';
+import { PuffLoader } from 'react-spinners';
 
-import { styleSettingColor } from "styles/variables.style";
+import { styleSettingColor } from 'styles/variables.style';
 
 type Props = {
   className?: string;
 };
 
 const Loading = (props: Props) => {
-  return <div className={cx("DD-Loading", style, props.className)}>
+  return <div className={cx('DT-Loading', style, props.className)}>
     <PuffLoader color={styleSettingColor.background.dark} />
   </div>;
 };

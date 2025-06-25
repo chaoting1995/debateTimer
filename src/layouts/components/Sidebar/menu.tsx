@@ -19,6 +19,11 @@ const menu: Array<SidebarMenuItem> = [
     path: pageLinks.topicCreator,
     icon: <ChatsCircle />,
   },
+  {
+    label: PAGE_TITLE.walle + 1,
+    path: pageLinks.walle,
+    icon: <ChatsCircle />,
+  },
 ];
 
 export default menu;

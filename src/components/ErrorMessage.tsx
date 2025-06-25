@@ -1,9 +1,9 @@
-import React from "react";
-import { cx, css } from "@emotion/css";
-import { Button } from "@mui/material";
+import React from 'react';
+import { cx, css } from '@emotion/css';
+import { Button } from '@mui/material';
 
-import ImgError from "assets/img-error.svg?react";
-import { styleSettingColor } from "styles/variables.style";
+import ImgError from 'assets/img-error.svg?react';
+import { styleSettingColor } from 'styles/variables.style';
 
 type PropsComponentErrorMessage = {
   className?: string;
@@ -17,24 +17,24 @@ type PropsComponentErrorMessage = {
 
 const ErrorMessage = (props: PropsComponentErrorMessage) => {
 
-  return <div className={cx("DD-ErrorMessage", style, props.className)}>
-    <div className="dd-error-message-img-box">
+  return <div className={cx('DT-ErrorMessage', style, props.className)}>
+    <div className='dd-error-message-img-box'>
       <ImgError />
     </div>
-    <div className="dd-error-message-info-box">
+    <div className='dd-error-message-info-box'>
       {props.title &&
-        <div className="dd-error-message-title">
+        <div className='dd-error-message-title'>
           {props.title}
         </div>}
       {props.message &&
-        <div className="dd-error-message-description">
+        <div className='dd-error-message-description'>
           {props.message}
         </div>}
     </div>
-    <div className="dd-error-message-button-box">
+    <div className='dd-error-message-button-box'>
       {props.onRetry &&
-        <Button variant="contained" disabled={props.disabled} onClick={props.onRetry} >
-          {props.buttonRetryLabel || "Retry"}
+        <Button variant='contained' disabled={props.disabled} onClick={props.onRetry} >
+          {props.buttonRetryLabel || 'Retry'}
         </Button>}
       {props.renderButton && props.renderButton()}
     </div>

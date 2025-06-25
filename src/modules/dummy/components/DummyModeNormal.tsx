@@ -1,12 +1,11 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
-import { CardActionArea } from '@mui/material';
 
 import useDialog from 'hooks/useDialog';
 import useSlotMachine from 'modules/dummy/hooks/useSlotMachine';
 import UtilAudio from 'utils/audio';
 import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
-import { BottomDrawer } from 'components';
+import { BottomDrawer, CardActionArea } from 'components';
 import { DummyDescription, DummyController, DummyContentListDrawer } from 'modules/dummy';
 import { EMPTY_DUMMY_CONTENT } from 'modules/dummy/resources/dummy.constant';
 import ServiceUtil from 'services/util.service';
@@ -43,15 +42,13 @@ const DummyModeNormal = (props: Props) => {
 
   return <div className={cx('DT-DummyModeNormal', style, props.className)}>
     <div className='top-section'>
-      <div className='dummy-contnet-box'>
-        <CardActionArea disabled={Boolean(props.dummy.contents.length === 0)} onClick={handleClickDummyContentBox}>
-          {props.dummy.contents.length === 0 
-            ? EMPTY_DUMMY_CONTENT.content
-            : slotMachine.enableDummyContents.length === 0
-              ? '(尚無可見的攻防)'
-              : slotMachine.dummyContent?.content || EMPTY_DUMMY_CONTENT.content}
-        </CardActionArea>
-      </div>
+      <CardActionArea disabled={Boolean(props.dummy.contents.length === 0)} onClick={handleClickDummyContentBox}>
+        {props.dummy.contents.length === 0 
+          ? EMPTY_DUMMY_CONTENT.content
+          : slotMachine.enableDummyContents.length === 0
+            ? '(尚無可見的攻防)'
+            : slotMachine.dummyContent?.content || EMPTY_DUMMY_CONTENT.content}
+      </CardActionArea>
     </div>
     <div className='bottom-section'>
       <DummyDescription dummy={props.dummy} />
@@ -86,27 +83,5 @@ const style = css`
   
   .bottom-section {
     width: 100%;
-  }
-
-  .dummy-contnet-box {
-    width: 100%;
-
-    .MuiCardActionArea-root {
-      width: 100%;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      padding: 10px;
-      box-sizing: border-box;
-      border-radius: 15px;
-      font-size: 30px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      white-space: pre-line;
-
-      &.Mui-disabled {
-        opacity: 0.5, font 1;
-      }
-    }
   }
 `;

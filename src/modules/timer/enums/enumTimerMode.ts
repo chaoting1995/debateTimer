@@ -1,6 +1,6 @@
 export enum EnumTimerMode {
-  Normal = "normal",
-  Crossfire = "crossfire"
+  Normal = "normal",       // 一般辯論
+  Crossfire = "crossfire"  // 自由辯論
 }
 
 

@@ -1,7 +1,7 @@
 import ReactGA from 'react-ga4';
 import env from 'modules/env/env';
 
-import ga4EventConfig from 'modules/ga4/ga4EventConfig.constants';
+import ga4EventConfig from 'modules/ga4/ga4EventConfig.generate';
 
 export const init = () => {
   return ReactGA.initialize(env.evaluationID);

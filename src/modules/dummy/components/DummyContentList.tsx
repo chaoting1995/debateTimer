@@ -27,8 +27,7 @@ const { id } = useParams<{ id: string }>();
   },[props]);
 
   const handleToggleDummyDisabled = React.useCallback((contentID: string) => () => {
-    if (!id) return;
-    dummysProvider.toggleItemDisabled(id, contentID);
+    dummysProvider.toggleItemDisabled(id ? id : dummysProvider.list[0].id, contentID);
   }, [id, dummysProvider])
 
   if (props.dummyContents.length === 0 && !props.hideEmptyBox) {
@@ -49,7 +48,7 @@ const { id } = useParams<{ id: string }>();
             <div className='item-name'>{item.content}</div>
           </ListItemButton>
           <ListItemSecondaryAction className='item-actions'>
-            <IconButton disabled={!id} onClick={handleToggleDummyDisabled(item.id)}>
+            <IconButton onClick={handleToggleDummyDisabled(item.id)}>
               {item.disabled ? (
                 <EyeSlash size={26} weight='light' />
               ) : (

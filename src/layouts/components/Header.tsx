@@ -29,7 +29,7 @@ const Header = (props: Props) => {
   };
 
   return (
-    <header className={cx('DD-Header', style(isTop))}>
+    <header className={cx('DT-Header', style(isTop))}>
       <div className='header-fixed'>
         <div className='header-container'>
           <div className='header-to-home'>

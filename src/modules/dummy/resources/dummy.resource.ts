@@ -4,7 +4,7 @@ import { Dummy } from 'modules/dummy/resources/dummy.type';
 
 const getDummys = (): Dummy[] => {
   const jsonString = localStorage.getItem(DT_LOCALSTORAGE_KEY_DUMMYS);
-  if (!jsonString) return DEFAULT_DUMMYS;
+  if (!jsonString) return JSON.parse(JSON.stringify(DEFAULT_DUMMYS));
   return FactoryDummy.createDummys(JSON.parse(jsonString));
 };
 

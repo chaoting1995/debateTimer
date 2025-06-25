@@ -1,28 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { css, cx } from "@emotion/css";
-import { Button } from "@mui/material";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { css, cx } from '@emotion/css';
+import { Button } from '@mui/material';
 
-import useInnerHeight from "hooks/useInnerHeight";
+import useInnerHeight from 'hooks/useInnerHeight';
 
-import basicStyle from "styles/basic.style";
-import { styleSettingColor } from "styles/variables.style";
-import { styleContainerSection } from "styles/page.style";
-import { pageLinks } from "routes/route.constants";
+import basicStyle from 'styles/basic.style';
+import { styleSettingColor } from 'styles/variables.style';
+import { styleContainerSection } from 'styles/page.style';
+import { pageLinks } from 'routes/route.constants';
 
 const NotFound = () => {
   const [innerHeight] = useInnerHeight();
 
-  return <div className={cx("DD-NotFound", style(innerHeight))}>
+  return <div className={cx('DT-NotFound', style(innerHeight))}>
     <main>
       <h1>404</h1>
       <h2>Page Not Found</h2>
-      <div className="dd-divider" />
-      <div className="info-box">
+      <div className='dd-divider' />
+      <div className='info-box'>
         <p>We could not find what you were looking for.</p>
         <p>Please contact the owner of the site that linked you to the original URL and let them know their link is broken.</p>
       </div>
-      <Button variant="outlined" component={Link} to={pageLinks.timer} >Back to home</Button>
+      <Button variant='outlined' component={Link} to={pageLinks.timer} >Back to home</Button>
     </main>
   </div>;
 };
