@@ -13,7 +13,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -b master -d build",
     "ga-config": "node create-ga-config.cjs",
-    "create-topic": "node create-topic.cjs"
+    "create-walle": "node create-walle.cjs"
   },
   "dependencies": {
     "@emotion/css": "^11.11.2",

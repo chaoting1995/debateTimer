@@ -8,7 +8,7 @@ import { DummyEditor } from 'modules/dummy';
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import { pageLinks, PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/route.constants';
 import { Dummy as TypeDummy } from 'modules/dummy/resources/dummy.type';
-import { DEFAULT_DUMMY } from 'modules/dummy/resources/dummy.constant';
+import { DEFAULT_DUMMY, DUMMY_LABEL } from 'modules/dummy/resources/dummy.constant';
 import useInnerHeight from 'hooks/useInnerHeight';
 import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
@@ -40,7 +40,7 @@ const DummyEdit: React.FC = () => {
   }, [id, dummysProvider, location.pathname]);
 
   return <Layout 
-    title={!dummy.id ? PAGE_TITLE.dummyAdd : PAGE_TITLE.dummyEdit} 
+    title={!dummy.id ? `新增${DUMMY_LABEL}` : `編輯${DUMMY_LABEL}`} 
     mainClassName={cx('DT-DummyEdit', style(innerHeight))}
     renderButtons={
       <IconButton component={Link} to={pageLinks.dummys}>
@@ -48,7 +48,7 @@ const DummyEdit: React.FC = () => {
       </IconButton>
     }>
     <HeadTags 
-      title={`${PAGE_TITLE.dummy} | ${!dummy.id ? PAGE_TITLE.dummyAdd : PAGE_TITLE.dummyEdit}`} 
+      title={`${PAGE_TITLE.dummy} | ${!dummy.id ? `新增${DUMMY_LABEL}` : `編輯${DUMMY_LABEL}`}`} 
       description={PAGE_DESCRIPTION.dummy}
     />
     <DummyEditor dummy={dummy} className='dummy-mode' onSave={handleSave} />

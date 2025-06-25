@@ -5,20 +5,18 @@ import { TextField, IconButton } from '@mui/material';
 import { Trash, Eye, EyeSlash } from '@phosphor-icons/react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { pageLinks } from 'routes/route.constants';
 import usePopup from 'context/Popup/usePopup';
 import useDialog from 'hooks/useDialog';
 import useFormColumn from 'modules/form/useFormColumn';
+import useCopyDummy from 'modules/dummy/hooks/useCopyDummy';
+import { pageLinks } from 'routes/route.constants';
 import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
 import { styleSettingColor } from 'styles/variables.style';
 import { Status, STATUS_LOADED, STATUS_ERROR } from 'modules/form/form';
 import { Button } from 'components';
 import { DummyEditorBatchAdd } from 'modules/dummy';
-import useCopyDummy from 'modules/dummy/hooks/useCopyDummy';
 import { useFloatingButton } from 'hooks/useFloatingButton';
-
-const GROUP_TITLE = '攻防群組';
-const ITEM_TITLE = '攻防子項';
+import { DUMMY_LABEL, DUMMY_CONTENT_LABEL } from 'modules/dummy/resources/dummy.constant';
 
 export type ColumContentsItemWithStatus = {
   id: string;
@@ -44,7 +42,7 @@ const DummyEditor = (props: Props) => {
   const columnName = useFormColumn<string>({
     value: props.dummy.name,
     defaultValue: '',
-    placeholder: `請輸入${GROUP_TITLE}名稱`,
+    placeholder: `請輸入${DUMMY_LABEL}名稱`,
     verifyRules: { require: true },
   });
 
@@ -106,7 +104,7 @@ const DummyEditor = (props: Props) => {
 
   const handleDeleteContentItem = React.useCallback((contentID: string, index: number) => async () => {
     const isConfirm = await popup.confirm({ 
-      title: `確定刪除${ITEM_TITLE} ${index + 1} ?`,
+      title: `確定刪除${DUMMY_CONTENT_LABEL} ${index + 1} ?`,
     });
 
     if(!isConfirm) return;
@@ -247,7 +245,7 @@ const DummyEditor = (props: Props) => {
       {columnContents.map((item, index) => (
         <React.Fragment key={item.id}>
           <div className='content-action-group'>
-            <div className='content-title'>{`${ITEM_TITLE} ${index + 1}`}</div>
+            <div className='content-title'>{`${DUMMY_CONTENT_LABEL} ${index + 1}`}</div>
             <IconButton className='disabled-button' size='small' onClick={handleToggleContentItemDisabled(item.id)}>
               {item.disabled 
                 ? <EyeSlash size={25} weight='light'/> 
@@ -266,7 +264,7 @@ const DummyEditor = (props: Props) => {
               sx: { backgroundColor: 'white' },
             }}
             type='text'
-            placeholder={`請輸入${ITEM_TITLE}`}
+            placeholder={`請輸入${DUMMY_CONTENT_LABEL}`}
             value={item.content}
             onChange={handleChangeContents(item.id)}
             error={item.status.hasError}

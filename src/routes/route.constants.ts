@@ -25,18 +25,9 @@ export const pageLinks = Object.fromEntries(
 export const PAGE_TITLE = {
   timer: '辯論計時小幫手',
   timerWithVersion: '辯論計時小幫手 2.0',
-  timers: '自訂計時器',
-  timerAdd: '新增計時器',
-  timerEdit: '編輯計時器',
-  topicCreator: '瓦力二號',
+  topicCreator: '瓦力二號', // TODO
   dummy: '辯論木人樁',
-  dummys: '自訂木人樁',
-  dummyAdd: '新增木人樁',
-  dummyEdit: '編輯木人樁',
   walle: '瓦力二號',
-  walles: '自訂瓦力二號',
-  walleAdd: '新增瓦力二號',
-  walleEdit: '編輯瓦力二號',
   listening: '戰場判斷小幫手',
   listenings: '戰場判斷 歷史紀錄',
 };

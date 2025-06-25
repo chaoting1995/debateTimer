@@ -23,7 +23,7 @@ import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 import useDialog from 'hooks/useDialog';
 import { BottomDrawerHeader, BottomDrawerBody, Button } from 'components';
 import { TimerEditorSetting } from 'modules/timer';
-import { PAGE_TITLE } from 'routes/route.constants';
+import { TIMER_LABEL } from 'modules/timer/resources/timer.constant';
 
 type ColumRingItemWithStatus = {
   id: string;
@@ -256,7 +256,7 @@ const TimerEditor = (props: Props) => {
   return (
     <div className={cx('DT-TimerEditor', style, props.className)}>
       <BottomDrawerHeader
-        children={!props.timer.id ? PAGE_TITLE.timerAdd : PAGE_TITLE.timerEdit}
+        children={!props.timer.id ? `新增${TIMER_LABEL}` : `編輯${TIMER_LABEL}`}
         rightSide={
           <IconButton onClick={handleOpenSettingWithTraking}>
             <Gear size={28} weight='light' />

@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { Walle } from 'modules/walle/resources/walle.type';
-import ResourceWalle from 'modules/walle/resources/walle.resource';
-
 import { WallesContext } from './Walles.context';
+import { FixedWalleSetting } from 'modules/walle/resources/fixedWalle.type';
+import ResourceWalle from 'modules/walle/resources/walle.resource';
+import ResourceFixedWalle from 'modules/walle/resources/fixedWalle.resource';
 
 type Props = {
   children: React.ReactNode;
@@ -11,6 +12,9 @@ type Props = {
 
 const WallesProvider = (props: Props) => {
   const [list, setList] = React.useState<Walle[]>([]);
+  
+  const fixedWalleSetting: FixedWalleSetting = ResourceFixedWalle.getFixedWalleSetting();
+  const [fiexedWalleDisableds, setFiexedWalleDisabled] = React.useState<string[]>(fixedWalleSetting.disableds);
 
   const addItem = React.useCallback((newItem: Walle) => {
     const _list = ResourceWalle.getWalles();
@@ -77,13 +81,28 @@ const WallesProvider = (props: Props) => {
     setList(_list);
   }, []);
   
+  const toggleFiexedWalleDisabled = React.useCallback((walleContentID: string, disabled: boolean) => {
+    console.log('walleContentID', walleContentID, 'disabled', disabled);
+    setFiexedWalleDisabled([]);
+  }, []);
+
   React.useEffect(() => {
     const _list = ResourceWalle.getWalles();
     setList(_list);
   }, []);
   
   return (
-    <WallesContext.Provider value={{ list, addItem, getItem, editItem, deleteItem, reorderList, toggleItemDisabled }}>
+    <WallesContext.Provider value={{ 
+      list, 
+      addItem, 
+      getItem, 
+      editItem, 
+      deleteItem, 
+      reorderList, 
+      toggleItemDisabled,
+      fiexedWalleDisableds,
+      toggleFiexedWalleDisabled
+    }}>
       {props.children}
     </WallesContext.Provider>
   );

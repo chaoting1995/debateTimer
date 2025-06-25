@@ -33,7 +33,7 @@ const TimerEditorSetting = (props: Props) => {
       <BottomDrawerBody paddingTop paddingHorizental>
         <div className="setting-title">使用模板</div>
         <div className='template-button-group'>
-          {TEMPLATE_TIMERS.map((item) => (
+          {(JSON.parse(JSON.stringify(TEMPLATE_TIMERS)) as Timer[]).map((item) => (
             <Button key={item.name} variant='outlined' color="secondary" onClick={handleUseTemplateTimer(item)}>
               {item.name}
             </Button>

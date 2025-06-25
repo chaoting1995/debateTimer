@@ -8,7 +8,7 @@ import { WalleEditor } from 'modules/walle';
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import { pageLinks, PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/route.constants';
 import { Walle as TypeWalle } from 'modules/walle/resources/walle.type';
-import { DEFAULT_WALLE } from 'modules/walle/resources/walle.constant';
+import { DEFAULT_WALLE, WALLE_LABEL } from 'modules/walle/resources/walle.constant';
 import useInnerHeight from 'hooks/useInnerHeight';
 import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
@@ -40,7 +40,7 @@ const WalleEdit: React.FC = () => {
   }, [id, wallesProvider, location.pathname]);
 
   return <Layout 
-    title={!walle.id ? PAGE_TITLE.walleAdd : PAGE_TITLE.walleEdit} 
+    title={!walle.id ? `新增${WALLE_LABEL}` : `編輯${WALLE_LABEL}`} 
     mainClassName={cx('DT-WalleEdit', style(innerHeight))}
     renderButtons={
       <IconButton component={Link} to={pageLinks.walles}>
@@ -48,7 +48,7 @@ const WalleEdit: React.FC = () => {
       </IconButton>
     }>
     <HeadTags 
-      title={`${PAGE_TITLE.walle} | ${!walle.id ? PAGE_TITLE.walleAdd : PAGE_TITLE.walleEdit}`} 
+      title={`${PAGE_TITLE.walle} | ${!walle.id ? `新增${WALLE_LABEL}` : `編輯${WALLE_LABEL}`}`} 
       description={PAGE_DESCRIPTION.walle}
     />
     <WalleEditor walle={walle} className='walle-mode' onSave={handleSave} />

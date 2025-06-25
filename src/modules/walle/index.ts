@@ -2,6 +2,7 @@ export { default as FactoryWalle } from './resources/walle.factory';
 export { default as ResourceWalle } from './resources/walle.resource';
 
 export { default as Walle } from './pages/Walle';
+export { default as WalleModeComplete } from './components/WalleModeComplete';
 export { default as WalleModeCombined } from './components/WalleModeCombined';
 export { default as WalleDescription } from './components/WalleDescription';
 export { default as WalleController } from './components/WalleController';

@@ -10,8 +10,14 @@ export type Walle = {
 export type WalleContent = {
   id: string;
   disabled: boolean;
+  category: string;
   content: string;
 }
+
+export type WalleContentCategoryGroup = {
+  category: string;
+  walleContents: WalleContent[];
+};
 
 /*
 walles        攻防群組，列表

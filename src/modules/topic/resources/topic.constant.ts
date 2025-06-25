@@ -15,7 +15,6 @@ export const DEFAULT_TOPIC_SETTING : TopicSetting = {
 };
 
 export const DEFAULT_TOPIC_COMPLETE: Topic[] = DEFAULT_TOPIC_COMPLETE_FROM_CSV;
-  
 export const DEFAULT_TOPIC_COMBINED: Topic[] = DEFAULT_TOPIC_COMBINED_FROM_CSV;
 
 export const EMPTY_TOPIC: Topic = {

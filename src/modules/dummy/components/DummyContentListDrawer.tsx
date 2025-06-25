@@ -7,6 +7,7 @@ import { BottomDrawerHeader, BottomDrawerBody } from 'components';
 import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
 import useDialog from 'hooks/useDialog';
 import { DummyContentList, DummyContentListSetting } from 'modules/dummy';
+import { DUMMY_CONTENT_LABEL } from 'modules/dummy/resources/dummy.constant';
 // import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
@@ -41,7 +42,7 @@ const DummyContentListDrawer: React.FC<Props> = (props) => {
   return (
     <div className={cx('DT-DummyListDrawer', style, props.className)}>
       <BottomDrawerHeader
-        children='攻防列表'
+        children={`${DUMMY_CONTENT_LABEL}列表`}
         rightSide={
           <IconButton onClick={handleOpenSettingWithTraking}>
             <Gear size={28} weight='light'/>

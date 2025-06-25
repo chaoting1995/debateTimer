@@ -9,6 +9,8 @@ export type WallesContextType = {
   deleteItem: (id: string) => void;
   reorderList: (sourceIndex: number, destinationIndex: number) => void;
   toggleItemDisabled: (id: string, contentID: string) => void;
+  fiexedWalleDisableds: string[];
+  toggleFiexedWalleDisabled: (walleContentID: string, disabled: boolean) => void;
 };
 
 export const WallesContext = React.createContext({} as WallesContextType);

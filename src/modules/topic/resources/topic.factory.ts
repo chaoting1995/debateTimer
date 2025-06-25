@@ -56,7 +56,6 @@ export const topicCategoryGroups = (topics: Topic[]): TopicCategoryGroup[] => {
   }, []);
 };
 
-
 export const createTopicCategoryGroups = (topics: Topic[]): TopicCategoryGroup[] => {
   return topics.reduce((acc: TopicCategoryGroup[], topicItem: Topic) => {
     // 尋找是否已有相同類別的物件

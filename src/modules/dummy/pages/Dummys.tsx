@@ -15,6 +15,7 @@ import useDummys from 'modules/dummy/context/Dummys/useDummys';
 import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
 import { Button } from 'components';
+import { DUMMY_LABEL } from 'modules/dummy/resources/dummy.constant';
 
 const ITEM_NAME = '木人樁';
 
@@ -41,18 +42,15 @@ const Dummys: React.FC = () => {
 
   return <Layout
     mainClassName={cx('DT-Dummys', style)}
-    title={PAGE_TITLE.dummys}
+    title={`自訂${DUMMY_LABEL}`}
     homeLink={pageLinks.dummy}
     renderButtons={
-      <IconButton 
-        component={Link} 
-        to={pageLinks.dummyAdd}
-      >
+      <IconButton component={Link} to={pageLinks.dummyAdd}>
         <Plus size={28} weight='light'/>
       </IconButton>
     }>
     <HeadTags 
-      title={`${PAGE_TITLE.dummy} | ${PAGE_TITLE.dummys}`} 
+      title={`${PAGE_TITLE.dummy} | 自訂${DUMMY_LABEL}`} 
       description={PAGE_DESCRIPTION.dummy} />
     {dummysProvider.list.length === 0 && <div className='list-empty-box'>
       <div>尚無{ITEM_NAME}</div>

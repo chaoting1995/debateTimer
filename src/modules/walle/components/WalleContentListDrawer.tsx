@@ -7,6 +7,9 @@ import { BottomDrawerHeader, BottomDrawerBody } from 'components';
 import { Walle, WalleContent } from 'modules/walle/resources/walle.type';
 import useDialog from 'hooks/useDialog';
 import { WalleContentList, WalleContentListSetting } from 'modules/walle';
+import { WALLE_CONTENT_LABEL } from 'modules/walle/resources/walle.constant';
+import { FIXED_WALLES } from "modules/walle/resources/fixedWalle.constant";
+import WalleContentCategoryGroups from "modules/walle/components/WalleContentCategoryGroups";
 // import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
@@ -19,6 +22,8 @@ type Props = {
 
 const WalleContentListDrawer: React.FC<Props> = (props) => {
   const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
+  
+  const [fixedWalle] = React.useState<Walle | undefined>(FIXED_WALLES.find(item => item.id === props.walle.id));
 
   const handleOpenSettingWithTraking = React.useCallback(() => {
     handleOpenSetting();
@@ -41,7 +46,7 @@ const WalleContentListDrawer: React.FC<Props> = (props) => {
   return (
     <div className={cx('DT-WalleListDrawer', style, props.className)}>
       <BottomDrawerHeader
-        children='攻防列表'
+        children={`${WALLE_CONTENT_LABEL}列表`}
         rightSide={
           <IconButton onClick={handleOpenSettingWithTraking}>
             <Gear size={28} weight='light'/>
@@ -49,11 +54,22 @@ const WalleContentListDrawer: React.FC<Props> = (props) => {
         }
       />
       <BottomDrawerBody>
-        <WalleContentList 
-          hideEmptyBox 
-          walleContents={props.walle.contents} 
-          onChangeWalleContent={props.onChangeWalleContent} 
+        {fixedWalle 
+        ? <WalleContentCategoryGroups 
+            walleContents={props.walle.contents} 
+            renderWalleContentList={(_walleContents) => 
+              <WalleContentList 
+                hideEmptyBox 
+                walleContents={_walleContents} 
+                onChangeWalleContent={props.onChangeWalleContent} 
+              />}
           />
+        : <WalleContentList 
+            hideEmptyBox 
+            walleContents={props.walle.contents} 
+            onChangeWalleContent={props.onChangeWalleContent} 
+          />
+        }
       </BottomDrawerBody>
     </div>
   )

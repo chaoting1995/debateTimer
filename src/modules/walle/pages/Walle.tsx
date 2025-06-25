@@ -13,8 +13,8 @@ import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
 import useWalles from 'modules/walle/context/Walles/useWalles';
 import { EnumWalleMode } from 'modules/walle/enums/enumWalleMode';
-import WalleModeComplete  from "modules/walle/components/WalleModeComplete";
-import WalleModeCombined from "modules/walle/components/WalleModeCombined";
+import { WalleModeComplete, WalleModeCombined } from 'modules/walle';
+import { FIXED_WALLES } from 'modules/walle/resources/fixedWalle.constant';
 
 const Walle: React.FC = () => {
   const [innerHeight] = useInnerHeight();
@@ -22,15 +22,15 @@ const Walle: React.FC = () => {
   const wallesProvider = useWalles();
   // list 有資料，則預設顯示第一個；無資料，則預設顯示預設值
   const [walle, setWalle] = React.useState<TypeWalle>(DEFAULT_WALLE);
+  const [fixedWalle] = React.useState<TypeWalle | undefined>(FIXED_WALLES.find(item => item.id === id));
 
-  const walleCreator: Record<EnumWalleMode, React.ReactNode> = {
-    [EnumWalleMode.Combined]: <WalleModeCombined className='walle-mode' walle={walle} />,
-    [EnumWalleMode.Complete]: <WalleModeComplete className='walle-mode' walle={walle} />,
-  }
-
-  // React.useEffect(() => {
-  //   console.log('walle',walle);
-  // }, [walle]);
+  const walleCreator = React.useCallback((_walle: TypeWalle): React.ReactNode  => {
+    const reactNodeByEnumWalleMode: Record<EnumWalleMode, React.ReactNode> = {
+      [EnumWalleMode.Combined]: <WalleModeCombined className='walle-mode' walle={_walle} />,
+      [EnumWalleMode.Complete]: <WalleModeComplete className='walle-mode' walle={_walle} />,
+    }
+    return reactNodeByEnumWalleMode[_walle.mode];
+  }, []);
 
   React.useEffect(() => {
     if (id) return;
@@ -54,7 +54,7 @@ const Walle: React.FC = () => {
       </IconButton>
     }>
     <HeadTags title={PAGE_TITLE.walle} description={PAGE_DESCRIPTION.walle} />
-    {walleCreator[walle.mode]}
+    {fixedWalle ? walleCreator(fixedWalle) : walleCreator(walle)}
   </Layout>;
 }
 

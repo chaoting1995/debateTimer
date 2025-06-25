@@ -14,15 +14,13 @@ import usePopup from 'context/Popup/usePopup';
 import useDialog from 'hooks/useDialog';
 import useTimers from 'modules/timer/context/Timers/useTimers';
 import { Timer } from 'modules/timer/resources/timer.type';
-import { EMPTY_TIMER } from 'modules/timer/resources/timer.constant';
+import { EMPTY_TIMER, TIMER_LABEL } from 'modules/timer/resources/timer.constant';
 import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 import TimerEditor from 'modules/timer/components/TimerEditor';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
 import { BottomDrawer, Button } from 'components';
-
-const ITEM_NAME = '計時器';
 
 const Timers: React.FC = () => {
   const popup = usePopup();
@@ -64,7 +62,7 @@ const Timers: React.FC = () => {
     event.preventDefault();
     
     const isConfirm = await popup.confirm({ 
-      title: `確定刪除${ITEM_NAME}?`
+      title: `確定刪除${TIMER_LABEL}?`
     });
   
     if(!isConfirm) return;
@@ -88,7 +86,7 @@ const Timers: React.FC = () => {
 
   return <Layout
     mainClassName={cx('DT-Timers', style)}
-    title={PAGE_TITLE.timers}
+    title={`自訂${TIMER_LABEL}`}
     homeLink={pageLinks.timer}
     renderButtons={
       <IconButton onClick={handleOpenEditor()}>
@@ -96,11 +94,11 @@ const Timers: React.FC = () => {
       </IconButton>
     }>
     <HeadTags 
-      title={`${PAGE_TITLE.timerWithVersion} | ${PAGE_TITLE.timers}`} 
+      title={`${PAGE_TITLE.timerWithVersion} | 自訂${TIMER_LABEL}`} 
       description={PAGE_DESCRIPTION.timer} />
     {timersProvider.list.length === 0 && <div className='list-empty-box'>
-      <div>尚無{ITEM_NAME}</div>
-      <Button variant='outlined' className='add-button' onClick={handleOpenEditor()}>新增{ITEM_NAME}</Button>
+      <div>尚無{TIMER_LABEL}</div>
+      <Button variant='outlined' className='add-button' onClick={handleOpenEditor()}>新增{TIMER_LABEL}</Button>
     </div>}
     <List disablePadding>
       <DragDrog

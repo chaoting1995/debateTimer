@@ -2,7 +2,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
-import { Trash, PencilSimple, Plus, DotsSixVertical } from '@phosphor-icons/react';
+import { 
+  Trash, 
+  PencilSimple, 
+  Plus, 
+  DotsSixVertical,
+  Circle,
+  ChartPieSlice,
+} from '@phosphor-icons/react';
 import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction } from '@mui/material';
 
 import ServiceRoute from 'routes/route.service';
@@ -15,19 +22,25 @@ import useWalles from 'modules/walle/context/Walles/useWalles';
 import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
 import { Button } from 'components';
-
-const ITEM_NAME = '木人樁';
+import { FIXED_WALLES } from 'modules/walle/resources/fixedWalle.constant';
+import { EnumWalleMode } from 'modules/walle/enums/enumWalleMode';
+import { WALLE_LABEL } from 'modules/walle/resources/walle.constant';
 
 const Walles: React.FC = () => {
   const popup = usePopup();
   const wallesProvider = useWalles();
+  
+  const walleModeIconCreator: Record<EnumWalleMode, React.ReactNode> = {
+    [EnumWalleMode.Combined]: <ChartPieSlice size={26} weight='thin' />,
+    [EnumWalleMode.Complete]: <Circle size={26} weight='thin' />
+  }
 
   const handleDelete = (walleID: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     event.preventDefault();
     
     const isConfirm = await popup.confirm({ 
-      title: `確定刪除${ITEM_NAME}?`
+      title: `確定刪除${WALLE_LABEL}?`
     });
   
     if(!isConfirm) return;
@@ -41,28 +54,51 @@ const Walles: React.FC = () => {
 
   return <Layout
     mainClassName={cx('DT-Walles', style)}
-    title={PAGE_TITLE.walles}
+    title={`自訂${WALLE_LABEL}`}
     homeLink={pageLinks.walle}
     renderButtons={
-      <IconButton 
-        component={Link} 
-        to={pageLinks.walleAdd}
-      >
+      <IconButton component={Link} to={pageLinks.walleAdd}>
         <Plus size={28} weight='light'/>
       </IconButton>
     }>
-    <HeadTags 
-      title={`${PAGE_TITLE.walle} | ${PAGE_TITLE.walles}`} 
+    <HeadTags
+      title={`${PAGE_TITLE.walle} | 自訂${WALLE_LABEL}`} 
       description={PAGE_DESCRIPTION.walle} />
+    <List disablePadding>
+      {FIXED_WALLES.map(item => (
+        <ListItem key={item.id} disablePadding>
+          <ListItemButton
+            component={Link} 
+            to={ServiceRoute.toPageLinkWithParams(pageLinks.walleID, { id: item.id })}
+          >
+            {walleModeIconCreator[item.mode]}
+            <div className='item-name'>{item.name}</div>
+          </ListItemButton>
+          <ListItemSecondaryAction className='item-actions'>
+            <div className='contents-amount'>{item.contents.length <= 99 ? item.contents.length : '99+'}</div>
+            <IconButton 
+              disabled
+              component={Link} 
+              to={ServiceRoute.toPageLinkWithParams(pageLinks.walleEditID, { id: item.id })}
+            >
+              <PencilSimple size={26} weight='light'/>
+            </IconButton>
+            <IconButton disabled onClick={handleDelete(item.id)}>
+              <Trash size={26} weight='light' />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      ))}
+    </List>
     {wallesProvider.list.length === 0 && <div className='list-empty-box'>
-      <div>尚無{ITEM_NAME}</div>
+      <div>尚無{WALLE_LABEL}</div>
       <Button 
         variant='outlined' 
         className='add-button' 
         component={Link} 
         to={pageLinks.walleAdd}
         >
-          新增{ITEM_NAME}
+          新增{WALLE_LABEL}
         </Button>
     </div>}
     <List disablePadding>
@@ -80,11 +116,7 @@ const Walles: React.FC = () => {
               <div className='item-name'>{item.name}</div>
             </ListItemButton>
             <ListItemSecondaryAction className='item-actions'>
-              <div className='contents-amount'>{
-              item.contents.length <= 99
-                ? item.contents.length
-                : '99+'
-              }</div>
+              <div className='contents-amount'>{item.contents.length <= 99 ? item.contents.length : '99+'}</div>
               <IconButton 
                 component={Link} 
                 to={ServiceRoute.toPageLinkWithParams(pageLinks.walleEditID, { id: item.id })}

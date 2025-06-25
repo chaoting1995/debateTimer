@@ -4,7 +4,7 @@ import { Timer } from 'modules/timer/resources/timer.type';
 
 const getTimers = (): Timer[] => {
   const jsonString = localStorage.getItem(DT_LOCALSTORAGE_KEY_TIMERS);
-  if (!jsonString) return DEFAULT_TIMERS;
+  if (!jsonString) return JSON.parse(JSON.stringify(DEFAULT_TIMERS));
   return FactoryTimer.createTimers(JSON.parse(jsonString));
 };
 

@@ -3,640 +3,1290 @@
 
 export const DEFAULT_TOPIC_COMPLETE_FROM_CSV = [
   {
-    "id": "topic-complete-001",
+    "id": "walle-complete",
+    "name": "完整辯題",
+    "category": ""
+  },
+  {
+    "id": "walle-complete-001",
     "name": "順境/逆境更有利於人成長",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-002",
+    "id": "walle-complete-002",
     "name": "行萬里路勝過讀萬卷書/讀萬卷書勝過行萬里路",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-003",
+    "id": "walle-complete-003",
     "name": "忍讓是/不是一種智慧",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-004",
+    "id": "walle-complete-004",
     "name": "虛偽是/不是好事",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-005",
+    "id": "walle-complete-005",
     "name": "死要面子活受罪/不要面子才受罪",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-006",
+    "id": "walle-complete-006",
     "name": "物質能/不能決定幸福",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-007",
+    "id": "walle-complete-007",
     "name": "知足是/不是更好的處世態度",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-008",
+    "id": "walle-complete-008",
     "name": "去向哪裡/與誰同行更重要",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-009",
+    "id": "walle-complete-009",
     "name": "人生路上應該乘勝追擊/見好就收",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-010",
+    "id": "walle-complete-010",
     "name": "人生因成功而快樂/因快樂而成功",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-011",
+    "id": "walle-complete-011",
     "name": "人生機遇/奮鬥更重要",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-012",
+    "id": "walle-complete-012",
     "name": "人必須長大是好事／壞事",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-013",
+    "id": "walle-complete-013",
     "name": "現況社會人們應該內卷／躺平",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-014",
+    "id": "walle-complete-014",
     "name": "MBTI能不能讓我們更正確的認識自己",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-015",
+    "id": "walle-complete-015",
     "name": "環境保護/經濟發展更重要",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-016",
+    "id": "walle-complete-016",
     "name": "懶惰使人類更進步/退步",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-017",
+    "id": "walle-complete-017",
     "name": "保護弱者讓社會更進步/退步",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-018",
+    "id": "walle-complete-018",
     "name": "企業用人應以才/以德為先",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-019",
+    "id": "walle-complete-019",
     "name": "當今社會，合作/競爭更重要",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-020",
+    "id": "walle-complete-020",
     "name": "現代社會更需要通才/專才",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-021",
+    "id": "walle-complete-021",
     "name": "詐騙猖獗，責任更在科技／人性",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-022",
+    "id": "walle-complete-022",
     "name": "我國流行音樂金曲獎應取消性別分類",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-023",
+    "id": "walle-complete-023",
     "name": "民主國家落實網路實名制利大於弊／弊大於利",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-024",
+    "id": "walle-complete-024",
     "name": "抵制行為符合/不符合民主原則",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-025",
+    "id": "walle-complete-025",
     "name": "高中國文教育應以白話文/文言文為主",
     "category": "有關高中生"
   },
   {
-    "id": "topic-complete-026",
+    "id": "walle-complete-026",
     "name": "中學生談戀愛利大於弊/弊大於利",
     "category": "有關高中生"
   },
   {
-    "id": "topic-complete-027",
+    "id": "walle-complete-027",
     "name": "大學升學應以選校/選系為主",
     "category": "有關高中生"
   },
   {
-    "id": "topic-complete-028",
+    "id": "walle-complete-028",
     "name": "高中生升學應以興趣為主/未來出路為主",
     "category": "有關高中生"
   },
   {
-    "id": "topic-complete-029",
+    "id": "walle-complete-029",
     "name": "課業補習對高中生利大於弊/弊大於利",
     "category": "有關高中生"
   },
   {
-    "id": "topic-complete-030",
+    "id": "walle-complete-030",
     "name": "當代學生要培養匠人精神/斜槓精神",
     "category": "有關高中生"
   },
   {
-    "id": "topic-complete-031",
+    "id": "walle-complete-031",
     "name": "營救式刑求是/不是可取的手段",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-032",
+    "id": "walle-complete-032",
     "name": "反恐中，利用無辜家屬逼迫恐怖分子就範，可/不可接受",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-033",
+    "id": "walle-complete-033",
     "name": "犧牲少數保護多數是正義的/不正義的",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-034",
+    "id": "walle-complete-034",
     "name": "謊言因/不因善意而良善",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-035",
+    "id": "walle-complete-035",
     "name": "明星有/沒有義務成為大眾的道德楷模",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-036",
+    "id": "walle-complete-036",
     "name": "行善宜高調/低調",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-037",
+    "id": "walle-complete-037",
     "name": "以德報怨是/不是可取的",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-038",
+    "id": "walle-complete-038",
     "name": "政治人物可以/不可以說謊",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-039",
+    "id": "walle-complete-039",
     "name": "高薪/重罰更能打擊貪腐",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-040",
+    "id": "walle-complete-040",
     "name": "女性專屬停車位是/不是歧視",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-041",
+    "id": "walle-complete-041",
     "name": "末日來臨時，政府應以隨機抽籤/擇優原則決定誰能成為搭上諾亞方舟的倖存者",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-042",
+    "id": "walle-complete-042",
     "name": "動物有／沒有免於被人類傷害的權利",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-043",
+    "id": "walle-complete-043",
     "name": "面對傳統文化與動物權益的衝突，社會更應該尊重/改變文化",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-044",
+    "id": "walle-complete-044",
     "name": "路見不平，社會該不該提倡拔刀相助",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-045",
+    "id": "walle-complete-045",
     "name": "精神疾病患者殺人應該被憎恨／原諒",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-046",
+    "id": "walle-complete-046",
     "name": "面對不公，用魔法對付魔法，是不是好手段",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-047",
+    "id": "walle-complete-047",
     "name": "愛是自私的/無私的",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-048",
+    "id": "walle-complete-048",
     "name": "情侶是/不是工作上的好搭檔",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-049",
+    "id": "walle-complete-049",
     "name": "橫刀奪愛沒錯/有錯",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-050",
+    "id": "walle-complete-050",
     "name": "愛人/被愛更幸福",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-051",
+    "id": "walle-complete-051",
     "name": "情侶分手後應維持友誼/斷絕往來",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-052",
+    "id": "walle-complete-052",
     "name": "愛情關係中，第三者應/不應被譴責",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-053",
+    "id": "walle-complete-053",
     "name": "斷崖式的分手／藕斷絲連的分手，是更糟糕的愛情",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-054",
+    "id": "walle-complete-054",
     "name": "純愛戰士值得／不值得歌頌",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-055",
+    "id": "walle-complete-055",
     "name": "網際網路使人際關係更緊密/更疏遠",
     "category": "人際關係"
   },
   {
-    "id": "topic-complete-056",
+    "id": "walle-complete-056",
     "name": "人際交往中，隱忍/坦率更能消除矛盾",
     "category": "人際關係"
   },
   {
-    "id": "topic-complete-057",
+    "id": "walle-complete-057",
     "name": "超能力是人類的福音/災難",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-058",
+    "id": "walle-complete-058",
     "name": "預知未來是快樂的/痛苦的",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-059",
+    "id": "walle-complete-059",
     "name": "時光機對人類利大於弊/弊大於利",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-060",
+    "id": "walle-complete-060",
     "name": "長生不老對人類利大於弊/弊大於利",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-061",
+    "id": "walle-complete-061",
     "name": "如果你有超能力，可以讓你愛的人也愛你，你要／不要使用",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-062",
+    "id": "walle-complete-062",
     "name": "網路匿名性發言對台灣利大於弊/弊大於利",
     "category": "科技議題"
   },
   {
-    "id": "topic-complete-063",
+    "id": "walle-complete-063",
     "name": "人工智能對人類利大於弊/弊大於利",
     "category": "科技議題"
   },
   {
-    "id": "topic-complete-064",
+    "id": "walle-complete-064",
     "name": "生成式AI 加強/阻礙學生學習能力",
     "category": "科技議題"
   },
   {
-    "id": "topic-complete-065",
+    "id": "walle-complete-065",
     "name": "哆啦A夢是大雄的益友/損友",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-066",
+    "id": "walle-complete-066",
     "name": "變成泡沫前人魚公主應/不應該刺死王子",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-067",
+    "id": "walle-complete-067",
     "name": "高譚市需/不需要蝙蝠俠",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-068",
+    "id": "walle-complete-068",
     "name": "超級英雄註冊法案利大於弊/弊大於利",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-069",
+    "id": "walle-complete-069",
     "name": "兩津勘吉是/不是好警察",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-070",
+    "id": "walle-complete-070",
     "name": "如果九九八十一難的最後一難是吃肉，唐僧應／不應該拒絕",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-071",
+    "id": "walle-complete-071",
     "name": "文化傳承更重要/文化創新更重要",
     "category": "文化議題"
   },
   {
-    "id": "topic-complete-072",
+    "id": "walle-complete-072",
     "name": "傳統文化商業化有助於/無助於文化傳承",
     "category": "文化議題"
   },
   {
-    "id": "topic-complete-073",
+    "id": "walle-complete-073",
     "name": "項羽應該東山再起/烏江自刎",
     "category": "歷史假想"
   },
   {
-    "id": "topic-complete-074",
+    "id": "walle-complete-074",
     "name": "我不想被生下來，有／沒有資格究責我的父母",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-075",
+    "id": "walle-complete-075",
     "name": "代溝問題中，應由長輩／晚輩主動化解",
     "category": "人際關係"
   },
   {
-    "id": "topic-complete-076",
+    "id": "walle-complete-076",
     "name": "當代年輕人更應承擔責任／追求理想",
     "category": "人生觀"
   },
   {
-    "id": "topic-complete-077",
+    "id": "walle-complete-077",
     "name": "在AI時代，辯論人有／沒有更強",
     "category": "科技議題"
   },
   {
-    "id": "topic-complete-078",
+    "id": "walle-complete-078",
     "name": "在AI時代，建構／解構能力更重要",
     "category": "科技議題"
   },
   {
-    "id": "topic-complete-079",
+    "id": "walle-complete-079",
     "name": "人有沒有表達偏見的自由",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-080",
+    "id": "walle-complete-080",
     "name": "注定分開的愛情還要不要開始",
     "category": "情愛議題"
+  },
+  {
+    "id": "walle-combined",
+    "name": "組合辯題",
+    "category": ""
+  },
+  {
+    "id": "walle-combined-001",
+    "name": "查資料",
+    "category": "有關辯論"
+  },
+  {
+    "id": "walle-combined-002",
+    "name": "灌論點",
+    "category": "有關辯論"
+  },
+  {
+    "id": "walle-combined-003",
+    "name": "寫一辯稿",
+    "category": "有關辯論"
+  },
+  {
+    "id": "walle-combined-004",
+    "name": "打練習賽",
+    "category": "有關辯論"
+  },
+  {
+    "id": "walle-combined-005",
+    "name": "棄賽",
+    "category": "有關辯論"
+  },
+  {
+    "id": "walle-combined-006",
+    "name": "課業補習",
+    "category": "考古題"
+  },
+  {
+    "id": "walle-combined-007",
+    "name": "政論節目",
+    "category": "考古題"
+  },
+  {
+    "id": "walle-combined-008",
+    "name": "談戀愛",
+    "category": "考古題"
+  },
+  {
+    "id": "walle-combined-009",
+    "name": "性別刻板印象",
+    "category": "考古題"
+  },
+  {
+    "id": "walle-combined-010",
+    "name": "山寨機文化",
+    "category": "考古題"
+  },
+  {
+    "id": "walle-combined-011",
+    "name": "說謊",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-012",
+    "name": "作弊",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-013",
+    "name": "失業",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-014",
+    "name": "一夜情",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-015",
+    "name": "墮胎",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-016",
+    "name": "熬夜",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-017",
+    "name": "酒駕",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-018",
+    "name": "垃圾食物",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-019",
+    "name": "人口老化",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-020",
+    "name": "全球暖化",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-021",
+    "name": "發財",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-022",
+    "name": "看電影",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-023",
+    "name": "世界和平",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-024",
+    "name": "下廚",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-025",
+    "name": "出國旅行",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-026",
+    "name": "養寵物",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-027",
+    "name": "交到新朋友",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-028",
+    "name": "認識名人",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-029",
+    "name": "身體健康",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-030",
+    "name": "發現外星人",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-031",
+    "name": "寫小說",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-032",
+    "name": "去補習班",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-033",
+    "name": "成績進步",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-034",
+    "name": "學會魔法",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-035",
+    "name": "獨居",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-036",
+    "name": "探索叢林",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-037",
+    "name": "打電動",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-038",
+    "name": "認識自己",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-039",
+    "name": "地球暖化",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-040",
+    "name": "回到過去",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-041",
+    "name": "出現仇人",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-042",
+    "name": "成為超級英雄",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-043",
+    "name": "從軍",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-044",
+    "name": "搬家",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-045",
+    "name": "被全世界認識",
+    "category": "其他"
+  },
+  {
+    "id": "walle-combined-046",
+    "name": "預知未來",
+    "category": "其他"
   }
 ];
 
 export const DEFAULT_TOPIC_COMBINED_FROM_CSV = [
   {
-    "id": "topic-combined-001",
+    "id": "walle-complete",
+    "name": "完整辯題",
+    "category": ""
+  },
+  {
+    "id": "walle-complete-001",
+    "name": "順境/逆境更有利於人成長",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-002",
+    "name": "行萬里路勝過讀萬卷書/讀萬卷書勝過行萬里路",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-003",
+    "name": "忍讓是/不是一種智慧",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-004",
+    "name": "虛偽是/不是好事",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-005",
+    "name": "死要面子活受罪/不要面子才受罪",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-006",
+    "name": "物質能/不能決定幸福",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-007",
+    "name": "知足是/不是更好的處世態度",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-008",
+    "name": "去向哪裡/與誰同行更重要",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-009",
+    "name": "人生路上應該乘勝追擊/見好就收",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-010",
+    "name": "人生因成功而快樂/因快樂而成功",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-011",
+    "name": "人生機遇/奮鬥更重要",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-012",
+    "name": "人必須長大是好事／壞事",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-013",
+    "name": "現況社會人們應該內卷／躺平",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-014",
+    "name": "MBTI能不能讓我們更正確的認識自己",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-015",
+    "name": "環境保護/經濟發展更重要",
+    "category": "有關社會"
+  },
+  {
+    "id": "walle-complete-016",
+    "name": "懶惰使人類更進步/退步",
+    "category": "有關社會"
+  },
+  {
+    "id": "walle-complete-017",
+    "name": "保護弱者讓社會更進步/退步",
+    "category": "有關社會"
+  },
+  {
+    "id": "walle-complete-018",
+    "name": "企業用人應以才/以德為先",
+    "category": "有關社會"
+  },
+  {
+    "id": "walle-complete-019",
+    "name": "當今社會，合作/競爭更重要",
+    "category": "有關社會"
+  },
+  {
+    "id": "walle-complete-020",
+    "name": "現代社會更需要通才/專才",
+    "category": "有關社會"
+  },
+  {
+    "id": "walle-complete-021",
+    "name": "詐騙猖獗，責任更在科技／人性",
+    "category": "有關社會"
+  },
+  {
+    "id": "walle-complete-022",
+    "name": "我國流行音樂金曲獎應取消性別分類",
+    "category": "有關社會"
+  },
+  {
+    "id": "walle-complete-023",
+    "name": "民主國家落實網路實名制利大於弊／弊大於利",
+    "category": "有關社會"
+  },
+  {
+    "id": "walle-complete-024",
+    "name": "抵制行為符合/不符合民主原則",
+    "category": "有關社會"
+  },
+  {
+    "id": "walle-complete-025",
+    "name": "高中國文教育應以白話文/文言文為主",
+    "category": "有關高中生"
+  },
+  {
+    "id": "walle-complete-026",
+    "name": "中學生談戀愛利大於弊/弊大於利",
+    "category": "有關高中生"
+  },
+  {
+    "id": "walle-complete-027",
+    "name": "大學升學應以選校/選系為主",
+    "category": "有關高中生"
+  },
+  {
+    "id": "walle-complete-028",
+    "name": "高中生升學應以興趣為主/未來出路為主",
+    "category": "有關高中生"
+  },
+  {
+    "id": "walle-complete-029",
+    "name": "課業補習對高中生利大於弊/弊大於利",
+    "category": "有關高中生"
+  },
+  {
+    "id": "walle-complete-030",
+    "name": "當代學生要培養匠人精神/斜槓精神",
+    "category": "有關高中生"
+  },
+  {
+    "id": "walle-complete-031",
+    "name": "營救式刑求是/不是可取的手段",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-032",
+    "name": "反恐中，利用無辜家屬逼迫恐怖分子就範，可/不可接受",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-033",
+    "name": "犧牲少數保護多數是正義的/不正義的",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-034",
+    "name": "謊言因/不因善意而良善",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-035",
+    "name": "明星有/沒有義務成為大眾的道德楷模",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-036",
+    "name": "行善宜高調/低調",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-037",
+    "name": "以德報怨是/不是可取的",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-038",
+    "name": "政治人物可以/不可以說謊",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-039",
+    "name": "高薪/重罰更能打擊貪腐",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-040",
+    "name": "女性專屬停車位是/不是歧視",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-041",
+    "name": "末日來臨時，政府應以隨機抽籤/擇優原則決定誰能成為搭上諾亞方舟的倖存者",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-042",
+    "name": "動物有／沒有免於被人類傷害的權利",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-043",
+    "name": "面對傳統文化與動物權益的衝突，社會更應該尊重/改變文化",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-044",
+    "name": "路見不平，社會該不該提倡拔刀相助",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-045",
+    "name": "精神疾病患者殺人應該被憎恨／原諒",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-046",
+    "name": "面對不公，用魔法對付魔法，是不是好手段",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-047",
+    "name": "愛是自私的/無私的",
+    "category": "情愛議題"
+  },
+  {
+    "id": "walle-complete-048",
+    "name": "情侶是/不是工作上的好搭檔",
+    "category": "情愛議題"
+  },
+  {
+    "id": "walle-complete-049",
+    "name": "橫刀奪愛沒錯/有錯",
+    "category": "情愛議題"
+  },
+  {
+    "id": "walle-complete-050",
+    "name": "愛人/被愛更幸福",
+    "category": "情愛議題"
+  },
+  {
+    "id": "walle-complete-051",
+    "name": "情侶分手後應維持友誼/斷絕往來",
+    "category": "情愛議題"
+  },
+  {
+    "id": "walle-complete-052",
+    "name": "愛情關係中，第三者應/不應被譴責",
+    "category": "情愛議題"
+  },
+  {
+    "id": "walle-complete-053",
+    "name": "斷崖式的分手／藕斷絲連的分手，是更糟糕的愛情",
+    "category": "情愛議題"
+  },
+  {
+    "id": "walle-complete-054",
+    "name": "純愛戰士值得／不值得歌頌",
+    "category": "情愛議題"
+  },
+  {
+    "id": "walle-complete-055",
+    "name": "網際網路使人際關係更緊密/更疏遠",
+    "category": "人際關係"
+  },
+  {
+    "id": "walle-complete-056",
+    "name": "人際交往中，隱忍/坦率更能消除矛盾",
+    "category": "人際關係"
+  },
+  {
+    "id": "walle-complete-057",
+    "name": "超能力是人類的福音/災難",
+    "category": "科幻奇想"
+  },
+  {
+    "id": "walle-complete-058",
+    "name": "預知未來是快樂的/痛苦的",
+    "category": "科幻奇想"
+  },
+  {
+    "id": "walle-complete-059",
+    "name": "時光機對人類利大於弊/弊大於利",
+    "category": "科幻奇想"
+  },
+  {
+    "id": "walle-complete-060",
+    "name": "長生不老對人類利大於弊/弊大於利",
+    "category": "科幻奇想"
+  },
+  {
+    "id": "walle-complete-061",
+    "name": "如果你有超能力，可以讓你愛的人也愛你，你要／不要使用",
+    "category": "科幻奇想"
+  },
+  {
+    "id": "walle-complete-062",
+    "name": "網路匿名性發言對台灣利大於弊/弊大於利",
+    "category": "科技議題"
+  },
+  {
+    "id": "walle-complete-063",
+    "name": "人工智能對人類利大於弊/弊大於利",
+    "category": "科技議題"
+  },
+  {
+    "id": "walle-complete-064",
+    "name": "生成式AI 加強/阻礙學生學習能力",
+    "category": "科技議題"
+  },
+  {
+    "id": "walle-complete-065",
+    "name": "哆啦A夢是大雄的益友/損友",
+    "category": "經典故事"
+  },
+  {
+    "id": "walle-complete-066",
+    "name": "變成泡沫前人魚公主應/不應該刺死王子",
+    "category": "經典故事"
+  },
+  {
+    "id": "walle-complete-067",
+    "name": "高譚市需/不需要蝙蝠俠",
+    "category": "經典故事"
+  },
+  {
+    "id": "walle-complete-068",
+    "name": "超級英雄註冊法案利大於弊/弊大於利",
+    "category": "經典故事"
+  },
+  {
+    "id": "walle-complete-069",
+    "name": "兩津勘吉是/不是好警察",
+    "category": "經典故事"
+  },
+  {
+    "id": "walle-complete-070",
+    "name": "如果九九八十一難的最後一難是吃肉，唐僧應／不應該拒絕",
+    "category": "經典故事"
+  },
+  {
+    "id": "walle-complete-071",
+    "name": "文化傳承更重要/文化創新更重要",
+    "category": "文化議題"
+  },
+  {
+    "id": "walle-complete-072",
+    "name": "傳統文化商業化有助於/無助於文化傳承",
+    "category": "文化議題"
+  },
+  {
+    "id": "walle-complete-073",
+    "name": "項羽應該東山再起/烏江自刎",
+    "category": "歷史假想"
+  },
+  {
+    "id": "walle-complete-074",
+    "name": "我不想被生下來，有／沒有資格究責我的父母",
+    "category": "道德難題"
+  },
+  {
+    "id": "walle-complete-075",
+    "name": "代溝問題中，應由長輩／晚輩主動化解",
+    "category": "人際關係"
+  },
+  {
+    "id": "walle-complete-076",
+    "name": "當代年輕人更應承擔責任／追求理想",
+    "category": "人生觀"
+  },
+  {
+    "id": "walle-complete-077",
+    "name": "在AI時代，辯論人有／沒有更強",
+    "category": "科技議題"
+  },
+  {
+    "id": "walle-complete-078",
+    "name": "在AI時代，建構／解構能力更重要",
+    "category": "科技議題"
+  },
+  {
+    "id": "walle-complete-079",
+    "name": "人有沒有表達偏見的自由",
+    "category": "有關社會"
+  },
+  {
+    "id": "walle-complete-080",
+    "name": "注定分開的愛情還要不要開始",
+    "category": "情愛議題"
+  },
+  {
+    "id": "walle-combined",
+    "name": "組合辯題",
+    "category": ""
+  },
+  {
+    "id": "walle-combined-001",
     "name": "查資料",
     "category": "有關辯論"
   },
   {
-    "id": "topic-combined-002",
+    "id": "walle-combined-002",
     "name": "灌論點",
     "category": "有關辯論"
   },
   {
-    "id": "topic-combined-003",
+    "id": "walle-combined-003",
     "name": "寫一辯稿",
     "category": "有關辯論"
   },
   {
-    "id": "topic-combined-004",
+    "id": "walle-combined-004",
     "name": "打練習賽",
     "category": "有關辯論"
   },
   {
-    "id": "topic-combined-005",
+    "id": "walle-combined-005",
     "name": "棄賽",
     "category": "有關辯論"
   },
   {
-    "id": "topic-combined-006",
+    "id": "walle-combined-006",
     "name": "課業補習",
     "category": "考古題"
   },
   {
-    "id": "topic-combined-007",
+    "id": "walle-combined-007",
     "name": "政論節目",
     "category": "考古題"
   },
   {
-    "id": "topic-combined-008",
+    "id": "walle-combined-008",
     "name": "談戀愛",
     "category": "考古題"
   },
   {
-    "id": "topic-combined-009",
+    "id": "walle-combined-009",
     "name": "性別刻板印象",
     "category": "考古題"
   },
   {
-    "id": "topic-combined-010",
+    "id": "walle-combined-010",
     "name": "山寨機文化",
     "category": "考古題"
   },
   {
-    "id": "topic-combined-011",
+    "id": "walle-combined-011",
     "name": "說謊",
     "category": "其他"
   },
   {
-    "id": "topic-combined-012",
+    "id": "walle-combined-012",
     "name": "作弊",
     "category": "其他"
   },
   {
-    "id": "topic-combined-013",
+    "id": "walle-combined-013",
     "name": "失業",
     "category": "其他"
   },
   {
-    "id": "topic-combined-014",
+    "id": "walle-combined-014",
     "name": "一夜情",
     "category": "其他"
   },
   {
-    "id": "topic-combined-015",
+    "id": "walle-combined-015",
     "name": "墮胎",
     "category": "其他"
   },
   {
-    "id": "topic-combined-016",
+    "id": "walle-combined-016",
     "name": "熬夜",
     "category": "其他"
   },
   {
-    "id": "topic-combined-017",
+    "id": "walle-combined-017",
     "name": "酒駕",
     "category": "其他"
   },
   {
-    "id": "topic-combined-018",
+    "id": "walle-combined-018",
     "name": "垃圾食物",
     "category": "其他"
   },
   {
-    "id": "topic-combined-019",
+    "id": "walle-combined-019",
     "name": "人口老化",
     "category": "其他"
   },
   {
-    "id": "topic-combined-020",
+    "id": "walle-combined-020",
     "name": "全球暖化",
     "category": "其他"
   },
   {
-    "id": "topic-combined-021",
+    "id": "walle-combined-021",
     "name": "發財",
     "category": "其他"
   },
   {
-    "id": "topic-combined-022",
+    "id": "walle-combined-022",
     "name": "看電影",
     "category": "其他"
   },
   {
-    "id": "topic-combined-023",
+    "id": "walle-combined-023",
     "name": "世界和平",
     "category": "其他"
   },
   {
-    "id": "topic-combined-024",
+    "id": "walle-combined-024",
     "name": "下廚",
     "category": "其他"
   },
   {
-    "id": "topic-combined-025",
+    "id": "walle-combined-025",
     "name": "出國旅行",
     "category": "其他"
   },
   {
-    "id": "topic-combined-026",
+    "id": "walle-combined-026",
     "name": "養寵物",
     "category": "其他"
   },
   {
-    "id": "topic-combined-027",
+    "id": "walle-combined-027",
     "name": "交到新朋友",
     "category": "其他"
   },
   {
-    "id": "topic-combined-028",
+    "id": "walle-combined-028",
     "name": "認識名人",
     "category": "其他"
   },
   {
-    "id": "topic-combined-029",
+    "id": "walle-combined-029",
     "name": "身體健康",
     "category": "其他"
   },
   {
-    "id": "topic-combined-030",
+    "id": "walle-combined-030",
     "name": "發現外星人",
     "category": "其他"
   },
   {
-    "id": "topic-combined-031",
+    "id": "walle-combined-031",
     "name": "寫小說",
     "category": "其他"
   },
   {
-    "id": "topic-combined-032",
+    "id": "walle-combined-032",
     "name": "去補習班",
     "category": "其他"
   },
   {
-    "id": "topic-combined-033",
+    "id": "walle-combined-033",
     "name": "成績進步",
     "category": "其他"
   },
   {
-    "id": "topic-combined-034",
+    "id": "walle-combined-034",
     "name": "學會魔法",
     "category": "其他"
   },
   {
-    "id": "topic-combined-035",
+    "id": "walle-combined-035",
     "name": "獨居",
     "category": "其他"
   },
   {
-    "id": "topic-combined-036",
+    "id": "walle-combined-036",
     "name": "探索叢林",
     "category": "其他"
   },
   {
-    "id": "topic-combined-037",
+    "id": "walle-combined-037",
     "name": "打電動",
     "category": "其他"
   },
   {
-    "id": "topic-combined-038",
+    "id": "walle-combined-038",
     "name": "認識自己",
     "category": "其他"
   },
   {
-    "id": "topic-combined-039",
+    "id": "walle-combined-039",
     "name": "地球暖化",
     "category": "其他"
   },
   {
-    "id": "topic-combined-040",
+    "id": "walle-combined-040",
     "name": "回到過去",
     "category": "其他"
   },
   {
-    "id": "topic-combined-041",
+    "id": "walle-combined-041",
     "name": "出現仇人",
     "category": "其他"
   },
   {
-    "id": "topic-combined-042",
+    "id": "walle-combined-042",
     "name": "成為超級英雄",
     "category": "其他"
   },
   {
-    "id": "topic-combined-043",
+    "id": "walle-combined-043",
     "name": "從軍",
     "category": "其他"
   },
   {
-    "id": "topic-combined-044",
+    "id": "walle-combined-044",
     "name": "搬家",
     "category": "其他"
   },
   {
-    "id": "topic-combined-045",
+    "id": "walle-combined-045",
     "name": "被全世界認識",
     "category": "其他"
   },
   {
-    "id": "topic-combined-046",
+    "id": "walle-combined-046",
     "name": "預知未來",
     "category": "其他"
   },
   {
-    "id": "topic-combined-047",
+    "id": "walle-combined-047",
     "name": "活在疫情之中",
     "category": "其他"
   }

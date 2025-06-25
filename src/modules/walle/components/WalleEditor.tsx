@@ -25,7 +25,7 @@ import { WalleEditorBatchAdd } from 'modules/walle';
 import useCopyWalle from 'modules/walle/hooks/useCopyWalle';
 import { useFloatingButton } from 'hooks/useFloatingButton';
 import { EnumWalleMode } from 'modules/walle/enums/enumWalleMode';
-import { WALLE_MODE_LABEL, WALLE_NAME, WALLE_CONTENT_NAME } from 'modules/walle/resources/walle.constant';
+import { WALLE_MODE_LABEL, WALLE_LABEL, WALLE_CONTENT_LABEL } from 'modules/walle/resources/walle.constant';
 
 export type ColumContentsItemWithStatus = {
   id: string;
@@ -63,7 +63,7 @@ const WalleEditor = (props: Props) => {
   const columnName = useFormColumn<string>({
     value: props.walle.name,
     defaultValue: '',
-    placeholder: `請輸入${WALLE_NAME}名稱`,
+    placeholder: `請輸入${WALLE_LABEL}名稱`,
     verifyRules: { require: true },
   });
 
@@ -139,7 +139,7 @@ const WalleEditor = (props: Props) => {
 
   const handleDeleteContentItem = React.useCallback((contentID: string, index: number) => async () => {
     const isConfirm = await popup.confirm({ 
-      title: `確定刪除${WALLE_CONTENT_NAME} ${index + 1} ?`,
+      title: `確定刪除${WALLE_CONTENT_LABEL} ${index + 1} ?`,
     });
 
     if(!isConfirm) return;
@@ -298,7 +298,7 @@ const WalleEditor = (props: Props) => {
       {columnContents.map((item, index) => (
         <React.Fragment key={item.id}>
           <div className='content-action-group'>
-            <div className='content-title'>{`${WALLE_CONTENT_NAME} ${index + 1}`}</div>
+            <div className='content-title'>{`${WALLE_CONTENT_LABEL} ${index + 1}`}</div>
             <IconButton className='disabled-button' size='small' onClick={handleToggleContentItemDisabled(item.id)}>
               {item.disabled 
                 ? <EyeSlash size={25} weight='light'/> 
@@ -317,7 +317,7 @@ const WalleEditor = (props: Props) => {
               sx: { backgroundColor: 'white' },
             }}
             type='text'
-            placeholder={`請輸入${WALLE_CONTENT_NAME}`}
+            placeholder={`請輸入${WALLE_CONTENT_LABEL}`}
             value={item.content}
             onChange={handleChangeContents(item.id)}
             error={item.status.hasError}

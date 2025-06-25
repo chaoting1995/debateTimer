@@ -1,11 +1,14 @@
 import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
 
+export const DUMMY_LABEL = '攻防群組';
+export const DUMMY_CONTENT_LABEL = '攻防子項';
+
 export const DT_LOCALSTORAGE_KEY_DUMMYS = 'DT_LOCALSTORAGE_KEY_DUMMYS';
 
 export const EMPTY_DUMMY_CONTENT: DummyContent = {
   id: 'debate-dummy-content-000',
   disabled: false,
-  content: '(無設定攻防內容)'
+  content: `(無設定${DUMMY_CONTENT_LABEL})`
 }
 
 export const DEFAUT_DUMMY_CONTENT: DummyContent = {
@@ -18,12 +21,12 @@ export const DEFAULT_DUMMY_CONTENTS: DummyContent[] = [
   {
     id: 'debate-dummy-content-001',
     disabled: false,
-    content: '攻防內容 1'
+    content: `${DUMMY_CONTENT_LABEL} 1`
   },
   {
     id: 'debate-dummy-content-002',
     disabled: false,
-    content: '攻防內容 2'
+    content: `${DUMMY_CONTENT_LABEL} 2`
   }
 ]
 
@@ -48,6 +51,6 @@ export const DEFAULT_DUMMY: Dummy = {
 
 export const EMPTY_DUMMY: Dummy = {
   id: 'debate-dummy-000',
-  name: '(無設定木人樁)',
+  name: `(無設定${DUMMY_LABEL})`,
   contents: [],
 }
