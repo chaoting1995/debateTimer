@@ -27,7 +27,13 @@ const { id } = useParams<{ id: string }>();
   },[props]);
 
   const handleToggleWalleDisabled = React.useCallback((contentID: string) => () => {
-    wallesProvider.toggleItemDisabled(id ? id : wallesProvider.list[0].id, contentID);
+    const _id = id ? id : wallesProvider.list[0].id;
+    if (wallesProvider.getFixedWalle(_id)) {
+      wallesProvider.toggleFiexedWalleDisabled(contentID);
+      return
+    };
+
+    wallesProvider.toggleItemDisabled(_id, contentID);
   }, [id, wallesProvider])
 
   if (props.walleContents.length === 0 && !props.hideEmptyBox) {

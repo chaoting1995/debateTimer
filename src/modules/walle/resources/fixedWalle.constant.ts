@@ -22,13 +22,13 @@ export const FIXED_WALLE_GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheet
 export const FIXED_WALLES: Walle[] = [
   {
     id: 'debate-fixed-walle-combined',
-    name: `瓦力二號(${WALLE_MODE_LABEL[EnumWalleMode.Combined]})`,
+    name: `瓦力二號-${WALLE_MODE_LABEL[EnumWalleMode.Combined]}`,
     mode: EnumWalleMode.Combined,
     contents: DEFAULT_FIXED_WALLE_CONTENTS_COMBINED,
   },
   {
     id: 'debate-fixed-walle-complete',
-    name: `瓦力二號(${WALLE_MODE_LABEL[EnumWalleMode.Complete]})`,
+    name: `瓦力二號-${WALLE_MODE_LABEL[EnumWalleMode.Complete]}`,
     mode: EnumWalleMode.Complete,
     contents: DEFAULT_FIXED_WALLE_CONTENTS_COMPLETE,
   },

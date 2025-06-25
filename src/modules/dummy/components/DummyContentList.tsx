@@ -27,7 +27,8 @@ const { id } = useParams<{ id: string }>();
   },[props]);
 
   const handleToggleDummyDisabled = React.useCallback((contentID: string) => () => {
-    dummysProvider.toggleItemDisabled(id ? id : dummysProvider.list[0].id, contentID);
+    const _id = id ? id : dummysProvider.list[0].id;
+    dummysProvider.toggleItemDisabled(_id, contentID);
   }, [id, dummysProvider])
 
   if (props.dummyContents.length === 0 && !props.hideEmptyBox) {

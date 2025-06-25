@@ -17,29 +17,24 @@ export const DEFAUT_DUMMY_CONTENT: DummyContent = {
   content: ''
 }
 
-export const DEFAULT_DUMMY_CONTENTS: DummyContent[] = [
-  {
-    id: 'debate-dummy-content-001',
+export const EXAMPLE_DUMMY_CONTENTS: DummyContent[] = Array(5)
+  .fill('')
+  .map((_, index) => ({
+    id: `debate-dummy-content-00${index + 1}`,
     disabled: false,
-    content: `${DUMMY_CONTENT_LABEL} 1`
-  },
-  {
-    id: 'debate-dummy-content-002',
-    disabled: false,
-    content: `${DUMMY_CONTENT_LABEL} 2`
-  }
-]
+    content: `${DUMMY_CONTENT_LABEL} ${index + 1}`,
+  }));
 
-export const DEFAULT_DUMMYS: Dummy[] = [
+export const EXAMPLE_DUMMYS: Dummy[] = [
   {
     id: 'debate-dummy-001',
     name: '2025ＸＸ盃-正方論點(範例)',
-    contents: JSON.parse(JSON.stringify(DEFAULT_DUMMY_CONTENTS)),
+    contents: JSON.parse(JSON.stringify(EXAMPLE_DUMMY_CONTENTS)),
   },
   {
     id: 'debate-dummy-002',
     name: '2025ＸＸ盃-反方論點(範例)',
-    contents: JSON.parse(JSON.stringify(DEFAULT_DUMMY_CONTENTS)),
+    contents: JSON.parse(JSON.stringify(EXAMPLE_DUMMY_CONTENTS)),
   }
 ]
 

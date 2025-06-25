@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { WallesContext } from "./Walles.context";
+import { WallesContext } from './Walles.context';
 
 const useWalles = () => {
   const context = React.useContext(WallesContext);

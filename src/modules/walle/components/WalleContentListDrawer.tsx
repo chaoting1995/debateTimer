@@ -8,8 +8,8 @@ import { Walle, WalleContent } from 'modules/walle/resources/walle.type';
 import useDialog from 'hooks/useDialog';
 import { WalleContentList, WalleContentListSetting } from 'modules/walle';
 import { WALLE_CONTENT_LABEL } from 'modules/walle/resources/walle.constant';
-import { FIXED_WALLES } from "modules/walle/resources/fixedWalle.constant";
-import WalleContentCategoryGroups from "modules/walle/components/WalleContentCategoryGroups";
+import WalleContentCategoryGroups from 'modules/walle/components/WalleContentCategoryGroups';
+import useWalles from 'modules/walle/context/Walles/useWalles';
 // import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
@@ -21,9 +21,10 @@ type Props = {
 }
 
 const WalleContentListDrawer: React.FC<Props> = (props) => {
+  const wallesProvider = useWalles();
+
   const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
-  
-  const [fixedWalle] = React.useState<Walle | undefined>(FIXED_WALLES.find(item => item.id === props.walle.id));
+  const [isFixedWalle] = React.useState<boolean>(!!wallesProvider.getFixedWalle(props.walle.id));
 
   const handleOpenSettingWithTraking = React.useCallback(() => {
     handleOpenSetting();
@@ -40,6 +41,7 @@ const WalleContentListDrawer: React.FC<Props> = (props) => {
       className={cx(style, props.className)}
       onClose={handleCloseSetting}
       walle={props.walle} 
+      isFixedWalle={isFixedWalle}
     />
   }
 
@@ -54,7 +56,7 @@ const WalleContentListDrawer: React.FC<Props> = (props) => {
         }
       />
       <BottomDrawerBody>
-        {fixedWalle 
+        {isFixedWalle
         ? <WalleContentCategoryGroups 
             walleContents={props.walle.contents} 
             renderWalleContentList={(_walleContents) => 

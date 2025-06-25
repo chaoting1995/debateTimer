@@ -9,32 +9,27 @@ const getFixedWalleSetting = (): FixedWalleSetting => {
   return FactoryFixedWalle.createFixedWalleSetting(JSON.parse(jsonString));
 };
 
-const updateFixedWalleSettingWalleDisabled = (walleID: string, disabled: boolean): string[] => {
+const updateFixedWalleSettingDisabled = (walleContentID: string): FixedWalleSetting => {
   const fixedWalleSetting = getFixedWalleSetting();
-  const newWalleDisabled = [...fixedWalleSetting.disableds];
-  const index = newWalleDisabled.indexOf(walleID);
-  const isExist = index > -1;
-
-  if (disabled && !isExist) {
-    newWalleDisabled.push(walleID);
-  }
-
-  if (!disabled && isExist) {
-    newWalleDisabled.splice(index, 1);
+  const newDisableds = fixedWalleSetting.disableds;
+  
+  const isExist = newDisableds.includes(walleContentID);
+  if (isExist) {
+    const index = newDisableds.indexOf(walleContentID)
+    newDisableds.splice(index, 1);
+  } else {
+    newDisableds.push(walleContentID);
   }
   
-  const jsonString = JSON.stringify({
-    ...fixedWalleSetting,
-    walleDisabled: newWalleDisabled
-  });
+  const newFixedWalleSetting = { ...fixedWalleSetting, disableds: newDisableds};
+  const jsonString = JSON.stringify(newFixedWalleSetting);
   localStorage.setItem(DT_LOCALSTORAGE_KEY_FIXED_WALLE_SETTING, jsonString);
-
-  return newWalleDisabled;
+  return newFixedWalleSetting;
 };
 
 const ResourceFixedWalle = {
   getFixedWalleSetting,
-  updateFixedWalleSettingWalleDisabled
+  updateFixedWalleSettingDisabled
 };
 
 export default ResourceFixedWalle;

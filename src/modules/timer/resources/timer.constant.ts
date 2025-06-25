@@ -5,7 +5,7 @@ export const TIMER_LABEL = '計時器';
 
 export const DT_LOCALSTORAGE_KEY_TIMERS = 'DT_LOCALSTORAGE_KEY_TIMERS';
 
-export const DEFAULT_TIMERS: Array<Timer> = [
+export const EXAMPLE_TIMERS: Array<Timer> = [
   {
     id: 'debate-timer-001',
     mode: EnumTimerMode.Normal,

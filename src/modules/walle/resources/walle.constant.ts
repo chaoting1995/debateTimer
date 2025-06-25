@@ -37,34 +37,22 @@ export const DEFAULT_WALLE_CONTENT: WalleContent = {
   content: ''
 }
 
-export const DEFAULT_WALLE_CONTENTS: WalleContent[] = [
-  {
-    id: 'debate-walle-content-001',
-    disabled: false,
-    category: '',
-    content: `${WALLE_CONTENT_LABEL} 1`
-  },
-  {
-    id: 'debate-walle-content-002',
-    disabled: false,
-    category: '',
-    content: `${WALLE_CONTENT_LABEL} 2`
-  }
-]
+export const EXAMPLE_WALLE_CONTENTS: WalleContent[] = Array(5)
+  .fill('')
+ .map((_, index) => ({
+     id: `debate-walle-content-00${index + 1}`,
+     disabled: false,
+     category: '',
+     content: `${WALLE_CONTENT_LABEL} ${index + 1}`,
+   }));
 
-export const DEFAULT_WALLES: Walle[] = [
+export const EXAMPLE_WALLES: Walle[] = [
   {
     id: 'debate-walle-001',
-    name: `自訂瓦力二號(${WALLE_MODE_LABEL[EnumWalleMode.Combined]})`,
+    name: `瓦力二號-${WALLE_MODE_LABEL[EnumWalleMode.Combined]}(範例)`,
     mode: EnumWalleMode.Combined,
-    contents: JSON.parse(JSON.stringify(DEFAULT_WALLE_CONTENTS)),
-  },
-  // {
-  //   id: 'debate-walle-002',
-  //   name: `瓦力二號(${WALLE_MODE_LABEL[EnumWalleMode.Complete]})`,
-  //   mode: EnumWalleMode.Complete,
-  //   contents: JSON.parse(JSON.stringify(DEFAULT_WALLE_CONTENTS)),
-  // },
+    contents: JSON.parse(JSON.stringify(EXAMPLE_WALLE_CONTENTS)),
+  }
 ]
 
 export const DEFAULT_WALLE: Walle = {

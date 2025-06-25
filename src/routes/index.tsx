@@ -4,7 +4,6 @@ import { Navigate , RouteObject } from 'react-router-dom';
 import { PAGE_LINK } from 'routes/route.constants';
 import NotFound from 'pages/NotFound';
 import { Timers, Timer } from 'modules/timer';
-import { TopicCreator } from 'modules/topic';
 import { Walle, Walles, WalleEdit } from 'modules/walle';
 import { Listening, Listenings } from 'modules/listening';
 import { Dummys, Dummy, DummyEdit } from 'modules/dummy';
@@ -30,10 +29,6 @@ const routes: Array<RouteObject> = [
   {
     path: PAGE_LINK.timers,
     element: <Timers />,
-  },
-  {
-    path: PAGE_LINK.topicCreator,
-    element: <TopicCreator />,
   },
   {
     path: PAGE_LINK.walle,

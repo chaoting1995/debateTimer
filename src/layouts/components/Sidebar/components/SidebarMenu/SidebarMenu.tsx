@@ -35,7 +35,7 @@ const SidebarMenu = (props: Props) => {
       ServiceGA4.event(GA_EVENT.Menu_Item_To_Timer);
     }
 
-    if (path === pageLinks.topicCreator) {
+    if (path === pageLinks.walle) {
       ServiceGA4.event(GA_EVENT.Menu_Item_To_TopicCreator);
     }
   };

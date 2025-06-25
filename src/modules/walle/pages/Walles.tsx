@@ -64,6 +64,7 @@ const Walles: React.FC = () => {
     <HeadTags
       title={`${PAGE_TITLE.walle} | 自訂${WALLE_LABEL}`} 
       description={PAGE_DESCRIPTION.walle} />
+    {/* Fixed Walle: start */}
     <List disablePadding>
       {FIXED_WALLES.map(item => (
         <ListItem key={item.id} disablePadding>
@@ -89,6 +90,8 @@ const Walles: React.FC = () => {
           </ListItemSecondaryAction>
         </ListItem>
       ))}
+    {/* Fixed Walle: end */}
+    <hr className='walles-divider'/>
     </List>
     {wallesProvider.list.length === 0 && <div className='list-empty-box'>
       <div>尚無{WALLE_LABEL}</div>
@@ -141,6 +144,9 @@ const style = css`
   color: ${styleSettingColor.text.secondary};
   font-size: 20px;
   
+  .walles-divider {
+    margin: 0;
+  }
   .list-empty-box {
     padding: 8px 16px;
     padding-top: 40px;

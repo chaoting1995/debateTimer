@@ -15,12 +15,7 @@ const menu: Array<SidebarMenuItem> = [
     icon: <BoxingGlove />,
   },
   {
-    label: PAGE_TITLE.topicCreator,
-    path: pageLinks.topicCreator,
-    icon: <ChatsCircle />,
-  },
-  {
-    label: PAGE_TITLE.walle + 1,
+    label: PAGE_TITLE.walle,
     path: pageLinks.walle,
     icon: <ChatsCircle />,
   },

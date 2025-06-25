@@ -15,7 +15,7 @@ const createFixedWalleSetting = (response: FixedWalleSetting): FixedWalleSetting
 };
 
 const FactoryFixedWalle = {
-  createFixedWalleSetting
+  createFixedWalleSetting,
 };
 
 export default FactoryFixedWalle;
