@@ -45,7 +45,7 @@ const Dummy: React.FC = () => {
     {dummysProvider.list.length === 0  ? (
       <ListEmptyBox label={DUMMY_LABEL} mode='add' pageLink={pageLinks.dummyAdd} />
     ) : id && !dummy.id ? (
-      <ListEmptyBox label={DUMMY_LABEL} mode='error' pageLink={pageLinks.timers} />
+      <ListEmptyBox label={DUMMY_LABEL} mode='error' pageLink={pageLinks.dummys} />
     ) : (
       <DummyModeNormal dummy={dummy} className='dummy-mode' />
     )}

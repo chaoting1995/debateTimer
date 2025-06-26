@@ -50,9 +50,9 @@ const Walle: React.FC = () => {
     }>
     <HeadTags title={PAGE_TITLE.walle} description={PAGE_DESCRIPTION.walle} />
     {wallesProvider.list.length === 0 && !wallesProvider.getFixedWalle('debate-fixed-walle-combined') ? (
-      <ListEmptyBox label={WALLE_LABEL} mode='empty' pageLink={pageLinks.timers} />
+      <ListEmptyBox label={WALLE_LABEL} mode='empty' pageLink={pageLinks.walleAdd} />
     ) : id && !walle.id ? (
-      <ListEmptyBox label={WALLE_LABEL} mode='error' pageLink={pageLinks.dummyAdd} />
+      <ListEmptyBox label={WALLE_LABEL} mode='error' pageLink={pageLinks.walles} />
     ) : (
       creator[walle.mode]
     )}

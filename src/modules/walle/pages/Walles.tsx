@@ -93,7 +93,7 @@ const Walles: React.FC = () => {
     <hr className='walles-divider'/>
     </List>
     {wallesProvider.list.length === 0 && 
-      <ListEmptyBox label={WALLE_LABEL} pageLink={pageLinks.dummyAdd} />}
+      <ListEmptyBox label={WALLE_LABEL} pageLink={pageLinks.walleAdd} />}
     <List disablePadding>
       <DragDrog
         className='list-drag-drog'
