@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://chaoting1995.github.io/debateTimer/sitemap.xml
