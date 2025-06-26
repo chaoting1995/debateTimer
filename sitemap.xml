@@ -14,7 +14,22 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://chaoting1995.github.io/debateTimer/#/topicCreator</loc>
+    <loc>https://chaoting1995.github.io/debateTimer/#/dummys</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://chaoting1995.github.io/debateTimer/#/dummy</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://chaoting1995.github.io/debateTimer/#/walles</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://chaoting1995.github.io/debateTimer/#/walle</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
