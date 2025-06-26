@@ -11,14 +11,15 @@ axios.get(CSV_FILE).then(res => {
   const parseCsvInfos = papa.parse(res.data);
 
   const gaKeys = parseCsvInfos.data[0];
-  // ["category","action","label","desc","備註"]
-  const labelIndex = gaKeys.findIndex(key => key === "label");
+  // ["category","action","key","label","備註"]
+  const keyIndex = gaKeys.findIndex(key => key === "key");
   const categoryIndex = gaKeys.findIndex(key => key === "category");
   const actionIndex = gaKeys.findIndex(key => key === "action");
+  const labelIndex = gaKeys.findIndex(key => key === "label");
 
   const gaConfigList = parseCsvInfos.data.filter((_, index) => index !== 0);
   gaConfigList.forEach(item => {
-    _resources[item[labelIndex]] = {
+    _resources[item[keyIndex]] = {
       category: item[categoryIndex],
       action: item[actionIndex],
       label: item[labelIndex],

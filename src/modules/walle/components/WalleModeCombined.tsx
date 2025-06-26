@@ -7,7 +7,7 @@ import useDialog from 'hooks/useDialog';
 import useSlotMachine from 'modules/walle/hooks/useSlotMachine';
 import { WalleContentListDrawer, WalleDescription, WalleController }  from 'modules/walle';
 import { Walle, WalleContent } from 'modules/walle/resources/walle.type';
-import { COMBINED_MIDDLE_ITEM_MODE_LABEL, COMBINED_MIDDLE_ITEM_LABEL, EMPTY_WALLE_CONTENT } from 'modules/walle/resources/walle.constant';
+import { COMBINED_MIDDLE_ITEM_MODE_LABEL, COMBINED_MIDDLE_ITEM_LABEL, WALLE_CONTENT_LABEL } from 'modules/walle/resources/walle.constant';
 import { EnumCombinedMiddleItemMode } from 'modules/walle/enums/enumCombinedMiddleItemMode';
 import { EnumCombinedTopicItemMode } from 'modules/walle/enums/enumCombinedTopicItemMode';
 
@@ -35,8 +35,8 @@ const WalleModeCombined = (props: Props) => {
   
   const getWalleContent = React.useCallback((_walleContent: WalleContent) => {
     return props.walle.contents.length === 0 
-      ? EMPTY_WALLE_CONTENT.content
-      : _walleContent?.content || EMPTY_WALLE_CONTENT.content
+      ? `(無設定${WALLE_CONTENT_LABEL})`
+      : _walleContent?.content
   }, [props.walle.contents.length]);
 
   const handleChangeWalleContent = (_walleContent: WalleContent) => {

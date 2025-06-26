@@ -4,34 +4,28 @@ import { css, cx } from '@emotion/css';
 import { IconButton } from '@mui/material';
 import { FileText } from '@phosphor-icons/react';
 
-import { pageLinks } from 'routes/route.constants';
-import Layout from 'layouts/Layout';
-import { DEFAULT_TIMER } from 'modules/timer/resources/timer.constant';
-import { Timer as TypeTimer } from 'modules/timer/resources/timer.type';
-import TimerModeNormal from 'modules/timer/components/TimerModeNormal';
-import TimerModeCrossfire from 'modules/timer/components/TimerModeCrossfire';
-import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
-import useInnerHeight from 'hooks/useInnerHeight';
-import { HeadTags } from 'components';
-import { PAGE_TITLE, PAGE_DESCRIPTION } from "routes/route.constants";
-import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
+import { pageLinks, PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/route.constants';
+import { Timer as TypeTimer } from 'modules/timer/resources/timer.type';
+import { DEFAULT_TIMER, TIMER_LABEL } from 'modules/timer/resources/timer.constant';
+import { TimerModeNormal, TimerModeCrossfire } from 'modules/timer';
+import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
+import { HeadTags, ListEmptyBox } from 'components';
 import { useTimers } from 'modules/timer';
+import useInnerHeight from 'hooks/useInnerHeight';
+import Layout from 'layouts/Layout';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 const Timer: React.FC = () => {
   const [innerHeight] = useInnerHeight();
   const { id } = useParams<{ id: string }>();
-  const { list: timers, getItem: getTimerItem } = useTimers();
+  const timersProvider = useTimers();
   // list 有資料，則預設顯示第一個；無資料，則預設顯示預設值
-  const [timer, setTimer] = React.useState<TypeTimer>(
-    timers.length === 0 
-    ? DEFAULT_TIMER 
-    : timers[0]
-  );
+  const [timer, setTimer] = React.useState<TypeTimer>(DEFAULT_TIMER);
 
   const creator: Record<EnumTimerMode, React.ReactNode> = {
-    [EnumTimerMode.Normal]: <TimerModeNormal timer={timer} className='timer-mode' />,
-    [EnumTimerMode.Crossfire]: <TimerModeCrossfire timer={timer} className='timer-mode' />
+    [EnumTimerMode.Normal]: <TimerModeNormal className='timer-mode' timer={timer} />,
+    [EnumTimerMode.Crossfire]: <TimerModeCrossfire className='timer-mode' timer={timer} />
   }
 
   const trakingHeaderButtonToList = () => {
@@ -39,22 +33,27 @@ const Timer: React.FC = () => {
   };
 
   React.useEffect(() => {
-    if (!id) return;
-    const _timer = getTimerItem(id);
+    const _timer = !id ? timersProvider.list[0] : timersProvider.getItem(id);
     if (!_timer) return;
     setTimer(_timer);
-  }, [id, timers, getTimerItem]);
+  }, [id, timersProvider]);
 
   return <Layout 
     title={PAGE_TITLE.timer} 
     mainClassName={cx('DT-Timer', style(innerHeight))}
     renderButtons={
       <IconButton component={Link} to={pageLinks.timers} onClick={trakingHeaderButtonToList}>
-        <FileText size={28} weight="light"/>
+        <FileText size={28} weight='light'/>
       </IconButton>
     }>
-    <HeadTags title={PAGE_TITLE.timerWithVersion} description={PAGE_DESCRIPTION.timer}/>
-    {creator[timer.mode]}
+    <HeadTags title={PAGE_TITLE.timerWithVersion} description={PAGE_DESCRIPTION.timer} />
+    {timersProvider.list.length === 0  ? (
+      <ListEmptyBox label={TIMER_LABEL} mode='empty' pageLink={pageLinks.timers} />
+    ) : id && !timer.id ? (
+      <ListEmptyBox label={TIMER_LABEL} mode='error' pageLink={pageLinks.timers} />
+    ) : (
+      creator[timer.mode]
+    )}
   </Layout>;
 };
 

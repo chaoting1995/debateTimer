@@ -15,13 +15,12 @@ import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction } f
 import ServiceRoute from 'routes/route.service';
 import { styleSettingColor } from 'styles/variables.style';
 import { styleLineEllipsis } from 'styles/basic.style';
-import { DragDrog } from 'components';
+import { DragDrog, ListEmptyBox } from 'components';
 import { PAGE_TITLE, PAGE_DESCRIPTION, pageLinks } from 'routes/route.constants';
 import usePopup from 'context/Popup/usePopup';
 import useWalles from 'modules/walle/context/Walles/useWalles';
 import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
-import { Button } from 'components';
 import { FIXED_WALLES } from 'modules/walle/resources/fixedWalle.constant';
 import { EnumWalleMode } from 'modules/walle/enums/enumWalleMode';
 import { WALLE_LABEL } from 'modules/walle/resources/walle.constant';
@@ -93,17 +92,8 @@ const Walles: React.FC = () => {
     {/* Fixed Walle: end */}
     <hr className='walles-divider'/>
     </List>
-    {wallesProvider.list.length === 0 && <div className='list-empty-box'>
-      <div>尚無{WALLE_LABEL}</div>
-      <Button 
-        variant='outlined' 
-        className='add-button' 
-        component={Link} 
-        to={pageLinks.walleAdd}
-        >
-          新增{WALLE_LABEL}
-        </Button>
-    </div>}
+    {wallesProvider.list.length === 0 && 
+      <ListEmptyBox label={WALLE_LABEL} pageLink={pageLinks.dummyAdd} />}
     <List disablePadding>
       <DragDrog
         className='list-drag-drog'
@@ -146,18 +136,6 @@ const style = css`
   
   .walles-divider {
     margin: 0;
-  }
-  .list-empty-box {
-    padding: 8px 16px;
-    padding-top: 40px;
-    box-sizing: border-box;
-    text-align: center;
-    font-size: 16px;
-
-    .add-button {
-      margin-top: 10px;
-      font-size: 18px;
-    }
   }
 
   .list-drag-drog {

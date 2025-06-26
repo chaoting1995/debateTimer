@@ -5,35 +5,43 @@ import { css, cx } from '@emotion/css';
 import { Trash, PencilSimple, Plus, DotsSixVertical } from '@phosphor-icons/react';
 import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction } from '@mui/material';
 
-import ServiceRoute from 'routes/route.service';
 import { styleSettingColor } from 'styles/variables.style';
 import { styleLineEllipsis } from 'styles/basic.style';
-import { DragDrog } from 'components';
+import { DragDrog, ListEmptyBox } from 'components';
 import { PAGE_TITLE, PAGE_DESCRIPTION, pageLinks } from 'routes/route.constants';
-import usePopup from 'context/Popup/usePopup';
-import useDummys from 'modules/dummy/context/Dummys/useDummys';
+import { DUMMY_LABEL } from 'modules/dummy/resources/dummy.constant';
+import ServiceRoute from 'routes/route.service';
 import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
-import { Button } from 'components';
-import { DUMMY_LABEL } from 'modules/dummy/resources/dummy.constant';
-
-const ITEM_NAME = '木人樁';
+import usePopup from 'context/Popup/usePopup';
+import useDummys from 'modules/dummy/context/Dummys/useDummys';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 const Dummys: React.FC = () => {
   const popup = usePopup();
   const dummysProvider = useDummys();
+  
+  const trakingClickListItemToDetail = (name: string) => () => {
+    const newGaEvent = {
+      ...GA_EVENT.Timers_Item_To_Timer,
+      label: `${GA_EVENT.Timers_Item_To_Timer.label}_Name:${name}`
+    }
+
+    ServiceGA4.event(newGaEvent);
+  };
 
   const handleDelete = (dummyID: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     event.preventDefault();
     
     const isConfirm = await popup.confirm({ 
-      title: `確定刪除${ITEM_NAME}?`
+      title: `確定刪除${DUMMY_LABEL}?`
     });
   
     if(!isConfirm) return;
     dummysProvider.deleteItem(dummyID);
     popup.notice({ message: '刪除成功', duration: 1000 });
+    ServiceGA4.event(GA_EVENT.Timers_Button_Delete_Timer);
   }
 
   const handleDragEnd = (sourceIndex: number, destinationIndex: number) => {
@@ -52,17 +60,8 @@ const Dummys: React.FC = () => {
     <HeadTags 
       title={`${PAGE_TITLE.dummy} | 自訂${DUMMY_LABEL}`} 
       description={PAGE_DESCRIPTION.dummy} />
-    {dummysProvider.list.length === 0 && <div className='list-empty-box'>
-      <div>尚無{ITEM_NAME}</div>
-      <Button 
-        variant='outlined' 
-        className='add-button' 
-        component={Link} 
-        to={pageLinks.dummyAdd}
-        >
-          新增{ITEM_NAME}
-        </Button>
-    </div>}
+    {dummysProvider.list.length === 0 && 
+      <ListEmptyBox label={DUMMY_LABEL} pageLink={pageLinks.dummyAdd} />}
     <List disablePadding>
       <DragDrog
         className='list-drag-drog'
@@ -73,6 +72,7 @@ const Dummys: React.FC = () => {
             <ListItemButton
               component={Link} 
               to={ServiceRoute.toPageLinkWithParams(pageLinks.dummyID, { id: item.id })}
+              onClick={trakingClickListItemToDetail(item.name)}
             >
               <DotsSixVertical size={26} weight='light'/>
               <div className='item-name'>{item.name}</div>
@@ -106,19 +106,6 @@ const style = css`
   background-color: ${styleSettingColor.gray};
   color: ${styleSettingColor.text.secondary};
   font-size: 20px;
-  
-  .list-empty-box {
-    padding: 8px 16px;
-    padding-top: 40px;
-    box-sizing: border-box;
-    text-align: center;
-    font-size: 16px;
-
-    .add-button {
-      margin-top: 10px;
-      font-size: 18px;
-    }
-  }
 
   .list-drag-drog {
     .dd-droppable {

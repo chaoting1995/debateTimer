@@ -34,9 +34,13 @@ const SidebarMenu = (props: Props) => {
     if (path === pageLinks.timer) {
       ServiceGA4.event(GA_EVENT.Menu_Item_To_Timer);
     }
+    
+    if (path === pageLinks.dummy) {
+      ServiceGA4.event(GA_EVENT.Menu_Item_To_Dummy);
+    }
 
     if (path === pageLinks.walle) {
-      ServiceGA4.event(GA_EVENT.Menu_Item_To_TopicCreator);
+      ServiceGA4.event(GA_EVENT.Menu_Item_To_Walle);
     }
   };
 

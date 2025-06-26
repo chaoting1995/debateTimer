@@ -84,13 +84,6 @@ export const TEMPLATE_TIMERS: Array<Timer> = [
 ]
 
 export const DEFAULT_TIMER: Timer = {
-  id: 'debate-timer-000',
-  mode: EnumTimerMode.Normal,
-  name: '(目前無設定計時器)',
-  ring: [5, 10, 15]
-};
-
-export const EMPTY_TIMER: Timer = {
   id: '',
   mode: EnumTimerMode.Normal,
   name: '',

@@ -4,15 +4,17 @@ import { css, cx } from '@emotion/css';
 import { IconButton } from '@mui/material';
 import { FileText } from '@phosphor-icons/react';
 
-import { DummyModeNormal } from "modules/dummy";
+import { ListEmptyBox } from 'components';
+import { DummyModeNormal } from 'modules/dummy';
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import { pageLinks, PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/route.constants';
 import { Dummy as TypeDummy } from 'modules/dummy/resources/dummy.type';
-import { DEFAULT_DUMMY } from 'modules/dummy/resources/dummy.constant';
+import { DEFAULT_DUMMY, DUMMY_LABEL } from 'modules/dummy/resources/dummy.constant';
 import useInnerHeight from 'hooks/useInnerHeight';
+import useDummys from 'modules/dummy/context/Dummys/useDummys';
 import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
-import useDummys from "modules/dummy/context/Dummys/useDummys";
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 const Dummy: React.FC = () => {
   const [innerHeight] = useInnerHeight();
@@ -21,15 +23,12 @@ const Dummy: React.FC = () => {
   // list 有資料，則預設顯示第一個；無資料，則預設顯示預設值
   const [dummy, setDummy] = React.useState<TypeDummy>(DEFAULT_DUMMY);
 
-  React.useEffect(() => {
-    if (id) return;
-    if (dummysProvider.list.length === 0) return;
-    setDummy(dummysProvider.list[0]);
-  }, [id, dummysProvider.list]);
+  const trakingHeaderButtonToList = () => {
+    ServiceGA4.event(GA_EVENT.Header_Button_Dummys);
+  };
 
   React.useEffect(() => {
-    if (!id) return;
-    const _dummy = dummysProvider.getItem(id);
+    const _dummy = !id ? dummysProvider.list[0] : dummysProvider.getItem(id);
     if (!_dummy) return;
     setDummy(_dummy);
   }, [id, dummysProvider]);
@@ -38,12 +37,18 @@ const Dummy: React.FC = () => {
     title={PAGE_TITLE.dummy} 
     mainClassName={cx('DT-Dummy', style(innerHeight))}
     renderButtons={
-      <IconButton component={Link} to={pageLinks.dummys}>
-        <FileText size={28} weight="light"/>
+      <IconButton component={Link} to={pageLinks.dummys} onClick={trakingHeaderButtonToList}>
+        <FileText size={28} weight='light'/>
       </IconButton>
     }>
     <HeadTags title={PAGE_TITLE.dummy} description={PAGE_DESCRIPTION.dummy} />
-    <DummyModeNormal dummy={dummy} className='dummy-mode' />
+    {dummysProvider.list.length === 0  ? (
+      <ListEmptyBox label={DUMMY_LABEL} mode='add' pageLink={pageLinks.dummyAdd} />
+    ) : id && !dummy.id ? (
+      <ListEmptyBox label={DUMMY_LABEL} mode='error' pageLink={pageLinks.timers} />
+    ) : (
+      <DummyModeNormal dummy={dummy} className='dummy-mode' />
+    )}
   </Layout>;
 }
 

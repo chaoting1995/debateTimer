@@ -7,7 +7,6 @@ import UtilAudio from 'utils/audio';
 import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
 import { BottomDrawer, CardActionArea } from 'components';
 import { DummyDescription, DummyController, DummyContentListDrawer } from 'modules/dummy';
-import { EMPTY_DUMMY_CONTENT } from 'modules/dummy/resources/dummy.constant';
 import ServiceUtil from 'services/util.service';
 
 type Props = {
@@ -43,11 +42,9 @@ const DummyModeNormal = (props: Props) => {
   return <div className={cx('DT-DummyModeNormal', style, props.className)}>
     <div className='top-section'>
       <CardActionArea disabled={Boolean(props.dummy.contents.length === 0)} onClick={handleClickDummyContentBox}>
-        {props.dummy.contents.length === 0 
-          ? EMPTY_DUMMY_CONTENT.content
-          : slotMachine.enableDummyContents.length === 0
+        {slotMachine.enableDummyContents.length === 0
             ? '(尚無可見的攻防)'
-            : slotMachine.dummyContent?.content || EMPTY_DUMMY_CONTENT.content}
+            : slotMachine.dummyContent?.content}
       </CardActionArea>
     </div>
     <div className='bottom-section'>

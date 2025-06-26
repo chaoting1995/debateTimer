@@ -1,13 +1,8 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
-import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
 
 import { styleSettingColor } from 'styles/variables.style';
 import { Walle } from 'modules/walle/resources/walle.type';
-import { EMPTY_WALLE } from 'modules/walle/resources/walle.constant';
-
-dayjs.extend(duration);
 
 type Props = {
   walle: Walle;
@@ -17,7 +12,7 @@ type Props = {
 const WalleDescription = (props: Props) => {
 
   return <div className={cx('DT-WalleDescription', style)}>
-    <div className='info-name'>{props.walle.name || EMPTY_WALLE.name}</div>
+    <div className='info-name'>{props.walle.name}</div>
     {props.children}
   </div>;
 };

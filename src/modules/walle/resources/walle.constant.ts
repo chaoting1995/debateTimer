@@ -22,14 +22,6 @@ export const COMBINED_MIDDLE_ITEM_LABEL: Record<EnumCombinedMiddleItemMode, stri
 
 export const DT_LOCALSTORAGE_KEY_WALLES = 'DT_LOCALSTORAGE_KEY_WALLES';
 
-
-export const EMPTY_WALLE_CONTENT: WalleContent = {
-  id: 'debate-walle-content-000',
-  disabled: false,
-  category: '',
-  content: `(無設定${WALLE_CONTENT_LABEL})`
-}
-
 export const DEFAULT_WALLE_CONTENT: WalleContent = {
   id: '',
   disabled: false,
@@ -58,13 +50,6 @@ export const EXAMPLE_WALLES: Walle[] = [
 export const DEFAULT_WALLE: Walle = {
   id: '',
   name: '',
-  mode: EnumWalleMode.Combined,
-  contents: [],
-}
-
-export const EMPTY_WALLE: Walle = {
-  id: 'debate-walle-000',
-  name: `(無設定${WALLE_LABEL})`,
   mode: EnumWalleMode.Combined,
   contents: [],
 }

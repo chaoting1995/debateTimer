@@ -5,117 +5,142 @@ const GA_EVENT_STRING = {
   "Header_Button_Timers": {
     "category": "Header",
     "action": "click",
-    "label": "Header_Button_Timers"
+    "label": "點擊頁首「計時器列表」按鈕"
   },
   "Header_Button_Add_Timer": {
     "category": "Header",
     "action": "click",
-    "label": "Header_Button_Add_Timer"
+    "label": "點擊頁首「新增計時器」按鈕"
+  },
+  "Header_Button_Dummys": {
+    "category": "Header",
+    "action": "click",
+    "label": "點擊頁首「攻防群組列表」按鈕"
+  },
+  "Header_Button_Add_Dummy": {
+    "category": "Header",
+    "action": "click",
+    "label": "點擊頁首「新增攻防群組」按鈕"
+  },
+  "Header_Button_Walles": {
+    "category": "Header",
+    "action": "click",
+    "label": "點擊頁首「辯題抽選器列表」按鈕"
+  },
+  "Header_Button_Add_Walle": {
+    "category": "Header",
+    "action": "click",
+    "label": "點擊頁首「新增辯題抽選器」按鈕"
   },
   "Header_Button_Listenings": {
     "category": "Header",
     "action": "click",
-    "label": "Header_Button_Listenings"
+    "label": "點擊頁首「戰場判斷列表」按鈕"
   },
   "Header_Button_Add_Listening": {
     "category": "Header",
     "action": "click",
-    "label": "Header_Button_Add_Listening"
+    "label": "點擊頁首「新增戰場判斷表」按鈕"
   },
   "Header_Button_Menu": {
     "category": "Header",
     "action": "click",
-    "label": "Header_Button_Menu"
+    "label": "點擊頁首「側欄」按鈕"
   },
   "Menu_Item_To_Timer": {
     "category": "Menu",
     "action": "click",
-    "label": "Menu_Item_To_Timer"
+    "label": "點擊側欄「計時器」按鈕"
   },
-  "Menu_Item_To_TopicCreator": {
+  "Menu_Item_To_Walle": {
     "category": "Menu",
     "action": "click",
-    "label": "Menu_Item_To_TopicCreator"
+    "label": "點擊側欄「辯題抽選器」按鈕"
+  },
+  "Menu_Item_To_Dummy": {
+    "category": "Menu",
+    "action": "click",
+    "label": "點擊側欄「攻防群組」按鈕"
   },
   "Timer_Button_Play": {
     "category": "Timer",
     "action": "click",
-    "label": "Timer_Button_Play"
+    "label": "點擊計時器「開始計時」按鈕"
   },
   "Timers_Item_To_Timer": {
     "category": "Timers",
     "action": "click",
-    "label": "Timers_Item_To_Timer"
+    "label": "點擊計時器列表「計時器項目」前往「計時器_名稱_模式」"
   },
   "Timers_Button_Edit_Timer": {
     "category": "Timers",
     "action": "click",
-    "label": "Timers_Button_Edit_Timer"
+    "label": "點擊計時器列表「編輯計時器」按鈕"
   },
   "Timers_Button_Delete_Timer": {
     "category": "Timers",
     "action": "click",
-    "label": "Timers_Button_Delete_Timer"
+    "label": "點擊計時器列表「刪除計時器」按鈕"
   },
   "TimersEditor_Button_Submit": {
     "category": "TimerEditor",
     "action": "submit",
-    "label": "TimersEditor_Button_Submit"
+    "label": "點擊計時器編輯器「儲存計時器」按鈕"
   },
   "TimersEditor_Button_Settting": {
     "category": "TimerEditor",
     "action": "click",
-    "label": "TimersEditor_Button_Settting"
+    "label": "點擊計時器編輯器「進階設定」按鈕"
   },
   "Walle_Button_TopicMode_Complete": {
     "category": "Walle",
     "action": "click",
-    "label": "Walle_Button_TopicMode_Complete"
+    "label": "點擊辯題產生器「完整辯題」按鈕"
   },
   "Walle_Button_TopicMode_Combined": {
     "category": "Walle",
     "action": "click",
-    "label": "Walle_Button_TopicMode_Combined"
+    "label": "點擊辯題產生器「組合辯題」按鈕"
   },
   "Walle_Button_TopicMiddleItemMode_Causal": {
     "category": "Walle",
     "action": "click",
-    "label": "Walle_Button_TopicMiddleItemMode_Causal"
+    "label": "點擊辯題產生器「因果型辯題」按鈕"
   },
   "Walle_Button_TopicMiddleItemMode_Compare": {
     "category": "Walle",
     "action": "click",
-    "label": "Walle_Button_TopicMiddleItemMode_Compare"
+    "label": "點擊辯題產生器「比較型辯題」按鈕"
   },
   "Walle_Button_SpinTopic": {
     "category": "Walle",
     "action": "click",
-    "label": "Walle_Button_SpinTopic"
+    "label": "點擊辯題產生器「抽辯題」按鈕"
   },
   "TopicDrawer_Button_Draw": {
     "category": "TopicDrawer",
     "action": "click",
-    "label": "TopicDrawer_Button_Draw"
+    "label": "點擊持方抽籤器「抽籤」按鈕"
   },
   "ResultPicker_Button_Judge": {
     "category": "ResultPicker",
     "action": "click",
-    "label": "ResultPicker_Button_Judge"
+    "label": "點擊判決器「判決」按鈕"
   },
   "TopicListDrawer_Button_Settting": {
     "category": "TopicListDrawer",
     "action": "click",
-    "label": "TopicListDrawer_Button_Settting"
+    "label": "點擊辯題列表彈窗「進階設定」按鈕"
   },
   "Listenings_Button_Edit_Listening": {
     "category": "Listenings",
     "action": "click",
-    "label": "Listenings_Button_Edit_Listening"
+    "label": "點擊戰場判斷列表「編輯戰場判斷表」按鈕＋「戰場判斷表名稱_擁有者」"
   },
   "Listenings_Button_Delete_Listening": {
     "category": "Listenings",
     "action": "click",
-    "label": "Listenings_Button_Delete_Listening"
+    "label": "點擊戰場判斷列表「刪除戰場判斷表」按鈕"
   }
 };
 export default GA_EVENT_STRING;

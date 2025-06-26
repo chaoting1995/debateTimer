@@ -7,13 +7,14 @@ import { FileText } from '@phosphor-icons/react';
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import { pageLinks, PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/route.constants';
 import { Walle as TypeWalle } from 'modules/walle/resources/walle.type';
-import { DEFAULT_WALLE } from 'modules/walle/resources/walle.constant';
+import { DEFAULT_WALLE, WALLE_LABEL } from 'modules/walle/resources/walle.constant';
+import { WalleModeComplete, WalleModeCombined } from 'modules/walle';
+import { EnumWalleMode } from 'modules/walle/enums/enumWalleMode';
+import { HeadTags, ListEmptyBox } from "components";
+import useWalles from 'modules/walle/context/Walles/useWalles';
 import useInnerHeight from 'hooks/useInnerHeight';
 import Layout from 'layouts/Layout';
-import HeadTags from 'components/HeadTags';
-import useWalles from 'modules/walle/context/Walles/useWalles';
-import { EnumWalleMode } from 'modules/walle/enums/enumWalleMode';
-import { WalleModeComplete, WalleModeCombined } from 'modules/walle';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 const Walle: React.FC = () => {
   const [innerHeight] = useInnerHeight();
@@ -22,24 +23,19 @@ const Walle: React.FC = () => {
   // list 有資料，則預設顯示第一個；無資料，則預設顯示預設值
   const [walle, setWalle] = React.useState<TypeWalle>(DEFAULT_WALLE);
 
-  const walleCreator = React.useCallback((_walle: TypeWalle): React.ReactNode  => {
-    const reactNodeByEnumWalleMode: Record<EnumWalleMode, React.ReactNode> = {
-      [EnumWalleMode.Combined]: <WalleModeCombined className='walle-mode' walle={_walle} />,
-      [EnumWalleMode.Complete]: <WalleModeComplete className='walle-mode' walle={_walle} />,
-    }
-    return reactNodeByEnumWalleMode[_walle.mode];
-  }, []);
+  const creator: Record<EnumWalleMode, React.ReactNode> = {
+    [EnumWalleMode.Combined]: <WalleModeCombined className='walle-mode' walle={walle} />,
+    [EnumWalleMode.Complete]: <WalleModeComplete className='walle-mode' walle={walle} />,
+  }
 
-  // 若沒有 id，預設為 walles 第一個物件
-  React.useEffect(() => {
-    if (id) return;
-    if (wallesProvider.list.length === 0) return;
-    setWalle(wallesProvider.list[0]);
-  }, [id, wallesProvider.list]);
+  const trakingHeaderButtonToList = () => {
+    ServiceGA4.event(GA_EVENT.Header_Button_Timers);
+  };
 
   React.useEffect(() => {
-    if (!id) return;
-    const _walle = wallesProvider.getFixedWalle(id) || wallesProvider.getItem(id);
+    const _walle = !id 
+      ? wallesProvider.getFixedWalle('debate-fixed-walle-combined')
+      : wallesProvider.getFixedWalle(id) || wallesProvider.getItem(id);
     if (!_walle) return;
     setWalle(_walle);
   }, [id, wallesProvider]);
@@ -48,12 +44,18 @@ const Walle: React.FC = () => {
     title={PAGE_TITLE.walle} 
     mainClassName={cx('DT-Walle', style(innerHeight))}
     renderButtons={
-      <IconButton component={Link} to={pageLinks.walles}>
+      <IconButton component={Link} to={pageLinks.walles} onClick={trakingHeaderButtonToList}>
         <FileText size={28} weight='light'/>
       </IconButton>
     }>
     <HeadTags title={PAGE_TITLE.walle} description={PAGE_DESCRIPTION.walle} />
-    {walleCreator(walle)}
+    {wallesProvider.list.length === 0 && !wallesProvider.getFixedWalle('debate-fixed-walle-combined') ? (
+      <ListEmptyBox label={WALLE_LABEL} mode='empty' pageLink={pageLinks.timers} />
+    ) : id && !walle.id ? (
+      <ListEmptyBox label={WALLE_LABEL} mode='error' pageLink={pageLinks.dummyAdd} />
+    ) : (
+      creator[walle.mode]
+    )}
   </Layout>;
 }
 
