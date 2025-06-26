@@ -5,18 +5,19 @@ import { TextField, IconButton } from '@mui/material';
 import { Trash, Eye, EyeSlash } from '@phosphor-icons/react';
 import { v4 as uuidv4 } from 'uuid';
 
+import { Button } from 'components';
+import { pageLinks } from 'routes/route.constants';
+import { useFloatingButton } from 'hooks/useFloatingButton';
+import { styleSettingColor } from 'styles/variables.style';
+import { Status, STATUS_LOADED, STATUS_ERROR } from 'modules/form/form';
+import { DummyEditorBatchAdd } from 'modules/dummy';
+import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
+import { DUMMY_LABEL, DUMMY_CONTENT_LABEL } from 'modules/dummy/resources/dummy.constant';
 import usePopup from 'context/Popup/usePopup';
 import useDialog from 'hooks/useDialog';
 import useFormColumn from 'modules/form/useFormColumn';
 import useCopyDummy from 'modules/dummy/hooks/useCopyDummy';
-import { pageLinks } from 'routes/route.constants';
-import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
-import { styleSettingColor } from 'styles/variables.style';
-import { Status, STATUS_LOADED, STATUS_ERROR } from 'modules/form/form';
-import { Button } from 'components';
-import { DummyEditorBatchAdd } from 'modules/dummy';
-import { useFloatingButton } from 'hooks/useFloatingButton';
-import { DUMMY_LABEL, DUMMY_CONTENT_LABEL } from 'modules/dummy/resources/dummy.constant';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 export type ColumContentsItemWithStatus = {
   id: string;
@@ -39,6 +40,7 @@ const DummyEditor = (props: Props) => {
 
   const [isEdited, setIsEdited] = React.useState(false);
   const [openBatchAdd, handleOpenBatchAdd, handleCloseBatchAdd] = useDialog(false);
+
   const columnName = useFormColumn<string>({
     value: props.dummy.name,
     defaultValue: '',
@@ -66,7 +68,10 @@ const DummyEditor = (props: Props) => {
     });
   }, []);
   
-  const handleCopyDummy = () => onCopyDummy(columnName.value, columnContents);
+  const handleCopyDummy = () => {
+    onCopyDummy(columnName.value, columnContents);
+    ServiceGA4.event(GA_EVENT.DummyEditor_Button_Copy_Dummy);
+  }
 
   const handleBatchAddContentsItem = React.useCallback((columnContents: DummyContent[]) => {
     setIsEdited(true);
@@ -173,6 +178,14 @@ const DummyEditor = (props: Props) => {
     navigae(pageLinks.dummys);
   }, [navigae, isEdited, popup]);
 
+  const trackingDummyEditorButtonSave = (name: string) => () => {
+    const newGaEvent = {
+      ...GA_EVENT.DummyEditor_Button_Save,
+      label: `${GA_EVENT.DummyEditor_Button_Save.label}:${name}`
+    }
+    ServiceGA4.event(newGaEvent);
+  };
+
   const handleSave = React.useCallback(() => {
     let isValid = true;
     if (!columnName.onVarify()) isValid = false;
@@ -192,6 +205,7 @@ const DummyEditor = (props: Props) => {
 
     props.onSave(newDummy);
     popup.notice({ message: '儲存成功', duration: 1000 });
+    trackingDummyEditorButtonSave(columnName.value);
   }, [columnName, columnContents, customVarifyContents, props, popup]);
 
   React.useEffect(() => {

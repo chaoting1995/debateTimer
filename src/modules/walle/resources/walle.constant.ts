@@ -18,7 +18,7 @@ export const COMBINED_MIDDLE_ITEM_MODE_LABEL: Record<EnumCombinedMiddleItemMode,
 export const COMBINED_MIDDLE_ITEM_LABEL: Record<EnumCombinedMiddleItemMode, string> = {
   [EnumCombinedMiddleItemMode.Causal]: '有利於/有害於',
   [EnumCombinedMiddleItemMode.Compare]: '重於',
-};
+}
 
 export const DT_LOCALSTORAGE_KEY_WALLES = 'DT_LOCALSTORAGE_KEY_WALLES';
 

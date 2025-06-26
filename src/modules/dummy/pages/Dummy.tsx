@@ -23,9 +23,8 @@ const Dummy: React.FC = () => {
   // list 有資料，則預設顯示第一個；無資料，則預設顯示預設值
   const [dummy, setDummy] = React.useState<TypeDummy>(DEFAULT_DUMMY);
 
-  const trakingHeaderButtonToList = () => {
-    ServiceGA4.event(GA_EVENT.Header_Button_Dummys);
-  };
+  const trackingHeaderButtonToList = () => ServiceGA4.event(GA_EVENT.Header_Button_To_Dummys);
+  const trackingHeaderButtonAdd = () => ServiceGA4.event(GA_EVENT.Header_Button_Add_Dummy);
 
   React.useEffect(() => {
     const _dummy = !id ? dummysProvider.list[0] : dummysProvider.getItem(id);
@@ -37,15 +36,15 @@ const Dummy: React.FC = () => {
     title={PAGE_TITLE.dummy} 
     mainClassName={cx('DT-Dummy', style(innerHeight))}
     renderButtons={
-      <IconButton component={Link} to={pageLinks.dummys} onClick={trakingHeaderButtonToList}>
+      <IconButton component={Link} to={pageLinks.dummys} onClick={trackingHeaderButtonToList}>
         <FileText size={28} weight='light'/>
       </IconButton>
     }>
     <HeadTags title={PAGE_TITLE.dummy} description={PAGE_DESCRIPTION.dummy} />
     {dummysProvider.list.length === 0  ? (
-      <ListEmptyBox label={DUMMY_LABEL} mode='add' pageLink={pageLinks.dummyAdd} />
+      <ListEmptyBox label={DUMMY_LABEL} mode='add' pageLink={pageLinks.dummyAdd} onTrack={trackingHeaderButtonAdd} />
     ) : id && !dummy.id ? (
-      <ListEmptyBox label={DUMMY_LABEL} mode='error' pageLink={pageLinks.dummys} />
+      <ListEmptyBox label={DUMMY_LABEL} mode='error' pageLink={pageLinks.dummys} onTrack={trackingHeaderButtonToList} />
     ) : (
       <DummyModeNormal dummy={dummy} className='dummy-mode' />
     )}

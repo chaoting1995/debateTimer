@@ -28,10 +28,9 @@ const Walle: React.FC = () => {
     [EnumWalleMode.Complete]: <WalleModeComplete className='walle-mode' walle={walle} />,
   }
 
-  const trakingHeaderButtonToList = () => {
-    ServiceGA4.event(GA_EVENT.Header_Button_Timers);
-  };
-
+  const trackingHeaderButtonToList = () => ServiceGA4.event(GA_EVENT.Header_Button_To_Walles);
+  const trackingHeaderButtonAdd = () => ServiceGA4.event(GA_EVENT.Header_Button_Add_Walle);
+  
   React.useEffect(() => {
     const _walle = !id 
       ? wallesProvider.getFixedWalle('debate-fixed-walle-combined')
@@ -44,15 +43,15 @@ const Walle: React.FC = () => {
     title={PAGE_TITLE.walle} 
     mainClassName={cx('DT-Walle', style(innerHeight))}
     renderButtons={
-      <IconButton component={Link} to={pageLinks.walles} onClick={trakingHeaderButtonToList}>
+      <IconButton component={Link} to={pageLinks.walles} onClick={trackingHeaderButtonToList}>
         <FileText size={28} weight='light'/>
       </IconButton>
     }>
     <HeadTags title={PAGE_TITLE.walle} description={PAGE_DESCRIPTION.walle} />
     {wallesProvider.list.length === 0 && !wallesProvider.getFixedWalle('debate-fixed-walle-combined') ? (
-      <ListEmptyBox label={WALLE_LABEL} mode='empty' pageLink={pageLinks.walleAdd} />
+      <ListEmptyBox label={WALLE_LABEL} mode='empty' pageLink={pageLinks.walleAdd} onTrack={trackingHeaderButtonAdd} />
     ) : id && !walle.id ? (
-      <ListEmptyBox label={WALLE_LABEL} mode='error' pageLink={pageLinks.walles} />
+      <ListEmptyBox label={WALLE_LABEL} mode='error' pageLink={pageLinks.walles} onTrack={trackingHeaderButtonToList} />
     ) : (
       creator[walle.mode]
     )}

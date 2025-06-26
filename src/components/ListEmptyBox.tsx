@@ -16,23 +16,29 @@ type Props = {
   mode?: 'add' | 'empty' | 'error';
   pageLink?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onTrack?: () => void;
   children?: React.ReactNode;
 };
 
 const ListEmptyBox = (props: Props) => {
 
-const descriptionLabel: Record<EnumMode, string> = {
-  [EnumMode.Add]: `尚無${props.label}`,
-  [EnumMode.Empty]: `尚無${props.label}`,
-  [EnumMode.Error]: `網址錯誤`,
-}
+  const descriptionLabel: Record<EnumMode, string> = {
+    [EnumMode.Add]: `尚無${props.label}`,
+    [EnumMode.Empty]: `尚無${props.label}`,
+    [EnumMode.Error]: `網址錯誤`,
+  }
 
-const buttonLabel: Record<EnumMode, string> = {
-  [EnumMode.Add]: `新增${props.label}`,
-  [EnumMode.Empty]: `前往${props.label}列表`,
-  [EnumMode.Error]: `前往${props.label}列表`,
-}
+  const buttonLabel: Record<EnumMode, string> = {
+    [EnumMode.Add]: `新增${props.label}`,
+    [EnumMode.Empty]: `前往${props.label}列表`,
+    [EnumMode.Error]: `前往${props.label}列表`,
+  }
 
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>)  => {
+    if (props.onClick) props.onClick(event);
+    if (props.onTrack) props.onTrack();
+  };
+  
   if (props.children) {
     return <div className={cx('DT-ListEmptyBox', style, props.className)}>
       <div>{descriptionLabel[!props.mode ? EnumMode.Add : props.mode]}</div>
@@ -43,11 +49,11 @@ const buttonLabel: Record<EnumMode, string> = {
   return <div className={cx('DT-ListEmptyBox', style, props.className)}>
     <div>{descriptionLabel[!props.mode ? EnumMode.Add : props.mode]}</div>
     {props.pageLink && 
-      <Button variant='outlined' color="inherit" component={Link} to={props.pageLink}>
+      <Button variant='outlined' color="inherit" component={Link} to={props.pageLink} onClick={props.onTrack}>
         {buttonLabel[!props.mode ? EnumMode.Add : props.mode]}
       </Button>}
     {props.onClick &&
-      <Button variant='outlined' color="inherit" onClick={props.onClick}>
+      <Button variant='outlined' color="inherit" onClick={handleClick}>
         {buttonLabel[!props.mode ? EnumMode.Add : props.mode]}
       </Button>}
   </div>

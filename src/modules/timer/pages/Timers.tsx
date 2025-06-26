@@ -29,12 +29,15 @@ const Timers: React.FC = () => {
   const [open, handleOpen, handleClose] = useDialog(false);
   const [selectedTimer, setSelectedTimer] = React.useState<Timer>(DEFAULT_TIMER); 
 
-  const trakingClickListItemToDetail = (name: string, mode: EnumTimerMode) => () => {
+  const trackingHeaderButtonAdd = () => ServiceGA4.event(GA_EVENT.Header_Button_Add_Timer);
+  const trackingTimersButtonAdd = () => ServiceGA4.event(GA_EVENT.Timers_Button_Add_Timer);
+  const trackingTimersButtonEdit = () => ServiceGA4.event(GA_EVENT.Timers_Button_Edit_Timer);
+  const trackingTimersButtonDelete = () => ServiceGA4.event(GA_EVENT.Timers_Button_Delete_Timer);
+  const trackingTimersButtonView = (name: string, mode: EnumTimerMode) => () => {
     const newGaEvent = {
-      ...GA_EVENT.Timers_Item_To_Timer,
-      label: `${GA_EVENT.Timers_Item_To_Timer.label}_Mode:${mode}_Name:${name}`
+      ...GA_EVENT.Timers_Button_View_Timer,
+      label: `${GA_EVENT.Timers_Button_View_Timer.label}:${name}:${mode}`
     }
-
     ServiceGA4.event(newGaEvent);
   };
 
@@ -46,12 +49,8 @@ const Timers: React.FC = () => {
 
     setSelectedTimer(_timer);
     handleOpen();
-    
-    if (_timerID) {
-      ServiceGA4.event(GA_EVENT.Timers_Button_Edit_Timer);
-    } else {
-      ServiceGA4.event(GA_EVENT.Header_Button_Add_Timer);
-    }
+    if (_timerID) trackingTimersButtonEdit();
+    if (!_timerID) trackingHeaderButtonAdd();
   }, [handleOpen, timersProvider.list])
 
   const handleDelete = (_timerID: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -65,7 +64,7 @@ const Timers: React.FC = () => {
     if (!isConfirm) return;
     timersProvider.deleteItem(_timerID);
     popup.notice({ message: '刪除成功', duration: 1000 });
-    ServiceGA4.event(GA_EVENT.Timers_Button_Delete_Timer);
+    trackingTimersButtonDelete();
   }
 
   const handleDragEnd = (sourceIndex: number, destinationIndex: number) => {
@@ -88,14 +87,14 @@ const Timers: React.FC = () => {
     homeLink={pageLinks.timer}
     renderButtons={
       <IconButton onClick={handleOpenEditor()}>
-        <Plus size={28} weight='light'/>
+        <Plus size={28} weight='light' />
       </IconButton>
     }>
     <HeadTags 
       title={`${PAGE_TITLE.timerWithVersion} | 自訂${TIMER_LABEL}`} 
       description={PAGE_DESCRIPTION.timer} />
     {timersProvider.list.length === 0 && 
-      <ListEmptyBox label={TIMER_LABEL} onClick={handleOpenEditor()} />}
+      <ListEmptyBox label={TIMER_LABEL} onClick={handleOpenEditor()} onTrack={trackingTimersButtonAdd} />}
     <List disablePadding>
       <DragDrog
         className='list-drag-drog'
@@ -106,14 +105,14 @@ const Timers: React.FC = () => {
             <ListItemButton
               component={Link} 
               to={ServiceRoute.toPageLinkWithParams(pageLinks.timerID, { id: item.id })}
-              onClick={trakingClickListItemToDetail(item.name, item.mode)}
+              onClick={trackingTimersButtonView(item.name, item.mode)}
             >
               <DotsSixVertical size={26} weight='light'/>
               <div className='item-name'>{item.name}</div>
             </ListItemButton>
             <ListItemSecondaryAction className='item-actions'>
               <IconButton onClick={handleOpenEditor(item.id)}>
-                <PencilSimple size={26} weight='light'/>
+                <PencilSimple size={26} weight='light' />
               </IconButton>
               <IconButton onClick={handleDelete(item.id)}>
                 <Trash size={26} weight='light' />

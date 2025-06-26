@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
+import { Trash, Eye, EyeSlash } from '@phosphor-icons/react';
 import {
   TextField,
   MenuItem,
@@ -9,28 +10,29 @@ import {
   FormHelperText,
   IconButton,
 } from '@mui/material';
-import { Trash, Eye, EyeSlash } from '@phosphor-icons/react';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { v4 as uuidv4 } from 'uuid';
 
+import { Button } from 'components';
 import { pageLinks } from 'routes/route.constants';
+import { useFloatingButton } from 'hooks/useFloatingButton';
+import { styleSettingColor, styleSettingZIndex } from 'styles/variables.style';
+import { Status, STATUS_LOADED, STATUS_ERROR } from 'modules/form/form';
+import { WalleEditorBatchAdd } from 'modules/walle';
+import { Walle, WalleContent } from 'modules/walle/resources/walle.type';
+import { EnumWalleMode } from 'modules/walle/enums/enumWalleMode';
+import { WALLE_LABEL, WALLE_CONTENT_LABEL, WALLE_MODE_LABEL } from 'modules/walle/resources/walle.constant';
 import usePopup from 'context/Popup/usePopup';
 import useDialog from 'hooks/useDialog';
 import useFormColumn from 'modules/form/useFormColumn';
-import { Walle, WalleContent } from 'modules/walle/resources/walle.type';
-import { styleSettingColor, styleSettingZIndex } from 'styles/variables.style';
-import { Status, STATUS_LOADED, STATUS_ERROR } from 'modules/form/form';
-import { Button } from 'components';
-import { WalleEditorBatchAdd } from 'modules/walle';
 import useCopyWalle from 'modules/walle/hooks/useCopyWalle';
-import { useFloatingButton } from 'hooks/useFloatingButton';
-import { EnumWalleMode } from 'modules/walle/enums/enumWalleMode';
-import { WALLE_MODE_LABEL, WALLE_LABEL, WALLE_CONTENT_LABEL } from 'modules/walle/resources/walle.constant';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 export type ColumContentsItemWithStatus = {
   id: string;
   disabled: boolean;
   content: string;
+  category: string;
   status: Status;
 };
 
@@ -70,7 +72,7 @@ const WalleEditor = (props: Props) => {
   const columnMode = useFormColumn<EnumWalleMode | '', typeof EnumWalleMode>({
     value: props.walle.id ? props.walle.mode : EnumWalleMode.Combined,
     defaultValue: '',
-    placeholder: '選擇辯題抽選器模式',
+    placeholder: `選擇${WALLE_LABEL}模式`,
     verifyRules: {
       requireSelect: true,
       enumTypeGuide: EnumWalleMode,
@@ -101,7 +103,10 @@ const WalleEditor = (props: Props) => {
     });
   }, []);
   
-  const handleCopyWalle = () => onCopyWalle(columnName.value, columnContents);
+  const handleCopyWalle = () => {
+    onCopyWalle(columnName.value, columnContents);
+    ServiceGA4.event(GA_EVENT.WalleEditor_Button_Copy_Walle);
+  }
 
   const handleBatchAddContentsItem = React.useCallback((columnContents: WalleContent[]) => {
     setIsEdited(true);
@@ -120,6 +125,7 @@ const WalleEditor = (props: Props) => {
           id: `debate-walle-content-${uuidv4()}`,
           disabled: false,
           content: '',
+          category: '',
           status: STATUS_LOADED
       };
       newState.push(newColumContentsItemWithStatus);
@@ -208,6 +214,14 @@ const WalleEditor = (props: Props) => {
     navigae(pageLinks.walles);
   }, [navigae, isEdited, popup]);
 
+  const trackingWalleEditorButtonSave = (name: string, mode: EnumWalleMode) => () => {
+    const newGaEvent = {
+      ...GA_EVENT.WalleEditor_Button_Save,
+      label: `${GA_EVENT.WalleEditor_Button_Save.label}:${name}:${mode}`
+    }
+    ServiceGA4.event(newGaEvent);
+  };
+
   const handleSave = React.useCallback(() => {
     let isValid = true;
     if (!columnName.onVarify()) isValid = false;
@@ -228,6 +242,7 @@ const WalleEditor = (props: Props) => {
 
     props.onSave(newWalle);
     popup.notice({ message: '儲存成功', duration: 1000 });
+    trackingWalleEditorButtonSave(columnName.value, columnMode.value as EnumWalleMode);
   }, [columnName, columnMode, columnContents, customVarifyContents, props, popup]);
 
   React.useEffect(() => {

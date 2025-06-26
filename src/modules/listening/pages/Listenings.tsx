@@ -22,11 +22,11 @@ const Listenings: React.FC = () => {
   const popup = usePopup();
   const listeningsProvider = useListenings();
 
-  const trakingHeaderButtonAddListening = () => {    
-    ServiceGA4.event(GA_EVENT.Header_Button_Add_Timer);
+  const trackingHeaderButtonAdd = () => {    
+    ServiceGA4.event(GA_EVENT.Header_Button_Add_Listening);
   };
 
-  const trakingButtonEditListening = (name: string, owner: string) => () => {
+  const trackingButtonEditListening = (name: string, owner: string) => () => {
     const newGaEvent = {
       ...GA_EVENT.Listenings_Button_Edit_Listening,
       label: `${GA_EVENT.Listenings_Button_Edit_Listening.label}_Name:${name}_Owner:${owner}`
@@ -56,7 +56,7 @@ const Listenings: React.FC = () => {
     mainClassName={cx('DT-Listenings', style)}
     title={PAGE_TITLE.listenings}
     renderButtons={
-      <IconButton component={Link} to={pageLinks.listening} onClick={trakingHeaderButtonAddListening}>
+      <IconButton component={Link} to={pageLinks.listening} onClick={trackingHeaderButtonAdd}>
         <Plus size={28} weight='light'/>
       </IconButton>
     }>
@@ -82,7 +82,7 @@ const Listenings: React.FC = () => {
               <IconButton 
                 component={Link} 
                 to={ServiceRoute.toPageLinkWithParams(pageLinks.listeningID, { id: item.id })}
-                onClick={trakingButtonEditListening(item.name, item.owner)}>
+                onClick={trackingButtonEditListening(item.name, item.owner)}>
                 <PencilSimple size={26} weight='light'/>
               </IconButton>
               <IconButton onClick={handleDelete(item.id)}>

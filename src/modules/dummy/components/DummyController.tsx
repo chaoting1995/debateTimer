@@ -1,29 +1,29 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
-import { 
-  ArrowsClockwise, 
-  UserMinus,
-  UserSound
- } from '@phosphor-icons/react';
+import { ArrowsClockwise, UserMinus, UserSound } from '@phosphor-icons/react';
 
-import { styleSettingColor } from 'styles/variables.style';
 import { CircleButton } from 'components';
+import { styleSettingColor } from 'styles/variables.style';
+import { DummyContent } from "modules/dummy/resources/dummy.type";
 import UtilAudio from 'utils/audio';
-// import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
+import ServiceUtil from "services/util.service";
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
   isSpeech: boolean;
   onToggleMuteSpeech: () => void;
-  onSpin: (isSpeech: boolean) => void;
+  onSpin: (isSpeech: boolean) => DummyContent | undefined;
   disabledOnSpin?: boolean;
 };
 
 const DummyController = (props: Props) => {
+  
   const handleSpin = React.useCallback(() => {
-    props.onSpin(props.isSpeech);
     UtilAudio.audioRolling();
-    // ServiceGA4.event(GA_EVENT.DummyCreator_Button_SpinDummy);
+    const chosenDummyContent = props.onSpin(props.isSpeech);
+    if (chosenDummyContent && props.isSpeech) ServiceUtil.speakText(chosenDummyContent.content);
+    ServiceGA4.event(GA_EVENT.Dummy_Button_Spin_DummyContent);
   },[props]);
 
   const handleToggleMuteSpeech = React.useCallback(() => () => {

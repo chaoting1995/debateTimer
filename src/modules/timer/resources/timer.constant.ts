@@ -3,6 +3,11 @@ import { Timer } from 'modules/timer/resources/timer.type';
 
 export const TIMER_LABEL = '計時器';
 
+export const TIMER_MODE_LABEL: Record<EnumTimerMode, string> = {
+  [EnumTimerMode.Normal]: '一般辯論',
+  [EnumTimerMode.Crossfire]: '自由辯論',
+}
+
 export const DT_LOCALSTORAGE_KEY_TIMERS = 'DT_LOCALSTORAGE_KEY_TIMERS';
 
 export const EXAMPLE_TIMERS: Array<Timer> = [
@@ -88,4 +93,4 @@ export const DEFAULT_TIMER: Timer = {
   mode: EnumTimerMode.Normal,
   name: '',
   ring: []
-};
+}

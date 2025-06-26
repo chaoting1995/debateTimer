@@ -24,7 +24,7 @@ const SideDrawer = (props: Props) => {
     const randomSide = sides[Math.floor(Math.random() * sides.length)];
     setSide(randomSide);
     UtilAudio.audioClick();
-    ServiceGA4.event(GA_EVENT.TopicDrawer_Button_Draw);
+    ServiceGA4.event(GA_EVENT.SideDrawer_Button_Draw);
   };
 
   return (

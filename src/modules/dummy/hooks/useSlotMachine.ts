@@ -2,7 +2,7 @@ import React from 'react';
 
 import { DummyContent } from 'modules/dummy/resources/dummy.type';
 import { DEFAUT_DUMMY_CONTENT } from 'modules/dummy/resources/dummy.constant';
-import ServiceUtil from 'services/util.service';
+// import ServiceUtil from 'services/util.service';
 
 export type UseSlotMachine = {
   enableDummyContents: DummyContent[];
@@ -25,7 +25,7 @@ const useSlotMachine = (dummyContents: DummyContent[]): UseSlotMachine => {
     setDummyContent(_dummyContent);
   }, []);
 
-  const onSpin = React.useCallback((isSpeech: boolean, excludeDummy?: DummyContent) => {
+  const onSpin = React.useCallback((isSpeech: boolean, excludeDummy?: DummyContent): DummyContent | undefined => {
     if (enableDummyContents.length <= 1) return;
 
     const newDummyContents = enableDummyContents.filter(item => item.id !== excludeDummy?.id);
@@ -36,11 +36,10 @@ const useSlotMachine = (dummyContents: DummyContent[]): UseSlotMachine => {
     setTimeout(() => {
       setIsSpinning(false);
       setDummyContent(chosenDummyContent);
-
-      if(isSpeech) ServiceUtil.speakText(chosenDummyContent.content);
+      return chosenDummyContent;
+      // if(isSpeech) ServiceUtil.speakText(chosenDummyContent.content);
     }, 2000);
 
-    return chosenDummyContent;
   }, [enableDummyContents]);
 
   React.useEffect(() => {

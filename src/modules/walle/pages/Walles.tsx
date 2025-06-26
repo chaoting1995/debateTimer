@@ -2,28 +2,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
-import { 
-  Trash, 
-  PencilSimple, 
-  Plus, 
-  DotsSixVertical,
-  Circle,
-  ChartPieSlice,
-} from '@phosphor-icons/react';
+import { Trash, PencilSimple, Plus, DotsSixVertical, Circle, ChartPieSlice } from '@phosphor-icons/react';
 import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction } from '@mui/material';
 
-import ServiceRoute from 'routes/route.service';
 import { styleSettingColor } from 'styles/variables.style';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { DragDrog, ListEmptyBox } from 'components';
 import { PAGE_TITLE, PAGE_DESCRIPTION, pageLinks } from 'routes/route.constants';
-import usePopup from 'context/Popup/usePopup';
-import useWalles from 'modules/walle/context/Walles/useWalles';
-import Layout from 'layouts/Layout';
-import HeadTags from 'components/HeadTags';
+import { WALLE_LABEL } from 'modules/walle/resources/walle.constant';
 import { FIXED_WALLES } from 'modules/walle/resources/fixedWalle.constant';
 import { EnumWalleMode } from 'modules/walle/enums/enumWalleMode';
-import { WALLE_LABEL } from 'modules/walle/resources/walle.constant';
+import ServiceRoute from 'routes/route.service';
+import Layout from 'layouts/Layout';
+import HeadTags from 'components/HeadTags';
+import usePopup from 'context/Popup/usePopup';
+import useWalles from 'modules/walle/context/Walles/useWalles';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 const Walles: React.FC = () => {
   const popup = usePopup();
@@ -34,6 +28,18 @@ const Walles: React.FC = () => {
     [EnumWalleMode.Complete]: <Circle size={26} weight='thin' />
   }
 
+  const trackingHeaderButtonAdd = () => ServiceGA4.event(GA_EVENT.Header_Button_Add_Walle);
+    const trackingWallesButtonAdd = () => ServiceGA4.event(GA_EVENT.Walles_Button_Add_Walle);
+    const trackingWallesButtonEdit = () => ServiceGA4.event(GA_EVENT.Walles_Button_Edit_Walle);
+    const trackingWallesButtonDelete = () => ServiceGA4.event(GA_EVENT.Walles_Button_Delete_Walle);
+    const trackingWallesButtonView = (name: string, mode: EnumWalleMode) => () => {
+      const newGaEvent = {
+        ...GA_EVENT.Walles_Button_View_Walle,
+        label: `${GA_EVENT.Walles_Button_View_Walle.label}:${name}:${mode}`
+      }
+      ServiceGA4.event(newGaEvent);
+    };
+  
   const handleDelete = (walleID: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     event.preventDefault();
@@ -45,6 +51,7 @@ const Walles: React.FC = () => {
     if(!isConfirm) return;
     wallesProvider.deleteItem(walleID);
     popup.notice({ message: '刪除成功', duration: 1000 });
+    trackingWallesButtonDelete();
   }
 
   const handleDragEnd = (sourceIndex: number, destinationIndex: number) => {
@@ -56,7 +63,7 @@ const Walles: React.FC = () => {
     title={`自訂${WALLE_LABEL}`}
     homeLink={pageLinks.walle}
     renderButtons={
-      <IconButton component={Link} to={pageLinks.walleAdd}>
+      <IconButton component={Link} to={pageLinks.walleAdd} onClick={trackingHeaderButtonAdd}>
         <Plus size={28} weight='light'/>
       </IconButton>
     }>
@@ -93,7 +100,7 @@ const Walles: React.FC = () => {
     <hr className='walles-divider'/>
     </List>
     {wallesProvider.list.length === 0 && 
-      <ListEmptyBox label={WALLE_LABEL} pageLink={pageLinks.walleAdd} />}
+      <ListEmptyBox label={WALLE_LABEL} pageLink={pageLinks.walleAdd} onTrack={trackingWallesButtonAdd} />}
     <List disablePadding>
       <DragDrog
         className='list-drag-drog'
@@ -104,6 +111,7 @@ const Walles: React.FC = () => {
             <ListItemButton
               component={Link} 
               to={ServiceRoute.toPageLinkWithParams(pageLinks.walleID, { id: item.id })}
+              onClick={trackingWallesButtonView(item.name, item.mode)}
             >
               <DotsSixVertical size={26} weight='light'/>
               <div className='item-name'>{item.name}</div>
@@ -113,6 +121,7 @@ const Walles: React.FC = () => {
               <IconButton 
                 component={Link} 
                 to={ServiceRoute.toPageLinkWithParams(pageLinks.walleEditID, { id: item.id })}
+                onClick={trackingWallesButtonEdit}
               >
                 <PencilSimple size={26} weight='light'/>
               </IconButton>

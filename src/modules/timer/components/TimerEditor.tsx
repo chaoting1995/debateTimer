@@ -13,17 +13,18 @@ import {
 import { SelectChangeEvent } from '@mui/material/Select';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Timer } from 'modules/timer/resources/timer.type';
-import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
+import { BottomDrawerHeader, BottomDrawerBody, Button } from 'components';
 import { styleSettingColor, styleSettingZIndex } from 'styles/variables.style';
 import { Status, STATUS_LOADED, STATUS_ERROR } from 'modules/form/form';
+import { TimerEditorSetting } from 'modules/timer';
+import { Timer } from 'modules/timer/resources/timer.type';
+import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
+import { TIMER_LABEL, TIMER_MODE_LABEL } from 'modules/timer/resources/timer.constant';
 import ServiceFormat from 'services/format.service';
+import usePopup from 'context/Popup/usePopup';
+import useDialog from 'hooks/useDialog';
 import useFormColumn from 'modules/form/useFormColumn';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
-import useDialog from 'hooks/useDialog';
-import { BottomDrawerHeader, BottomDrawerBody, Button } from 'components';
-import { TimerEditorSetting } from 'modules/timer';
-import { TIMER_LABEL } from 'modules/timer/resources/timer.constant';
 
 type ColumRingItemWithStatus = {
   id: string;
@@ -34,11 +35,11 @@ type ColumRingItemWithStatus = {
 const options: Array<{ value: EnumTimerMode; label: string }> = [
   {
     value: EnumTimerMode.Normal,
-    label: '一般辯論',
+    label: TIMER_MODE_LABEL[EnumTimerMode.Normal],
   },
   {
     value: EnumTimerMode.Crossfire,
-    label: '自由辯論',
+    label: TIMER_MODE_LABEL[EnumTimerMode.Crossfire],
   },
 ];
 
@@ -57,19 +58,20 @@ const createRingItemWithStatus = (item: number | ''): ColumRingItemWithStatus =>
 };
 
 const TimerEditor = (props: Props) => {
+  const popup = usePopup();
   const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
 
   const columnName = useFormColumn<string>({
     value: props.timer.name,
     defaultValue: '',
-    placeholder: '計時器名稱',
+    placeholder: `請輸入${TIMER_LABEL}名稱`,
     verifyRules: { require: true },
   });
   
   const columnMode = useFormColumn<EnumTimerMode | '', typeof EnumTimerMode>({
     value: props.timer.id ? props.timer.mode : '',
     defaultValue: '',
-    placeholder: '選擇計時器模式',
+    placeholder: `選擇${TIMER_LABEL}模式`,
     verifyRules: {
       requireSelect: true,
       enumTypeGuide: EnumTimerMode,
@@ -117,7 +119,7 @@ const TimerEditor = (props: Props) => {
 
   const handleOpenSettingWithTraking = React.useCallback(() => {
     handleOpenSetting();
-    ServiceGA4.event(GA_EVENT.TimersEditor_Button_Settting);
+    ServiceGA4.event(GA_EVENT.TimerEditor_Button_Setting);
   }, [handleOpenSetting]);
 
   const handleUseTemplateTimer = React.useCallback((_timer: Timer) => {
@@ -213,6 +215,14 @@ const TimerEditor = (props: Props) => {
     return isValid;
   }, [columnRing]);
 
+  const trackingTimerEditorButtonSave = (name: string, mode: EnumTimerMode) => () => {
+    const newGaEvent = {
+      ...GA_EVENT.TimerEditor_Button_Save,
+      label: `${GA_EVENT.TimerEditor_Button_Save.label}:${name}:${mode}`
+    }
+    ServiceGA4.event(newGaEvent);
+  };
+
   const handleSave = React.useCallback(() => {
     let isValid = true;
     if (!columnName.onVarify()) isValid = false;
@@ -229,11 +239,8 @@ const TimerEditor = (props: Props) => {
     };
 
     props.onSave(newTimer);
-    const newGaEvent = {
-      ...GA_EVENT.TimersEditor_Button_Submit,
-      label: `TimersEditor_Button_Submit${props.timer?.id ? '_Edit' : '_Add'}`,
-    };
-    ServiceGA4.event(newGaEvent);
+    popup.notice({ message: '儲存成功', duration: 1000 });
+    trackingTimerEditorButtonSave(columnName.value, columnMode.value as EnumTimerMode);
   }, [columnMode, columnName, columnRing, customVarifyRing, props]);
 
   // 依照 ringTimes，決定 columnRing 表單欄位數量

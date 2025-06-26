@@ -1,15 +1,13 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
-import { 
-  ArrowsClockwise, 
-  MaskHappy,
- } from '@phosphor-icons/react';
+import { ArrowsClockwise, MaskHappy } from '@phosphor-icons/react';
 
-import { styleSettingColor } from 'styles/variables.style';
 import { CircleButton, Dialog } from 'components';
+import { styleSettingColor } from 'styles/variables.style';
 import UtilAudio from 'utils/audio';
 import useDialog from 'hooks/useDialog';
 import { RolePicker } from 'modules/role';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
@@ -23,6 +21,7 @@ const WalleController = (props: Props) => {
   const handleSpin = () => {
     props.onSpin();
     UtilAudio.audioRolling();
+    ServiceGA4.event(GA_EVENT.Dummy_Button_Spin_DummyContent);
   };
 
   return (

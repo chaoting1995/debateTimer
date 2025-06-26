@@ -2,130 +2,190 @@
 // You can use 'pnpm ga-config'.
 
 const GA_EVENT_STRING = {
-  "Header_Button_Timers": {
+  "Header_Button_To_Timers": {
     "category": "Header",
     "action": "click",
-    "label": "點擊頁首「計時器列表」按鈕"
+    "label": "頁首:前往「計時器列表」"
   },
   "Header_Button_Add_Timer": {
     "category": "Header",
     "action": "click",
-    "label": "點擊頁首「新增計時器」按鈕"
+    "label": "頁首:新增「計時器」"
   },
-  "Header_Button_Dummys": {
+  "Header_Button_To_Dummys": {
     "category": "Header",
     "action": "click",
-    "label": "點擊頁首「攻防群組列表」按鈕"
+    "label": "頁首:前往「攻防組列表」"
   },
   "Header_Button_Add_Dummy": {
     "category": "Header",
     "action": "click",
-    "label": "點擊頁首「新增攻防群組」按鈕"
+    "label": "頁首:新增「攻防組」"
   },
-  "Header_Button_Walles": {
+  "Header_Button_To_Walles": {
     "category": "Header",
     "action": "click",
-    "label": "點擊頁首「辯題抽選器列表」按鈕"
+    "label": "頁首:前往「抽題器列表」"
   },
   "Header_Button_Add_Walle": {
     "category": "Header",
     "action": "click",
-    "label": "點擊頁首「新增辯題抽選器」按鈕"
+    "label": "頁首:新增「抽題器」"
   },
   "Header_Button_Listenings": {
     "category": "Header",
     "action": "click",
-    "label": "點擊頁首「戰場判斷列表」按鈕"
+    "label": "頁首:前往「戰場判斷列表」"
   },
   "Header_Button_Add_Listening": {
     "category": "Header",
     "action": "click",
-    "label": "點擊頁首「新增戰場判斷表」按鈕"
+    "label": "頁首:新增「戰場判斷表」"
   },
   "Header_Button_Menu": {
     "category": "Header",
     "action": "click",
-    "label": "點擊頁首「側欄」按鈕"
+    "label": "頁首:打開「側欄選單」"
   },
   "Menu_Item_To_Timer": {
     "category": "Menu",
     "action": "click",
-    "label": "點擊側欄「計時器」按鈕"
+    "label": "側欄選單:前往「計時器」"
   },
   "Menu_Item_To_Walle": {
     "category": "Menu",
     "action": "click",
-    "label": "點擊側欄「辯題抽選器」按鈕"
+    "label": "側欄選單:前往「抽題器」"
   },
   "Menu_Item_To_Dummy": {
     "category": "Menu",
     "action": "click",
-    "label": "點擊側欄「攻防群組」按鈕"
+    "label": "側欄選單:前往「攻防組」"
   },
-  "Timer_Button_Play": {
-    "category": "Timer",
-    "action": "click",
-    "label": "點擊計時器「開始計時」按鈕"
-  },
-  "Timers_Item_To_Timer": {
+  "Timers_Button_View_Timer": {
     "category": "Timers",
     "action": "click",
-    "label": "點擊計時器列表「計時器項目」前往「計時器_名稱_模式」"
+    "label": "計時器列表:查看「計時器」"
+  },
+  "Timers_Button_Add_Timer": {
+    "category": "Timers",
+    "action": "click",
+    "label": "計時器列表:新增「計時器」"
   },
   "Timers_Button_Edit_Timer": {
     "category": "Timers",
     "action": "click",
-    "label": "點擊計時器列表「編輯計時器」按鈕"
+    "label": "計時器列表:編輯「計時器」"
   },
   "Timers_Button_Delete_Timer": {
     "category": "Timers",
     "action": "click",
-    "label": "點擊計時器列表「刪除計時器」按鈕"
+    "label": "計時器列表:刪除「計時器」"
   },
-  "TimersEditor_Button_Submit": {
+  "TimerEditor_Button_Save": {
     "category": "TimerEditor",
     "action": "submit",
-    "label": "點擊計時器編輯器「儲存計時器」按鈕"
+    "label": "計時器編輯器:儲存「計時器」"
   },
-  "TimersEditor_Button_Settting": {
+  "TimerEditor_Button_Setting": {
     "category": "TimerEditor",
     "action": "click",
-    "label": "點擊計時器編輯器「進階設定」按鈕"
+    "label": "計時器編輯器:打開「進階設定」"
   },
-  "Walle_Button_TopicMode_Complete": {
+  "Timer_Button_Play": {
+    "category": "Timer",
+    "action": "click",
+    "label": "計時器:開始計時"
+  },
+  "Dummys_Button_View_Dummy": {
+    "category": "Dummys",
+    "action": "click",
+    "label": "攻防組列表:查看「攻防組」"
+  },
+  "Dummys_Button_Add_Dummy": {
+    "category": "Dummys",
+    "action": "click",
+    "label": "攻防組列表:新增「攻防組」"
+  },
+  "Dummys_Button_Edit_Dummy": {
+    "category": "Dummys",
+    "action": "click",
+    "label": "攻防組列表:編輯「攻防組」"
+  },
+  "Dummys_Button_Delete_Dummy": {
+    "category": "Dummys",
+    "action": "click",
+    "label": "攻防組列表:刪除「攻防組」"
+  },
+  "DummyEditor_Button_Save": {
+    "category": "DummyEditor",
+    "action": "submit",
+    "label": "攻防組編輯器:儲存「攻防組」"
+  },
+  "DummyEditor_Button_Copy_Dummy": {
+    "category": "DummyEditor",
+    "action": "click",
+    "label": "攻防組編輯器:複製「攻防組」內容"
+  },
+  "Dummy_Button_Spin_DummyContent": {
+    "category": "Dummy",
+    "action": "click",
+    "label": "抽題器:抽出「攻防子項」"
+  },
+  "Walles_Button_View_Walle": {
+    "category": "Walles",
+    "action": "click",
+    "label": "抽題器列表:查看「抽題器」"
+  },
+  "Walles_Button_Add_Walle": {
+    "category": "Walles",
+    "action": "click",
+    "label": "抽題器列表:新增「抽題器」"
+  },
+  "Walles_Button_Edit_Walle": {
+    "category": "Walles",
+    "action": "click",
+    "label": "抽題器列表:編輯「抽題器」"
+  },
+  "Walles_Button_Delete_Walle": {
+    "category": "Walles",
+    "action": "click",
+    "label": "抽題器列表:刪除「抽題器」"
+  },
+  "WalleEditor_Button_Save": {
+    "category": "WalleEditor",
+    "action": "submit",
+    "label": "抽題器編輯器:儲存「抽題器」"
+  },
+  "WalleEditor_Button_Copy_Walle": {
+    "category": "WalleEditor",
+    "action": "click",
+    "label": "抽題器編輯器:複製「抽題器」內容"
+  },
+  "Walle_Button_Spin_WalleContent": {
     "category": "Walle",
     "action": "click",
-    "label": "點擊辯題產生器「完整辯題」按鈕"
-  },
-  "Walle_Button_TopicMode_Combined": {
-    "category": "Walle",
-    "action": "click",
-    "label": "點擊辯題產生器「組合辯題」按鈕"
+    "label": "抽題器:抽出「辯題選項」"
   },
   "Walle_Button_TopicMiddleItemMode_Causal": {
     "category": "Walle",
     "action": "click",
-    "label": "點擊辯題產生器「因果型辯題」按鈕"
+    "label": "抽題器:切換「因果型辯題」"
   },
   "Walle_Button_TopicMiddleItemMode_Compare": {
     "category": "Walle",
     "action": "click",
-    "label": "點擊辯題產生器「比較型辯題」按鈕"
+    "label": "抽題器:切換「比較型辯題」"
   },
-  "Walle_Button_SpinTopic": {
-    "category": "Walle",
+  "SideDrawer_Button_Draw": {
+    "category": "SideDrawer",
     "action": "click",
-    "label": "點擊辯題產生器「抽辯題」按鈕"
-  },
-  "TopicDrawer_Button_Draw": {
-    "category": "TopicDrawer",
-    "action": "click",
-    "label": "點擊持方抽籤器「抽籤」按鈕"
+    "label": "持方抽選器:抽出「持方」"
   },
   "ResultPicker_Button_Judge": {
     "category": "ResultPicker",
     "action": "click",
-    "label": "點擊判決器「判決」按鈕"
+    "label": "判決器:判決「勝方」"
   },
   "TopicListDrawer_Button_Settting": {
     "category": "TopicListDrawer",

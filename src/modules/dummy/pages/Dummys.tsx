@@ -21,12 +21,15 @@ const Dummys: React.FC = () => {
   const popup = usePopup();
   const dummysProvider = useDummys();
   
-  const trakingClickListItemToDetail = (name: string) => () => {
+  const trackingHeaderButtonAdd = () => ServiceGA4.event(GA_EVENT.Header_Button_Add_Dummy);
+  const trackingDummysButtonAdd = () => ServiceGA4.event(GA_EVENT.Dummys_Button_Add_Dummy);
+  const trackingDummysButtonEdit = () => ServiceGA4.event(GA_EVENT.Dummys_Button_Edit_Dummy);
+  const trackingDummysButtonDelete = () => ServiceGA4.event(GA_EVENT.Dummys_Button_Delete_Dummy);
+  const trackingDummysButtonView = (name: string) => () => {
     const newGaEvent = {
-      ...GA_EVENT.Timers_Item_To_Timer,
-      label: `${GA_EVENT.Timers_Item_To_Timer.label}_Name:${name}`
+      ...GA_EVENT.Dummys_Button_View_Dummy,
+      label: `${GA_EVENT.Dummys_Button_View_Dummy.label}:${name}`
     }
-
     ServiceGA4.event(newGaEvent);
   };
 
@@ -41,7 +44,7 @@ const Dummys: React.FC = () => {
     if(!isConfirm) return;
     dummysProvider.deleteItem(dummyID);
     popup.notice({ message: '刪除成功', duration: 1000 });
-    ServiceGA4.event(GA_EVENT.Timers_Button_Delete_Timer);
+    trackingDummysButtonDelete();
   }
 
   const handleDragEnd = (sourceIndex: number, destinationIndex: number) => {
@@ -53,7 +56,7 @@ const Dummys: React.FC = () => {
     title={`自訂${DUMMY_LABEL}`}
     homeLink={pageLinks.dummy}
     renderButtons={
-      <IconButton component={Link} to={pageLinks.dummyAdd}>
+      <IconButton component={Link} to={pageLinks.dummyAdd} onClick={trackingHeaderButtonAdd}>
         <Plus size={28} weight='light'/>
       </IconButton>
     }>
@@ -61,7 +64,7 @@ const Dummys: React.FC = () => {
       title={`${PAGE_TITLE.dummy} | 自訂${DUMMY_LABEL}`} 
       description={PAGE_DESCRIPTION.dummy} />
     {dummysProvider.list.length === 0 && 
-      <ListEmptyBox label={DUMMY_LABEL} pageLink={pageLinks.dummyAdd} />}
+      <ListEmptyBox label={DUMMY_LABEL} pageLink={pageLinks.dummyAdd} onTrack={trackingDummysButtonAdd} />}
     <List disablePadding>
       <DragDrog
         className='list-drag-drog'
@@ -72,7 +75,7 @@ const Dummys: React.FC = () => {
             <ListItemButton
               component={Link} 
               to={ServiceRoute.toPageLinkWithParams(pageLinks.dummyID, { id: item.id })}
-              onClick={trakingClickListItemToDetail(item.name)}
+              onClick={trackingDummysButtonView(item.name)}
             >
               <DotsSixVertical size={26} weight='light'/>
               <div className='item-name'>{item.name}</div>
@@ -86,6 +89,7 @@ const Dummys: React.FC = () => {
               <IconButton 
                 component={Link} 
                 to={ServiceRoute.toPageLinkWithParams(pageLinks.dummyEditID, { id: item.id })}
+                onClick={trackingDummysButtonEdit}
               >
                 <PencilSimple size={26} weight='light'/>
               </IconButton>

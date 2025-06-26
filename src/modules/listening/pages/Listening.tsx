@@ -132,9 +132,7 @@ const Listening: React.FC = () => {
     }
   }
 
-  const trakingHeaderButtonToList = () => {
-    ServiceGA4.event(GA_EVENT.Header_Button_Listenings);
-  };
+  const trackingHeaderButtonToList = () => ServiceGA4.event(GA_EVENT.Header_Button_To_Listenings);
 
   React.useEffect(() => {
     if (!id) return;
@@ -158,7 +156,7 @@ const Listening: React.FC = () => {
         homeLink={pageLinks.listenings}
         mainClassName={cx('DT-Listening', style)}
         renderButtons={
-          <IconButton component={Link} to={pageLinks.listenings} onClick={trakingHeaderButtonToList}>
+          <IconButton component={Link} to={pageLinks.listenings} onClick={trackingHeaderButtonToList}>
             <FileText size={28} weight='light' />
           </IconButton>
         }
@@ -181,7 +179,7 @@ const Listening: React.FC = () => {
     homeLink={pageLinks.listenings}
     mainClassName={cx('DT-Listening', style)}
     renderButtons={
-      <IconButton component={Link} to={pageLinks.listenings} onClick={trakingHeaderButtonToList}>
+      <IconButton component={Link} to={pageLinks.listenings} onClick={trackingHeaderButtonToList}>
         <FileText size={28} weight='light' />
       </IconButton>
     }>

@@ -28,9 +28,7 @@ const Timer: React.FC = () => {
     [EnumTimerMode.Crossfire]: <TimerModeCrossfire className='timer-mode' timer={timer} />
   }
 
-  const trakingHeaderButtonToList = () => {
-    ServiceGA4.event(GA_EVENT.Header_Button_Timers);
-  };
+  const trackingHeaderButtonToList = () => ServiceGA4.event(GA_EVENT.Header_Button_To_Timers);
 
   React.useEffect(() => {
     const _timer = !id ? timersProvider.list[0] : timersProvider.getItem(id);
@@ -42,15 +40,15 @@ const Timer: React.FC = () => {
     title={PAGE_TITLE.timer} 
     mainClassName={cx('DT-Timer', style(innerHeight))}
     renderButtons={
-      <IconButton component={Link} to={pageLinks.timers} onClick={trakingHeaderButtonToList}>
+      <IconButton component={Link} to={pageLinks.timers} onClick={trackingHeaderButtonToList}>
         <FileText size={28} weight='light'/>
       </IconButton>
     }>
     <HeadTags title={PAGE_TITLE.timerWithVersion} description={PAGE_DESCRIPTION.timer} />
     {timersProvider.list.length === 0  ? (
-      <ListEmptyBox label={TIMER_LABEL} mode='empty' pageLink={pageLinks.timers} />
+      <ListEmptyBox label={TIMER_LABEL} mode='empty' pageLink={pageLinks.timers} onTrack={trackingHeaderButtonToList} />
     ) : id && !timer.id ? (
-      <ListEmptyBox label={TIMER_LABEL} mode='error' pageLink={pageLinks.timers} />
+      <ListEmptyBox label={TIMER_LABEL} mode='error' pageLink={pageLinks.timers} onTrack={trackingHeaderButtonToList} />
     ) : (
       creator[timer.mode]
     )}
