@@ -5,10 +5,10 @@ import { IconButton } from '@mui/material';
 
 import { BottomDrawerHeader, BottomDrawerBody } from 'components';
 import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
-import useDialog from 'hooks/useDialog';
 import { DummyContentList, DummyContentListSetting } from 'modules/dummy';
 import { DUMMY_CONTENT_LABEL } from 'modules/dummy/resources/dummy.constant';
-// import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
+import useDialog from 'hooks/useDialog';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
@@ -23,7 +23,7 @@ const DummyContentListDrawer: React.FC<Props> = (props) => {
 
   const handleOpenSettingWithTraking = React.useCallback(() => {
     handleOpenSetting();
-    // ServiceGA4.event(GA_EVENT.DummyListDrawer_Button_Settting);
+    ServiceGA4.event(GA_EVENT.Dummy_Button_Open_DummyContentListSettingDrawer);
   }, [handleOpenSetting]);
 
   // 依 props.open 判斷，每次開啟彈窗，就重置 openSetting

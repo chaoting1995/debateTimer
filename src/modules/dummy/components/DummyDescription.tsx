@@ -6,12 +6,14 @@ import { Dummy } from 'modules/dummy/resources/dummy.type';
 
 type Props = {
   dummy: Dummy;
+  children?: React.ReactNode;
 };
 
 const DummyDescription = (props: Props) => {
 
   return <div className={cx('DT-DummyDescription', style)}>
     <div className='info-name'>{props.dummy.name}</div>
+    {props.children}
   </div>;
 };
 

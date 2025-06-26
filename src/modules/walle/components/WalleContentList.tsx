@@ -4,11 +4,10 @@ import { css, cx } from '@emotion/css';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import { List, ListItemButton, ListItem, ListItemSecondaryAction, IconButton } from '@mui/material';
 
-import useWalles from 'modules/walle/context/Walles/useWalles';
-import UtilAudio from 'utils/audio';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { styleSettingColor } from 'styles/variables.style';
 import { WalleContent } from 'modules/walle/resources/walle.type';
+import useWalles from 'modules/walle/context/Walles/useWalles';
 
 type Props = {
   className?: string;
@@ -23,7 +22,6 @@ const { id } = useParams<{ id: string }>();
 
   const handleChangeWalle = React.useCallback((_walleContent: WalleContent) => () => {
     props.onChangeWalleContent(_walleContent);
-    UtilAudio.audioClick();
   },[props]);
 
   const handleToggleWalleDisabled = React.useCallback((contentID: string) => () => {

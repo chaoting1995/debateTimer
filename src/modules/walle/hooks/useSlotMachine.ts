@@ -7,7 +7,7 @@ export type UseSlotMachine = {
   enableWalleContents: WalleContent[];
   walleContent: WalleContent;
   isSpinning: boolean;
-  onSpin: (excludeWalle?: WalleContent) => WalleContent | undefined;
+  onSpin: (excludeWalle?: WalleContent) => Promise<WalleContent | undefined>;
   onChange: (walleContent: WalleContent) => void;
 }
 
@@ -24,22 +24,22 @@ const useSlotMachine = (walleContents: WalleContent[], isBackItem?: boolean): Us
     setWalleContent(_walleContent);
   }, []);
 
-  const onSpin = React.useCallback((excludeWalle?: WalleContent) => {
-    if (enableWalleContents.length <= 1) {
-      return;
-    }
+  const onSpin = React.useCallback((excludeWalle?: WalleContent): Promise<WalleContent | undefined> => {
+    return new Promise((resolve) => {
 
-    const newWalles = enableWalleContents.filter(item => item.id !== excludeWalle?.id);
-    const randomIndex = Math.floor(Math.random() * newWalles.length);
-    const chosenWalleContent = newWalles[randomIndex];
-
-    setIsSpinning(true);
-    setTimeout(() => {
-      setIsSpinning(false);
-      setWalleContent(chosenWalleContent);
-    }, 2000);
-
-    return chosenWalleContent;
+      if (enableWalleContents.length <= 1) return resolve(undefined);
+      
+      const newWalles = enableWalleContents.filter(item => item.id !== excludeWalle?.id);
+      const randomIndex = Math.floor(Math.random() * newWalles.length);
+      const chosenWalleContent = newWalles[randomIndex];
+      
+      setIsSpinning(true);
+      setTimeout(() => {
+        setIsSpinning(false);
+        setWalleContent(chosenWalleContent);
+        return resolve(chosenWalleContent);
+      }, 2000);
+    });
   }, [enableWalleContents]);
 
   React.useEffect(() => {

@@ -4,11 +4,10 @@ import { css, cx } from '@emotion/css';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import { List, ListItemButton, ListItem, ListItemSecondaryAction, IconButton } from '@mui/material';
 
-import useDummys from 'modules/dummy/context/Dummys/useDummys';
-import UtilAudio from 'utils/audio';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { styleSettingColor } from 'styles/variables.style';
 import { DummyContent } from 'modules/dummy/resources/dummy.type';
+import useDummys from 'modules/dummy/context/Dummys/useDummys';
 
 type Props = {
   className?: string;
@@ -23,7 +22,6 @@ const { id } = useParams<{ id: string }>();
 
   const handleChangeDummy = React.useCallback((_dummyContent: DummyContent) => () => {
     props.onChangeDummyContent(_dummyContent);
-    UtilAudio.audioClick();
   },[props]);
 
   const handleToggleDummyDisabled = React.useCallback((contentID: string) => () => {

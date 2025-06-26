@@ -32,7 +32,7 @@ const GA_EVENT_STRING = {
     "action": "click",
     "label": "頁首:新增「抽題器」"
   },
-  "Header_Button_Listenings": {
+  "Header_Button_To_Listenings": {
     "category": "Header",
     "action": "click",
     "label": "頁首:前往「戰場判斷列表」"
@@ -130,7 +130,32 @@ const GA_EVENT_STRING = {
   "Dummy_Button_Spin_DummyContent": {
     "category": "Dummy",
     "action": "click",
-    "label": "抽題器:抽出「攻防子項」"
+    "label": "攻防組:抽出「攻防子項」"
+  },
+  "Dummy_Button_Select_DummyContent": {
+    "category": "Dummy",
+    "action": "click",
+    "label": "攻防組:選出「攻防子項」"
+  },
+  "Dummy_Button_Open_DummyContentListDrawer": {
+    "category": "Dummy",
+    "action": "click",
+    "label": "攻防組:打開「攻防子項列表彈窗」"
+  },
+  "Dummy_Button_Open_DummyContentListSettingDrawer": {
+    "category": "Dummy",
+    "action": "click",
+    "label": "攻防組:打開「攻防子項列表彈窗:進階設定」"
+  },
+  "Dummy_Button_To_Edit_Dummy": {
+    "category": "Dummy",
+    "action": "click",
+    "label": "攻防組:編輯「攻防組」"
+  },
+  "Dummy_Button_Copy_Dummy": {
+    "category": "Dummy",
+    "action": "click",
+    "label": "攻防組:複製「攻防組」內容"
   },
   "Walles_Button_View_Walle": {
     "category": "Walles",
@@ -162,10 +187,25 @@ const GA_EVENT_STRING = {
     "action": "click",
     "label": "抽題器編輯器:複製「抽題器」內容"
   },
-  "Walle_Button_Spin_WalleContent": {
+  "Walle_Button_Spin_WalleContent_Complete": {
     "category": "Walle",
     "action": "click",
-    "label": "抽題器:抽出「辯題選項」"
+    "label": "抽題器:抽出「辯題選項」(模式:完整辯題)"
+  },
+  "Walle_Button_Spin_WalleContent_Combined": {
+    "category": "Walle",
+    "action": "click",
+    "label": "抽題器:抽出「辯題選項」(模式:組合辯題)"
+  },
+  "Walle_Button_Select_WalleContent_Complete": {
+    "category": "Walle",
+    "action": "click",
+    "label": "抽題器:選出「辯題選項」(模式:完整辯題)"
+  },
+  "Walle_Button_Select_WalleContent_Combined": {
+    "category": "Walle",
+    "action": "click",
+    "label": "抽題器:選出「辯題選項」(模式:組合辯題)"
   },
   "Walle_Button_TopicMiddleItemMode_Causal": {
     "category": "Walle",
@@ -177,6 +217,31 @@ const GA_EVENT_STRING = {
     "action": "click",
     "label": "抽題器:切換「比較型辯題」"
   },
+  "Walle_Button_Open_WalleContentListDrawer": {
+    "category": "Walle",
+    "action": "click",
+    "label": "抽題器:打開「辯題選項列表彈窗」"
+  },
+  "Walle_Button_Open_WalleContentListSettingDrawer": {
+    "category": "Walle",
+    "action": "click",
+    "label": "抽題器:打開「辯題選項列表彈窗:進階設定」"
+  },
+  "Walle_Button_To_Edit_Walle": {
+    "category": "Walle",
+    "action": "click",
+    "label": "抽題器:編輯「抽題器」"
+  },
+  "Walle_Button_Copy_Walle": {
+    "category": "Walle",
+    "action": "click",
+    "label": "抽題器:複製「抽題器」內容"
+  },
+  "Walle_Button_Download_FixedWalles": {
+    "category": "Walle",
+    "action": "click",
+    "label": "抽題器:下載「瓦力二號辯題全表」"
+  },
   "SideDrawer_Button_Draw": {
     "category": "SideDrawer",
     "action": "click",
@@ -187,20 +252,15 @@ const GA_EVENT_STRING = {
     "action": "click",
     "label": "判決器:判決「勝方」"
   },
-  "TopicListDrawer_Button_Settting": {
-    "category": "TopicListDrawer",
-    "action": "click",
-    "label": "點擊辯題列表彈窗「進階設定」按鈕"
-  },
   "Listenings_Button_Edit_Listening": {
     "category": "Listenings",
     "action": "click",
-    "label": "點擊戰場判斷列表「編輯戰場判斷表」按鈕＋「戰場判斷表名稱_擁有者」"
+    "label": "戰場判斷列表:編輯「戰場判斷表」"
   },
   "Listenings_Button_Delete_Listening": {
     "category": "Listenings",
     "action": "click",
-    "label": "點擊戰場判斷列表「刪除戰場判斷表」按鈕"
+    "label": "戰場判斷列表:刪除「戰場判斷表」"
   }
 };
 export default GA_EVENT_STRING;

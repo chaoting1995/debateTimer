@@ -2,13 +2,12 @@ import React from 'react';
 
 import { DummyContent } from 'modules/dummy/resources/dummy.type';
 import { DEFAUT_DUMMY_CONTENT } from 'modules/dummy/resources/dummy.constant';
-// import ServiceUtil from 'services/util.service';
 
 export type UseSlotMachine = {
   enableDummyContents: DummyContent[];
   dummyContent: DummyContent;
   isSpinning: boolean;
-  onSpin: (isSpeech: boolean) => DummyContent | undefined;
+  onSpin: (excludeDummy?: DummyContent) => Promise<DummyContent | undefined>;
   onChange: (dummyContent: DummyContent) => void;
 }
 
@@ -25,21 +24,22 @@ const useSlotMachine = (dummyContents: DummyContent[]): UseSlotMachine => {
     setDummyContent(_dummyContent);
   }, []);
 
-  const onSpin = React.useCallback((isSpeech: boolean, excludeDummy?: DummyContent): DummyContent | undefined => {
-    if (enableDummyContents.length <= 1) return;
+  const onSpin = React.useCallback((excludeDummy?: DummyContent): Promise<DummyContent | undefined> => {
+    return new Promise((resolve) => {
 
-    const newDummyContents = enableDummyContents.filter(item => item.id !== excludeDummy?.id);
-    const randomIndex = Math.floor(Math.random() * newDummyContents.length);
-    const chosenDummyContent = newDummyContents[randomIndex];
-
-    setIsSpinning(true);
-    setTimeout(() => {
-      setIsSpinning(false);
-      setDummyContent(chosenDummyContent);
-      return chosenDummyContent;
-      // if(isSpeech) ServiceUtil.speakText(chosenDummyContent.content);
-    }, 2000);
-
+      if (enableDummyContents.length <= 1) return resolve(undefined);
+      
+      const newDummyContents = enableDummyContents.filter(item => item.id !== excludeDummy?.id);
+      const randomIndex = Math.floor(Math.random() * newDummyContents.length);
+      const chosenDummyContent = newDummyContents[randomIndex];
+      
+      setIsSpinning(true);
+      setTimeout(() => {
+        setIsSpinning(false);
+        setDummyContent(chosenDummyContent);
+        return resolve(chosenDummyContent);
+      }, 2000);
+    });
   }, [enableDummyContents]);
 
   React.useEffect(() => {

@@ -1,15 +1,16 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
 
-import UtilAudio from 'utils/audio';
 import { BottomDrawer, CardActionArea } from 'components';
-import useDialog from 'hooks/useDialog';
-import useSlotMachine from 'modules/walle/hooks/useSlotMachine';
 import { WalleContentListDrawer, WalleDescription, WalleController }  from 'modules/walle';
 import { Walle, WalleContent } from 'modules/walle/resources/walle.type';
 import { COMBINED_MIDDLE_ITEM_MODE_LABEL, COMBINED_MIDDLE_ITEM_LABEL, WALLE_CONTENT_LABEL } from 'modules/walle/resources/walle.constant';
 import { EnumCombinedMiddleItemMode } from 'modules/walle/enums/enumCombinedMiddleItemMode';
 import { EnumCombinedTopicItemMode } from 'modules/walle/enums/enumCombinedTopicItemMode';
+import useDialog from 'hooks/useDialog';
+import useSlotMachine from 'modules/walle/hooks/useSlotMachine';
+import UtilAudio from 'utils/audio';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
@@ -39,12 +40,8 @@ const WalleModeCombined = (props: Props) => {
       : _walleContent?.content
   }, [props.walle.contents.length]);
 
-  const handleChangeWalleContent = (_walleContent: WalleContent) => {
-    slotMachineWalleByTopicItemMode[topicItemMode].onChange(_walleContent);
-    handleClose();
-  };
-
   const [middleItemMode, setMiddleItemMode] = React.useState(EnumCombinedMiddleItemMode.Causal);
+
   const handleChangeMiddleItemMode = React.useCallback((_middleItemMode: EnumCombinedMiddleItemMode) => () => {
     const switchMiddleItemMode: Record<EnumCombinedMiddleItemMode, EnumCombinedMiddleItemMode> = {
       [EnumCombinedMiddleItemMode.Causal]: EnumCombinedMiddleItemMode.Compare,
@@ -52,12 +49,27 @@ const WalleModeCombined = (props: Props) => {
     };
     UtilAudio.audioClick();
     setMiddleItemMode(switchMiddleItemMode[_middleItemMode]);
+
+    const trackingSwitchMiddleItemMode: Record<EnumCombinedMiddleItemMode, () => void> = {
+      [EnumCombinedMiddleItemMode.Causal]: () => ServiceGA4.event(GA_EVENT.Walle_Button_TopicMiddleItemMode_Compare),
+      [EnumCombinedMiddleItemMode.Compare]: () => ServiceGA4.event(GA_EVENT.Walle_Button_TopicMiddleItemMode_Causal),
+    };
+    trackingSwitchMiddleItemMode[_middleItemMode]();
   }, []);
 
-  const handleSpin = () => {
-    const chosenWalleContent = slotMachineWalleFrontItem.onSpin();
-    if (chosenWalleContent) slotMachineWalleBackItem.onSpin(chosenWalleContent);
+  const handleChangeWalleContent = (_walleContent: WalleContent) => {
+    slotMachineWalleByTopicItemMode[topicItemMode].onChange(_walleContent);
+    handleClose();
+    UtilAudio.audioClick();
+    ServiceGA4.event(GA_EVENT.Walle_Button_Select_WalleContent_Combined);
   };
+
+  const handleSpin = React.useCallback(async () => {
+    UtilAudio.audioRolling();
+    const chosenWalleContent = await slotMachineWalleFrontItem.onSpin();
+    if (chosenWalleContent) slotMachineWalleBackItem.onSpin(chosenWalleContent);
+    ServiceGA4.event(GA_EVENT.Walle_Button_Spin_WalleContent_Combined);
+  }, [slotMachineWalleBackItem, slotMachineWalleFrontItem]);
 
   return (
     <div className={cx('DT-WalleModeCombined', style, props.className)}>

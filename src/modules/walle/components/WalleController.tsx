@@ -4,10 +4,8 @@ import { ArrowsClockwise, MaskHappy } from '@phosphor-icons/react';
 
 import { CircleButton, Dialog } from 'components';
 import { styleSettingColor } from 'styles/variables.style';
-import UtilAudio from 'utils/audio';
 import useDialog from 'hooks/useDialog';
 import { RolePicker } from 'modules/role';
-import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
@@ -18,15 +16,9 @@ type Props = {
 const WalleController = (props: Props) => {
   const [open, handleOpen, handleClose] = useDialog(false);
 
-  const handleSpin = () => {
-    props.onSpin();
-    UtilAudio.audioRolling();
-    ServiceGA4.event(GA_EVENT.Dummy_Button_Spin_DummyContent);
-  };
-
   return (
     <div className={cx('DT-WalleController', props.className, style)}>
-      <CircleButton onClick={handleSpin} disabled={props.disabledOnSpin}>
+      <CircleButton onClick={props.onSpin} disabled={props.disabledOnSpin}>
         <ArrowsClockwise size={40} weight="thin"/>
       </CircleButton>
       <CircleButton onClick={handleOpen}>

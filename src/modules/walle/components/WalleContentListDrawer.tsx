@@ -5,12 +5,12 @@ import { IconButton } from '@mui/material';
 
 import { BottomDrawerHeader, BottomDrawerBody } from 'components';
 import { Walle, WalleContent } from 'modules/walle/resources/walle.type';
-import useDialog from 'hooks/useDialog';
 import { WalleContentList, WalleContentListSetting } from 'modules/walle';
 import { WALLE_CONTENT_LABEL } from 'modules/walle/resources/walle.constant';
 import WalleContentCategoryGroups from 'modules/walle/components/WalleContentCategoryGroups';
 import useWalles from 'modules/walle/context/Walles/useWalles';
-// import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
+import useDialog from 'hooks/useDialog';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
@@ -28,7 +28,7 @@ const WalleContentListDrawer: React.FC<Props> = (props) => {
 
   const handleOpenSettingWithTraking = React.useCallback(() => {
     handleOpenSetting();
-    // ServiceGA4.event(GA_EVENT.WalleListDrawer_Button_Settting);
+    ServiceGA4.event(GA_EVENT.Walle_Button_Open_WalleContentListSettingDrawer);
   }, [handleOpenSetting]);
 
   // 依 props.open 判斷，每次開啟彈窗，就重置 openSetting

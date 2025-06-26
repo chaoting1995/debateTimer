@@ -4,12 +4,13 @@ import { IconButton } from '@mui/material';
 import { XCircle } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
 
-import ServiceRoute from 'routes/route.service';
+import { BottomDrawerHeader, BottomDrawerBody, Button } from 'components';
+import { styleSettingColor } from 'styles/variables.style';
 import { pageLinks } from 'routes/route.constants';
 import { Dummy } from 'modules/dummy/resources/dummy.type';
-import { styleSettingColor } from 'styles/variables.style';
-import { BottomDrawerHeader, BottomDrawerBody, Button } from 'components';
+import ServiceRoute from 'routes/route.service';
 import useCopyDummy from 'modules/dummy/hooks/useCopyDummy';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
@@ -19,7 +20,14 @@ type Props = {
 
 const DummyContentListSetting = (props: Props) => {  
   const onCopyDummy = useCopyDummy();
-  const handleCopyDummy = () => onCopyDummy(props.dummy.name, props.dummy.contents);
+
+  const trackingDummyButtonToEditDummy = () => ServiceGA4.event(GA_EVENT.Walle_Button_Open_WalleContentListSettingDrawer);
+  const trackingDummyButtonCopyDummy = () => ServiceGA4.event(GA_EVENT.Dummy_Button_Copy_Dummy);
+
+  const handleCopyDummy = () => {
+    onCopyDummy(props.dummy.name, props.dummy.contents);
+    trackingDummyButtonCopyDummy();
+  }
   
   return (
     <div className={cx('DT-DummyContentListSetting', style, props.className)}>
@@ -37,6 +45,7 @@ const DummyContentListSetting = (props: Props) => {
           className='download-button' 
           component={Link} 
           to={ServiceRoute.toPageLinkWithParams(pageLinks.dummyEditID, { id: props.dummy.id })}
+          onClick={trackingDummyButtonToEditDummy}
         >
           前往編輯
         </Button>

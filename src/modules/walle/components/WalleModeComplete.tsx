@@ -1,13 +1,14 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
 
-import UtilAudio from 'utils/audio';
 import { BottomDrawer, CardActionArea } from 'components';
-import useDialog from 'hooks/useDialog';
-import useSlotMachine from 'modules/walle/hooks/useSlotMachine';
 import { WalleContentListDrawer, WalleDescription, WalleController }  from 'modules/walle';
 import { Walle, WalleContent } from 'modules/walle/resources/walle.type';
 import { WALLE_CONTENT_LABEL } from 'modules/walle/resources/walle.constant';
+import useDialog from 'hooks/useDialog';
+import useSlotMachine from 'modules/walle/hooks/useSlotMachine';
+import UtilAudio from 'utils/audio';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
@@ -22,34 +23,39 @@ const TopicModeComplete = (props: Props) => {
   const handleOpenWalleContentsDrawer = () => {
     handleOpen();
     UtilAudio.audioClick();
+    ServiceGA4.event(GA_EVENT.Walle_Button_Open_WalleContentListDrawer);
   };
-
-  const getWalleContent = React.useCallback((_walleContent: WalleContent) => {
-    return props.walle.contents.length === 0 
-      ? `(無設定${WALLE_CONTENT_LABEL})`
-      : _walleContent?.content
-  }, [props.walle.contents.length]);
 
   const handleChangeWalleContent = (_walleContent: WalleContent) => {
     slotMachine.onChange(_walleContent);
     handleClose();
+    UtilAudio.audioClick();
+    ServiceGA4.event(GA_EVENT.Walle_Button_Select_WalleContent_Complete);
   };
+
+  const handleSpin = React.useCallback(async () => {
+    UtilAudio.audioRolling();
+    await slotMachine.onSpin();
+    ServiceGA4.event(GA_EVENT.Walle_Button_Spin_WalleContent_Complete);
+  }, [slotMachine]);
 
   return (
     <div className={cx('DT-TopicModeComplete', style, props.className)}>
       <div className='top-section'>
         <CardActionArea onClick={handleOpenWalleContentsDrawer}>
-          {getWalleContent(slotMachine.walleContent)}
-          </CardActionArea>
+          {slotMachine.enableWalleContents.length === 0 
+            ? `(尚無可見的${WALLE_CONTENT_LABEL})`
+            : slotMachine.walleContent?.content}
+        </CardActionArea>
       </div>
       <div className='bottom-section'>
         <WalleDescription walle={props.walle}>
           {slotMachine.enableWalleContents.length <= 1 && 
-            <div>溫馨提示：無法抽題，辯題可選數量需 {'>'} 1 </div>
+            <div>溫馨提示：無法抽選，可抽選數量需 {'>'} 1 </div>
           }
         </WalleDescription>
         <WalleController
-          onSpin={slotMachine.onSpin}
+          onSpin={handleSpin}
           disabledOnSpin={slotMachine.isSpinning || slotMachine.enableWalleContents.length <= 1} 
         />
       </div>
