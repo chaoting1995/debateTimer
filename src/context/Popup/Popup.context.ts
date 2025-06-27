@@ -9,9 +9,9 @@ export type ParamsNotice = {
 };
 
 export type ParamsDialog = {
-  message?: string;
-  img?: string;
   title?: string;
+  message?: React.ReactNode;
+  img?: string;
   hideCloseButton?: boolean;
   className?: string;
 };

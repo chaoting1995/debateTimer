@@ -10,7 +10,7 @@ type Props = {
   children?: React.ReactNode;
   mainClassName?: string;
   layoutClassName?: string;
-  title?: string;
+  title?: React.ReactNode;
   homeLink?: string; 
   renderButtons?: React.ReactNode;
 };

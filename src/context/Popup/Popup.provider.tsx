@@ -127,7 +127,7 @@ const PopupProvider = (props: Props) => {
       <Dialog open={openDialog} onClose={handleCloseDialog} className={cx(styleDialog, configDialog.className)}>
         {!configDialog.hideCloseButton && (
           <IconButton className='close-button' title='close' onClick={handleCloseDialog}>
-            <X size='small' />
+            <X size={20} />
           </IconButton>
         )}
         {configDialog.img && <div className='dialog-img'>{configDialog.img}</div>}
@@ -155,13 +155,12 @@ const styleDialog = css`
 
   .close-button {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    top: 10px;
+    right: 10px;
 
     border-radius: 999px;
     border: 1px solid #eeeeee;
     box-sizing: border-box;
-    padding: 3px;
   }
 
   .MuiDialogTitle-root {

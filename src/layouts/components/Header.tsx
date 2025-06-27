@@ -15,7 +15,7 @@ import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   renderButtons?: React.ReactNode;
-  title?: string;
+  title?: React.ReactNode;
   homeLink?: string;
 };
 

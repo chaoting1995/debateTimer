@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
 import { IconButton } from '@mui/material';
-import { FileText } from '@phosphor-icons/react';
+import { FileText, Info } from '@phosphor-icons/react';
 
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import { pageLinks, PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/route.constants';
@@ -10,13 +10,15 @@ import { Walle as TypeWalle } from 'modules/walle/resources/walle.type';
 import { DEFAULT_WALLE, WALLE_LABEL } from 'modules/walle/resources/walle.constant';
 import { WalleModeComplete, WalleModeCombined } from 'modules/walle';
 import { EnumWalleMode } from 'modules/walle/enums/enumWalleMode';
-import { HeadTags, ListEmptyBox } from "components";
+import { HeadTags, ListEmptyBox } from 'components';
 import useWalles from 'modules/walle/context/Walles/useWalles';
 import useInnerHeight from 'hooks/useInnerHeight';
+import usePopup from 'context/Popup/usePopup';
 import Layout from 'layouts/Layout';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 const Walle: React.FC = () => {
+  const popup = usePopup();
   const [innerHeight] = useInnerHeight();
   const { id } = useParams<{ id: string }>();
   const wallesProvider = useWalles();
@@ -31,6 +33,23 @@ const Walle: React.FC = () => {
   const trackingHeaderButtonToList = () => ServiceGA4.event(GA_EVENT.Header_Button_To_Walles);
   const trackingHeaderButtonAdd = () => ServiceGA4.event(GA_EVENT.Header_Button_Add_Walle);
   
+  const handleInfo = () => {
+     popup.dialog({
+      title: '簡介',
+      message: <>
+        子申學長有一次腦洞大開，說我們應該搞一種神秘兵器，讓一個學弟妹一整年不打比賽，但是持續訓練。
+        <br/>
+        最後他一出場，他的風格跟打法會完全跟現在的主流辯手不同，就像是瓦力獨自在地球一樣，這種生化兵器搞不好可以打出一種超越級的強度。
+        <br/>
+        <br/>
+        後經哲耀學長改良，遂稱為「瓦力二號」。
+        <br/>
+        <br/>
+        玩家可以在隨機配對的辯題中，大量練習不同的辯題，鍛練基本功。
+      </>,
+      hideCloseButton: true,
+    });
+  }
   React.useEffect(() => {
     const _walle = !id 
       ? wallesProvider.getFixedWalle('debate-fixed-walle-combined')
@@ -40,7 +59,13 @@ const Walle: React.FC = () => {
   }, [id, wallesProvider]);
 
   return <Layout 
-    title={PAGE_TITLE.walle} 
+    title={<div className='walle-title'>
+      {PAGE_TITLE.walle}
+      <IconButton onClick={handleInfo}>
+        <Info size={20} weight='light' />
+      </IconButton>
+    </div>} 
+    layoutClassName={layoutStyle}
     mainClassName={cx('DT-Walle', style(innerHeight))}
     renderButtons={
       <IconButton component={Link} to={pageLinks.walles} onClick={trackingHeaderButtonToList}>
@@ -59,6 +84,18 @@ const Walle: React.FC = () => {
 }
 
 export default Walle;
+const layoutStyle = css`
+  .walle-title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    
+    svg {
+      color: ${styleSettingColor.text.primary};
+    }
+  }
+
+`;
 
 const style = (_innerHeight: number) => css`
   background-color: ${styleSettingColor.background.default};
@@ -81,6 +118,5 @@ id 缺乏 -> 取「列表中，第一個」
 id 錯誤 -> 秀「網址錯誤」
 id 正確 -> 取「列表中，合id者」
 列表為空 -> 秀「尚無XX」
-
-重整，全閉眼情境
+全閉眼+重整 -> 正確顯示
 */
