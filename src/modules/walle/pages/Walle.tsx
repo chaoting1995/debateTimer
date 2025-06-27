@@ -74,3 +74,13 @@ const style = (_innerHeight: number) => css`
     justify-content: space-between;
   }
 `;
+
+/*
+需測試情境：
+id 缺乏 -> 取「列表中，第一個」
+id 錯誤 -> 秀「網址錯誤」
+id 正確 -> 取「列表中，合id者」
+列表為空 -> 秀「尚無XX」
+
+重整，全閉眼情境
+*/

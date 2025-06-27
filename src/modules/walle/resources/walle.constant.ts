@@ -2,7 +2,7 @@ import { Walle, WalleContent } from 'modules/walle/resources/walle.type';
 import { EnumWalleMode } from 'modules/walle/enums/enumWalleMode';
 import { EnumCombinedMiddleItemMode } from 'modules/walle/enums/enumCombinedMiddleItemMode';
 
-export const WALLE_LABEL = '辯題抽選器';
+export const WALLE_LABEL = '抽題器';
 export const WALLE_CONTENT_LABEL = '辯題選項';
 
 export const WALLE_MODE_LABEL: Record<EnumWalleMode, string> = {

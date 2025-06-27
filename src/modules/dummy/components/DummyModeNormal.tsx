@@ -4,9 +4,9 @@ import { css, cx } from '@emotion/css';
 import { BottomDrawer, CardActionArea } from 'components';
 import { DummyDescription, DummyController, DummyContentListDrawer } from 'modules/dummy';
 import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
-import { DUMMY_CONTENT_LABEL } from "modules/dummy/resources/dummy.constant";
+import { DEFAUT_DUMMY_CONTENT, DUMMY_CONTENT_LABEL } from 'modules/dummy/resources/dummy.constant';
 import useDialog from 'hooks/useDialog';
-import useSlotMachine from 'modules/dummy/hooks/useSlotMachine';
+import useSlotMachine from 'hooks/useSlotMachine';
 import UtilAudio from 'utils/audio';
 import ServiceUtil from 'services/util.service';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
@@ -17,7 +17,7 @@ type Props = {
 };
 
 const DummyModeNormal = (props: Props) => {
-  const slotMachine = useSlotMachine(props.dummy.contents);
+  const slotMachine = useSlotMachine(props.dummy.contents, DEFAUT_DUMMY_CONTENT);
 
   const [open, handleOpen, handleClose] = useDialog(false);
   const [isSpeech, setIsSpeech] = React.useState<boolean>(true);
@@ -38,7 +38,7 @@ const DummyModeNormal = (props: Props) => {
   
   const handleSpin = React.useCallback(async () => {
     UtilAudio.audioRolling();
-    const chosenDummyContent = await slotMachine.onSpin();
+    const chosenDummyContent = await slotMachine.onSpin(true);
     if (chosenDummyContent && isSpeech) ServiceUtil.speakText(chosenDummyContent.content);
     ServiceGA4.event(GA_EVENT.Dummy_Button_Spin_DummyContent);
   },[isSpeech, slotMachine]);
@@ -54,22 +54,21 @@ const DummyModeNormal = (props: Props) => {
   return <div className={cx('DT-DummyModeNormal', style, props.className)}>
     <div className='top-section'>
       <CardActionArea disabled={Boolean(props.dummy.contents.length === 0)} onClick={handleClickDummyContentBox}>
-        {slotMachine.enableDummyContents.length === 0
+        {slotMachine.enableList.length === 0
             ? `(尚無可見的${DUMMY_CONTENT_LABEL})`
-            : slotMachine.dummyContent?.content}
+            : slotMachine.item?.content}
       </CardActionArea>
+      {slotMachine.enableList.length <= 1 && 
+        <div>溫馨提示：無法抽選，可抽選數量需 {'>'} 1 </div>
+      }
     </div>
     <div className='bottom-section'>
-      <DummyDescription dummy={props.dummy}>
-        {slotMachine.enableDummyContents.length <= 1 && 
-          <div>溫馨提示：無法抽選，可抽選數量需 {'>'} 1 </div>
-        }
-      </DummyDescription>
+      <DummyDescription dummy={props.dummy} />
       <DummyController 
         isSpeech={isSpeech}
-        onToggleMuteSpeech={handleToggleMuteSpeech(slotMachine.dummyContent.content)}
+        onToggleMuteSpeech={handleToggleMuteSpeech(slotMachine.item.content)}
         onSpin={handleSpin} 
-        disabledOnSpin={slotMachine.isSpinning || slotMachine.enableDummyContents.length <= 1} 
+        disabledOnSpin={slotMachine.isSpinning || slotMachine.enableList.length <= 1} 
       />
     </div>
     <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>

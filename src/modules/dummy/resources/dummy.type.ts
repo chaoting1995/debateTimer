@@ -11,8 +11,8 @@ export type DummyContent = {
 }
 
 /*
-dummys        攻防群組，列表
-dummy         攻防群組
+dummys        攻防組，列表
+dummy         攻防組
 dummyContents 攻防子項，列表
 dummyContent  攻防子項
 */

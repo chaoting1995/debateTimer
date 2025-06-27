@@ -20,8 +20,8 @@ export type WalleContentCategoryGroup = {
 };
 
 /*
-walles        攻防群組，列表
-walle         攻防群組
-walleContents 攻防子項，列表
-walleContent  攻防子項
+walles        抽題器，列表
+walle         抽題器
+walleContents 辯題選項，列表
+walleContent  辯題選項
 */

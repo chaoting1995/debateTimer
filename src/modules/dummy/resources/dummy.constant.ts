@@ -1,6 +1,6 @@
 import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
 
-export const DUMMY_LABEL = '攻防群組';
+export const DUMMY_LABEL = '攻防組';
 export const DUMMY_CONTENT_LABEL = '攻防子項';
 
 export const DT_LOCALSTORAGE_KEY_DUMMYS = 'DT_LOCALSTORAGE_KEY_DUMMYS';
