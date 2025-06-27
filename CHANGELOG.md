@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - 整併 useSlotMachine.ts
 - 瓦力二號，選項全閉眼後，重整網頁，bug 修復
+- 瓦力二號，新增簡介彈窗
 
 ## [1.0.8] - 2025-06-27
 ### Added

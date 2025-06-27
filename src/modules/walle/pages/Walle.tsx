@@ -94,7 +94,6 @@ const layoutStyle = css`
       color: ${styleSettingColor.text.primary};
     }
   }
-
 `;
 
 const style = (_innerHeight: number) => css`
