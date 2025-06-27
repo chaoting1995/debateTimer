@@ -6,7 +6,7 @@ import { DummyDescription, DummyController, DummyContentListDrawer } from 'modul
 import { Dummy, DummyContent } from 'modules/dummy/resources/dummy.type';
 import { DEFAUT_DUMMY_CONTENT, DUMMY_CONTENT_LABEL } from 'modules/dummy/resources/dummy.constant';
 import useDialog from 'hooks/useDialog';
-import useSlotMachine from 'hooks/useSlotMachine';
+import useSlotMachine, { SLOT_MACHINE_ERROR_MESSEGE } from 'hooks/useSlotMachine';
 import UtilAudio from 'utils/audio';
 import ServiceUtil from 'services/util.service';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
@@ -59,7 +59,7 @@ const DummyModeNormal = (props: Props) => {
             : slotMachine.item?.content}
       </CardActionArea>
       {slotMachine.enableList.length <= 1 && 
-        <div>溫馨提示：無法抽選，可抽選數量需 {'>'} 1 </div>
+        <div>{SLOT_MACHINE_ERROR_MESSEGE}</div>
       }
     </div>
     <div className='bottom-section'>

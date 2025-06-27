@@ -8,7 +8,7 @@ import { DEFAULT_WALLE_CONTENT, COMBINED_MIDDLE_ITEM_MODE_LABEL, COMBINED_MIDDLE
 import { EnumCombinedMiddleItemMode } from 'modules/walle/enums/enumCombinedMiddleItemMode';
 import { EnumCombinedTopicItemMode } from 'modules/walle/enums/enumCombinedTopicItemMode';
 import useDialog from 'hooks/useDialog';
-import useSlotMachine from 'hooks/useSlotMachine';
+import useSlotMachine, { SLOT_MACHINE_ERROR_MESSEGE } from 'hooks/useSlotMachine';
 import UtilAudio from 'utils/audio';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
@@ -34,11 +34,11 @@ const WalleModeCombined = (props: Props) => {
     setTopicItemMode(_topicItemMode)
   };
   
-  const getWalleContent = React.useCallback((_walleContent: WalleContent) => {
-    return props.walle.contents.length === 0 
-      ? `(無設定${WALLE_CONTENT_LABEL})`
-      : _walleContent?.content
-  }, [props.walle.contents.length]);
+  const getWalleContent = (_topicItemMode: EnumCombinedTopicItemMode) => {
+    return slotMachineWalleByTopicItemMode[_topicItemMode].enableList.length === 0 
+      ? `(尚無可見的${WALLE_CONTENT_LABEL})`
+      : slotMachineWalleByTopicItemMode[_topicItemMode].item?.content
+  };
 
   const [middleItemMode, setMiddleItemMode] = React.useState(EnumCombinedMiddleItemMode.Causal);
 
@@ -75,16 +75,16 @@ const WalleModeCombined = (props: Props) => {
     <div className={cx('DT-WalleModeCombined', style, props.className)}>
       <div className='top-section'>
         <CardActionArea onClick={handleOpenWalleContentsDrawer(EnumCombinedTopicItemMode.FrontItem)}>
-          {getWalleContent(slotMachineWalleByTopicItemMode[EnumCombinedTopicItemMode.FrontItem].item)}
+          {getWalleContent(EnumCombinedTopicItemMode.FrontItem)}
           </CardActionArea>
         <CardActionArea onClick={handleChangeMiddleItemMode(middleItemMode)}>
           {COMBINED_MIDDLE_ITEM_LABEL[middleItemMode]}
         </CardActionArea>
         <CardActionArea onClick={handleOpenWalleContentsDrawer(EnumCombinedTopicItemMode.BackItem)}>
-          {getWalleContent(slotMachineWalleByTopicItemMode[EnumCombinedTopicItemMode.BackItem].item)}
+          {getWalleContent(EnumCombinedTopicItemMode.BackItem)}
         </CardActionArea>
         {slotMachineWalleFrontItem.enableList.length <= 1 && 
-          <div>溫馨提示：無法抽選，可抽選數量需 {'>'} 1</div>
+          <div>{SLOT_MACHINE_ERROR_MESSEGE}</div>
         }
       </div>
       <div className='bottom-section'>

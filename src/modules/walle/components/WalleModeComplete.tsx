@@ -6,7 +6,7 @@ import { WalleContentListDrawer, WalleDescription, WalleController }  from 'modu
 import { Walle, WalleContent } from 'modules/walle/resources/walle.type';
 import { DEFAULT_WALLE_CONTENT, WALLE_CONTENT_LABEL } from 'modules/walle/resources/walle.constant';
 import useDialog from 'hooks/useDialog';
-import useSlotMachine from 'hooks/useSlotMachine';
+import useSlotMachine, { SLOT_MACHINE_ERROR_MESSEGE } from 'hooks/useSlotMachine';
 import UtilAudio from 'utils/audio';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
@@ -48,7 +48,7 @@ const TopicModeComplete = (props: Props) => {
             : slotMachine.item?.content}
         </CardActionArea>
         {slotMachine.enableList.length <= 1 && 
-          <div>溫馨提示：無法抽選，可抽選數量需 {'>'} 1 </div>
+          <div>{SLOT_MACHINE_ERROR_MESSEGE}</div>
         }
       </div>
       <div className='bottom-section'>

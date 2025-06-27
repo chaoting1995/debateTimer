@@ -1,5 +1,7 @@
 import React from 'react';
 
+export const SLOT_MACHINE_ERROR_MESSEGE = '溫馨提示：無法抽選，可抽選數量需 > 1';
+
 export type UseSlotMachine<T> = {
   enableList: T[];
   item: T;
