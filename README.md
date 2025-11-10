@@ -153,6 +153,12 @@ pnpm run dev
 pnpm run build
 ```
 
+## 部署
+```bash
+pnpm run deploy
+```
+此指令會先執行 `pnpm run build`，接著透過 `gh-pages` 套件把 `build` 目錄推送到 `master` 分支，並藉由 GitHub Pages 於 `https://chaoting1995.github.io/debateTimer` 提供靜態頁面。
+
 ## 技術棧
 - React - 用於構建用戶界面
 - TypeScript - 型別檢查和開發時期錯誤預防

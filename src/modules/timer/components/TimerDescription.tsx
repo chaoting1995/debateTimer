@@ -13,11 +13,21 @@ type Props = {
 
 const TimerDescription = (props: Props) => {
   const formatSeconds = (seconds: number): string => {
-    return dayjs.duration(seconds, 'seconds').format(
-      seconds >= 3600
-        ? 'H時m分s秒'
-        : seconds > 60 ? 'm分s秒' : 's秒'
-    );
+    const durationValue = dayjs.duration(seconds, 'seconds');
+
+    if (seconds >= 3600) {
+      return durationValue.format('H時m分s秒');
+    }
+
+    if (seconds >= 60) {
+      const minutePart = durationValue.minutes();
+      const secondPart = durationValue.seconds();
+      return secondPart === 0
+        ? `${minutePart}分`
+        : durationValue.format('m分s秒');
+    }
+
+    return durationValue.format('s秒');
   };
 
   return <div className={cx('DT-TimerDescription', style)}>
